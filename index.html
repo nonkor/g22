@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G22 - Навчальні матеріали</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 50%, #d4c4a8 100%);
+            color: #5d4e37;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #8b4513;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(139, 69, 19, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .subject-card {
+            background: rgba(255, 250, 240, 0.9);
+            border: 2px solid #c9b882;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(93, 78, 55, 0.15);
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(93, 78, 55, 0.25);
+            border-color: #8b4513;
+        }
+        
+        .subject-title {
+            font-size: 1.8em;
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .subject-description {
+            font-size: 1em;
+            color: #5d4e37;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .materials-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .materials-list li {
+            margin: 10px 0;
+        }
+        
+        .materials-list a {
+            display: block;
+            padding: 12px 15px;
+            background: rgba(248, 244, 235, 0.8);
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            color: #5d4e37;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .materials-list a:hover {
+            background: rgba(201, 184, 130, 0.3);
+            border-color: #a0522d;
+            transform: translateX(5px);
+        }
+        
+        .materials-list a:before {
+            content: "📑 ";
+            margin-right: 8px;
+        }
+        
+        .info-section {
+            background: rgba(255, 250, 240, 0.9);
+            border: 2px solid #c9b882;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .info-title {
+            font-size: 1.5em;
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .breadcrumb {
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+        
+        .breadcrumb a {
+            color: #8b4513;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(248, 244, 235, 0.8);
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #a0522d;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #5d4e37;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>G22 - Навчальні матеріали</h1>
+            <p class="subtitle">Освітні презентації та ресурси</p>
+        </header>
+
+        <div class="breadcrumb">
+            🏠 <strong>Головна сторінка</strong> → Оберіть предмет
+        </div>
+
+        <div class="subjects-grid">
+            <div class="subject-card">
+                <h2 class="subject-title">📍 Географія 10 клас</h2>
+                <p class="subject-description">Регіони та країни світу, глобалізація, політична географія</p>
+                <ul class="materials-list">
+                    <li><a href="geo10/intro-slides.html">Вступна презентація - Регіони світу</a></li>
+                    <!-- Додайте більше матеріалів тут -->
+                </ul>
+            </div>
+
+            <!-- Додайте більше предметів за потребою -->
+            <div class="subject-card">
+                <h2 class="subject-title">📚 Історія</h2>
+                <p class="subject-description">Історичні презентації та матеріали</p>
+                <ul class="materials-list">
+                    <li style="color: #8b7355; font-style: italic;">Матеріали в розробці...</li>
+                </ul>
+            </div>
+
+            <div class="subject-card">
+                <h2 class="subject-title">🔬 Біологія</h2>
+                <p class="subject-description">Навчальні матеріали з біології</p>
+                <ul class="materials-list">
+                    <li style="color: #8b7355; font-style: italic;">Матеріали в розробці...</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3 class="info-title">📊 Статистика проекту</h3>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">1</span>
+                    <div class="stat-label">Презентацій</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <div class="stat-label">Предметів</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">13</span>
+                    <div class="stat-label">Слайдів</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2024</span>
+                    <div class="stat-label">Рік створення</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3 class="info-title">ℹ️ Про проект</h3>
+            <p>Цей репозиторій містить навчальні презентації та матеріали для різних предметів. 
+            Всі матеріали створені з метою покращення якості освіти та надання сучасних інтерактивних інструментів для навчання.</p>
+            
+            <h4 style="margin-top: 20px; color: #8b4513;">Як користуватися:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Оберіть предмет з карток вище</li>
+                <li>Натисніть на потрібну презентацію</li>
+                <li>Для навігації по слайдах використовуйте стрілки клавіатури або кнопки</li>
+                <li>Презентації адаптовані для різних пристроїв</li>
+            </ul>
+
+            <h4 style="margin-top: 20px; color: #8b4513;">Технічна інформація:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Хостинг: GitHub Pages</li>
+                <li>Технології: HTML5, CSS3, JavaScript</li>
+                <li>Адаптивний дизайн для мобільних пристроїв</li>
+                <li>Підтримка клавіатурної навігації</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Додаємо простий ефект при завантаженні сторінки
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.subject-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+
+        // Оновлення статистики (можна розширити)
+        function updateStats() {
+            // Тут можна додати логіку для автоматичного підрахунку файлів
+            // Наприклад, через GitHub API
+        }
+    </script>
+</body>
+</html>
