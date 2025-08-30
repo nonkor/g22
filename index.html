@@ -85,31 +85,86 @@
             padding: 0;
         }
         
+        .folder-section {
+            margin: 15px 0;
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            background: rgba(248, 244, 235, 0.5);
+        }
+        
+        .folder-header {
+            padding: 12px 15px;
+            background: rgba(201, 184, 130, 0.2);
+            border-bottom: 1px solid #d4c4a8;
+            cursor: pointer;
+            font-weight: bold;
+            color: #8b4513;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .folder-header:hover {
+            background: rgba(201, 184, 130, 0.3);
+        }
+        
+        .folder-toggle {
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .folder-toggle.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .folder-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .folder-content.expanded {
+            max-height: 500px;
+        }
+        
+        .folder-files {
+            padding: 10px;
+        }
+        
         .materials-list li {
-            margin: 10px 0;
+            margin: 8px 0;
         }
         
         .materials-list a {
             display: block;
-            padding: 12px 15px;
-            background: rgba(248, 244, 235, 0.8);
-            border: 1px solid #d4c4a8;
-            border-radius: 8px;
+            padding: 10px 12px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid #e8dcc0;
+            border-radius: 6px;
             color: #5d4e37;
             text-decoration: none;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: 0.95em;
         }
         
         .materials-list a:hover {
-            background: rgba(201, 184, 130, 0.3);
+            background: rgba(201, 184, 130, 0.2);
             border-color: #a0522d;
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
         
         .materials-list a:before {
             content: "📑 ";
-            margin-right: 8px;
+            margin-right: 6px;
+        }
+        
+        .no-materials {
+            color: #8b7355;
+            font-style: italic;
+            padding: 15px;
+            text-align: center;
         }
         
         .info-section {
@@ -284,26 +339,163 @@
             }
         }
 
-        // Оновлення карток предметів
-        function updateSubjectCard(folder, config, files) {
+        // Функція для отримання файлів з GitHub API
+        async function loadSubjectFiles() {
+            try {
+                for (const [folder, config] of Object.entries(subjectsConfig)) {
+                    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${folder}`);
+                    
+                    if (response.ok) {
+                        const contents = await response.json();
+                        await updateSubjectCardWithFolders(folder, config, contents);
+                    } else {
+                        // Папка не існує - показати "в розробці"
+                        updateSubjectCardEmpty(folder, config);
+                    }
+                }
+            } catch (error) {
+                console.log('Використовуємо статичну конфігурацію');
+                loadStaticConfig();
+            }
+        }
+
+        // Оновлення карток предметів з підтримкою підпапок
+        async function updateSubjectCardWithFolders(folder, config, contents) {
             const card = document.querySelector(`[data-subject="${folder}"]`);
             if (!card) return;
 
             const materialsList = card.querySelector('.materials-list');
             materialsList.innerHTML = '';
 
-            if (files.length === 0) {
-                materialsList.innerHTML = '<li style="color: #8b7355; font-style: italic;">Матеріали в розробці...</li>';
-            } else {
-                files.forEach(file => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = `${folder}/${file.name}`;
-                    a.textContent = formatFileName(file.name);
-                    li.appendChild(a);
-                    materialsList.appendChild(li);
-                });
+            // Розділяємо файли та папки
+            const files = contents.filter(item => item.type === 'file' && item.name.endsWith('.html'));
+            const folders = contents.filter(item => item.type === 'dir');
+
+            // Сортуємо папки: спочатку числові (0, 1, 2...), потім "extra"
+            folders.sort((a, b) => {
+                if (a.name === 'extra') return 1;
+                if (b.name === 'extra') return -1;
+                
+                const aNum = parseInt(a.name);
+                const bNum = parseInt(b.name);
+                
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return aNum - bNum;
+                }
+                
+                return a.name.localeCompare(b.name);
+            });
+
+            // Додаємо файли з кореневої папки
+            if (files.length > 0) {
+                const folderSection = createFolderSection('Основні матеріали', files.map(f => ({
+                    name: f.name,
+                    path: `${folder}/${f.name}`
+                })));
+                materialsList.appendChild(folderSection);
             }
+
+            // Додаємо підпапки
+            for (const subFolder of folders) {
+                try {
+                    const subResponse = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${folder}/${subFolder.name}`);
+                    if (subResponse.ok) {
+                        const subContents = await subResponse.json();
+                        const subFiles = subContents.filter(item => item.type === 'file' && item.name.endsWith('.html'));
+                        
+                        if (subFiles.length > 0) {
+                            const folderTitle = getFolderDisplayName(subFolder.name);
+                            const folderSection = createFolderSection(folderTitle, subFiles.map(f => ({
+                                name: f.name,
+                                path: `${folder}/${subFolder.name}/${f.name}`
+                            })));
+                            materialsList.appendChild(folderSection);
+                        }
+                    }
+                } catch (error) {
+                    console.log(`Не вдалося завантажити підпапку ${subFolder.name}`);
+                }
+            }
+
+            // Якщо немає матеріалів
+            if (files.length === 0 && folders.length === 0) {
+                materialsList.innerHTML = '<div class="no-materials">Матеріали в розробці...</div>';
+            }
+        }
+
+        // Створення секції папки з випадаючим списком
+        function createFolderSection(title, files) {
+            const section = document.createElement('div');
+            section.className = 'folder-section';
+
+            const header = document.createElement('div');
+            header.className = 'folder-header';
+            header.innerHTML = `
+                <span>${title}</span>
+                <span class="folder-toggle">▼</span>
+            `;
+
+            const content = document.createElement('div');
+            content.className = 'folder-content';
+            
+            const filesList = document.createElement('div');
+            filesList.className = 'folder-files';
+            
+            const ul = document.createElement('ul');
+            ul.className = 'materials-list';
+            
+            files.forEach(file => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = file.path;
+                a.textContent = formatFileName(file.name);
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            
+            filesList.appendChild(ul);
+            content.appendChild(filesList);
+            section.appendChild(header);
+            section.appendChild(content);
+
+            // Додаємо обробник кліку для розгортання/згортання
+            header.addEventListener('click', () => {
+                const toggle = header.querySelector('.folder-toggle');
+                const isExpanded = content.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    content.classList.remove('expanded');
+                    toggle.classList.remove('expanded');
+                } else {
+                    content.classList.add('expanded');
+                    toggle.classList.add('expanded');
+                }
+            });
+
+            return section;
+        }
+
+        // Отримання відображуваної назви папки
+        function getFolderDisplayName(folderName) {
+            if (folderName === 'extra') {
+                return '📎 Додаткові матеріали';
+            }
+            
+            const num = parseInt(folderName);
+            if (!isNaN(num)) {
+                return `📚 Лекція ${num}`;
+            }
+            
+            return `📁 ${folderName.charAt(0).toUpperCase() + folderName.slice(1)}`;
+        }
+
+        // Порожня картка для предметів без матеріалів
+        function updateSubjectCardEmpty(folder, config) {
+            const card = document.querySelector(`[data-subject="${folder}"]`);
+            if (!card) return;
+
+            const materialsList = card.querySelector('.materials-list');
+            materialsList.innerHTML = '<div class="no-materials">Матеріали в розробці...</div>';
         }
 
         // Форматування назви файлу для відображення
@@ -320,15 +512,25 @@
         // Статична конфігурація як fallback
         function loadStaticConfig() {
             const staticFiles = {
-                'geo10': ['intro-slides.html'],
+                'geo10': [{name: 'intro-slides.html', path: 'geo10/intro-slides.html'}],
                 'inf5': [],
                 'inf6': []
             };
 
             for (const [folder, files] of Object.entries(staticFiles)) {
                 const config = subjectsConfig[folder];
-                const fileObjects = files.map(name => ({name}));
-                updateSubjectCard(folder, config, fileObjects);
+                if (files.length > 0) {
+                    const card = document.querySelector(`[data-subject="${folder}"]`);
+                    if (card) {
+                        const materialsList = card.querySelector('.materials-list');
+                        materialsList.innerHTML = '';
+                        
+                        const folderSection = createFolderSection('Основні матеріали', files);
+                        materialsList.appendChild(folderSection);
+                    }
+                } else {
+                    updateSubjectCardEmpty(folder, config);
+                }
             }
         }
 
