@@ -214,28 +214,6 @@
         </div>
 
         <div class="info-section">
-            <h3 class="info-title">📊 Статистика проекту</h3>
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-number">1</span>
-                    <div class="stat-label">Презентацій</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <div class="stat-label">Предметів</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">13</span>
-                    <div class="stat-label">Слайдів</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2024</span>
-                    <div class="stat-label">Рік створення</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-section">
             <h3 class="info-title">ℹ️ Про проект</h3>
             <p>Цей репозиторій містить навчальні презентації та матеріали для різних предметів. 
             Всі матеріали створені з метою покращення якості освіти та надання сучасних інтерактивних інструментів для навчання.</p>
@@ -295,11 +273,14 @@
                     }
                 }
                 
-                updateProjectStats();
+                // Оновлюємо статистику після завантаження всіх даних
+                await updateProjectStats();
             } catch (error) {
                 console.log('Використовуємо статичну конфігурацію');
                 // Fallback на статичні дані
                 loadStaticConfig();
+                await updateProjectStats();
+                await updateProjectStats();
             }
         }
 
@@ -352,12 +333,68 @@
         }
 
         // Оновлення статистики
-        function updateProjectStats() {
-            const totalPresentations = document.querySelectorAll('.materials-list a').length;
-            const totalSubjects = Object.keys(subjectsConfig).length;
+        async function updateProjectStats() {
+            let totalPresentations = 0;
+            let totalSlides = 0;
+            let totalSubjects = 0;
             
-            // Оновлюємо відображення статистики
-            document.querySelector('.stat-number').textContent = totalPresentations;
+            // Підрахунок презентацій
+            const presentationLinks = document.querySelectorAll('.materials-list a');
+            totalPresentations = presentationLinks.length;
+            
+            // Підрахунок активних предметів (які мають файли)
+            for (const folder of Object.keys(subjectsConfig)) {
+                const card = document.querySelector(`[data-subject="${folder}"]`);
+                if (card) {
+                    const links = card.querySelectorAll('.materials-list a');
+                    if (links.length > 0) {
+                        totalSubjects++;
+                    }
+                }
+            }
+            
+            // Спробуємо підрахувати слайди (якщо можливо)
+            try {
+                totalSlides = await countTotalSlides();
+            } catch (error) {
+                totalSlides = totalPresentations * 10; // Приблизна оцінка
+            }
+            
+            // Оновлюємо відображення
+            const statItems = document.querySelectorAll('.stat-item');
+            if (statItems[0]) statItems[0].querySelector('.stat-number').textContent = totalPresentations;
+            if (statItems[1]) statItems[1].querySelector('.stat-number').textContent = totalSubjects;
+            if (statItems[2]) statItems[2].querySelector('.stat-number').textContent = totalSlides;
+            if (statItems[3]) statItems[3].querySelector('.stat-number').textContent = new Date().getFullYear();
+        }
+
+        // Підрахунок слайдів у презентаціях
+        async function countTotalSlides() {
+            let totalSlides = 0;
+            const presentationLinks = document.querySelectorAll('.materials-list a');
+            
+            for (const link of presentationLinks) {
+                try {
+                    const response = await fetch(link.href);
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Шукаємо слайди (різні можливі селектори)
+                    const slides = doc.querySelectorAll('.slide, .presentation-slide, [class*="slide"]');
+                    if (slides.length > 0) {
+                        totalSlides += slides.length;
+                    } else {
+                        // Якщо не знайшли слайди, додаємо приблизну кількість
+                        totalSlides += 10;
+                    }
+                } catch (error) {
+                    // Якщо не можемо прочитати файл, додаємо середню кількість
+                    totalSlides += 10;
+                }
+            }
+            
+            return totalSlides;
         }
 
         // Ефект завантаження та ініціалізація
