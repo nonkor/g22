@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Огляд цифрових інструментів для навчання та їх використання</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #4facfe;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4facfe;
+            padding-bottom: 10px;
+        }
+
+        .terms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .term-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .term-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .term-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .term-card p {
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            border-color: #4facfe;
+        }
+
+        .tool-card h3 {
+            color: #4facfe;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tool-card .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .tool-examples {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .tool-examples strong {
+            color: #4facfe;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #4facfe;
+        }
+
+        .highlight h4 {
+            color: #4facfe;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Огляд цифрових інструментів для навчання</h1>
+            <p>Сучасні технології для ефективного вивчення різних предметів</p>
+        </header>
+
+        <div class="content">
+            <section class="section">
+                <h2>Основні терміни</h2>
+                <div class="terms">
+                    <div class="term-card">
+                        <h3>Цифрові інструменти</h3>
+                        <p>Програми, додатки та онлайн-сервіси, які допомагають вивчати різні предмети за допомогою комп'ютера, планшета або смартфона. Вони роблять навчання більш інтерактивним та цікавим.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Програмне забезпечення</h3>
+                        <p>Сукупність програм та додатків, які працюють на комп'ютері або мобільному пристрої. Це "розумна частина" вашого гаджета, яка виконує різні завдання.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Штучний інтелект (ШІ)</h3>
+                        <p>Технологія, яка дозволяє комп'ютерам "думати" та вирішувати завдання подібно до людини. ШІ може відповідати на питання, створювати тексти та допомагати в навчанні.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Корисні цифрові інструменти</h2>
+                
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3><span class="icon">🔬</span>Цифрові симулятори</h3>
+                        <p>Програми, які імітують реальні процеси та експерименти. Допомагають безпечно вивчати складні явища.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>PhET</strong> - симуляції з математики, фізики, хімії, біології</li>
+                                <li><strong>GeoGebra</strong> - інтерактивна математика та геометрія</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🕶️</span>Доповнена реальність (AR)</h3>
+                        <p>Технологія, яка додає цифрові об'єкти до реального світу через камеру пристрою.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Google Expeditions</strong> - віртуальні екскурсії</li>
+                                <li><strong>AR-моделі анатомії</strong> - 3D моделі органів людини</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🏛️</span>Віртуальні музеї</h3>
+                        <p>Онлайн-платформи, які дозволяють відвідувати музеї з усього світу, не виходячи з дому.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Google Arts & Culture</strong> - екскурсії Лувром, музеєм космосу та іншими</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🎬</span>Відео/аудіо бібліотеки</h3>
+                        <p>Колекції освітніх відео та аудіоматеріалів з різних предметів.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Khan Academy</strong> - безкоштовні уроки з багатьох предметів</li>
+                                <li><strong>YouTube Edu</strong> - освітні канали на YouTube</li>
+                                <li><strong>TED-Ed</strong> - короткі освітні відео</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">💻</span>Програмування</h3>
+                        <p>Інструменти для вивчення основ програмування та створення власних проектів.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Scratch</strong> - візуальне програмування для початківців</li>
+                                <li><strong>Code.org</strong> - безкоштовні курси програмування</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🎯</span>3D-моделювання</h3>
+                        <p>Програми для створення тривимірних моделей та об'єктів.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Tinkercad</strong> - простий інструмент для 3D-дизайну</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🌍</span>Вивчення мов</h3>
+                        <p>Додатки та платформи для ефективного вивчення іноземних мов.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>Duolingo</strong> - гейміфіковане вивчення мов</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <h3><span class="icon">🤖</span>Діалогові системи та ШІ</h3>
+                        <p>Розумні помічники, які можуть відповідати на питання та допомагати з навчанням.</p>
+                        <div class="tool-examples">
+                            <strong>Приклади:</strong>
+                            <ul>
+                                <li><strong>ChatGPT</strong> - універсальний ШІ-помічник</li>
+                                <li><strong>Grok</strong> - ШІ від X (Twitter)</li>
+                                <li><strong>Gemini</strong> - ШІ від Google</li>
+                                <li><strong>Claude</strong> - ШІ від Anthropic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 - Освітні матеріали для 7 класу</p>
+        </footer>
+    </div>
+</body>
+</html>
