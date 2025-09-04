@@ -41,9 +41,21 @@
 
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
+        }
+
+        .era-title {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.8em;
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            border-radius: 10px;
+            border: 2px solid #667eea;
         }
 
         .screenshot-item {
@@ -52,7 +64,7 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
+            background: white;
         }
 
         .screenshot-item:hover {
@@ -74,66 +86,48 @@
         }
 
         .screenshot-item .title {
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             font-weight: bold;
             color: #333;
             background: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1em;
         }
 
-        .info-panel {
+        .info-content {
+            padding: 0;
             background: #f8f9ff;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-top: 2px solid #667eea;
         }
 
-        .info-panel.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
+        .screenshot-item.active .info-content {
+            max-height: 300px;
+            padding: 15px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .info-panel h3 {
+        .info-content h4 {
             color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-
-        .info-panel p {
-            font-size: 1.1em;
-            line-height: 1.6;
             margin-bottom: 10px;
+            font-size: 1.2em;
         }
 
-        .info-panel ul {
-            padding-left: 20px;
-            font-size: 1.1em;
-        }
-
-        .info-panel li {
-            margin-bottom: 5px;
-        }
-
-        .close-btn {
-            float: right;
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        .info-content p {
             font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 8px;
         }
 
-        .close-btn:hover {
-            background: #5a67d8;
+        .info-content ul {
+            padding-left: 20px;
+            font-size: 0.95em;
+        }
+
+        .info-content li {
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -145,244 +139,210 @@
         </div>
 
         <div class="screenshots-grid">
-            <div class="screenshot-item" data-os="linux-mint">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%2368c142'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle'%3ELinux Mint%3C/text%3E%3C/svg%3E" alt="Linux Mint">
-                <div class="title">Linux Mint</div>
-            </div>
-
+            <!-- Ранні системи (1980-90-ті) -->
+            <div class="era-title">Ранні системи (1980-90-ті роки)</div>
+            
             <div class="screenshot-item" data-os="windows-cli">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23000000'/%3E%3Ctext x='10' y='30' font-family='monospace' font-size='12' fill='%23ffffff'%3EC:\%3Echkdsk%3C/text%3E%3Ctext x='10' y='50' font-family='monospace' font-size='10' fill='%23ffffff'%3EChecking disk...%3C/text%3E%3C/svg%3E" alt="Windows CLI">
-                <div class="title">Windows CLI (Command Line)</div>
-            </div>
-
-            <div class="screenshot-item" data-os="ios">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234A90E2'/%3E%3Ccircle cx='75' cy='50' r='15' fill='white'/%3E%3Ccircle cx='125' cy='50' r='15' fill='white'/%3E%3Ccircle cx='175' cy='50' r='15' fill='white'/%3E%3Ccircle cx='225' cy='50' r='15' fill='white'/%3E%3Ctext x='150' y='150' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EiOS%3C/text%3E%3C/svg%3E" alt="iOS">
-                <div class="title">iOS (iPhone)</div>
-            </div>
-
-            <div class="screenshot-item" data-os="android">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23333333'/%3E%3Crect x='50' y='30' width='40' height='40' fill='%23A4C639' rx='5'/%3E%3Crect x='100' y='30' width='40' height='40' fill='%234285F4' rx='5'/%3E%3Crect x='150' y='30' width='40' height='40' fill='%23EA4335' rx='5'/%3E%3Crect x='200' y='30' width='40' height='40' fill='%23FBBC05' rx='5'/%3E%3Ctext x='150' y='150' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EAndroid%3C/text%3E%3C/svg%3E" alt="Android">
-                <div class="title">Android</div>
-            </div>
-
-            <div class="screenshot-item" data-os="chromeos">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234285F4'/%3E%3Ccircle cx='150' cy='100' r='30' fill='none' stroke='white' stroke-width='3'/%3E%3Ccircle cx='150' cy='100' r='15' fill='white'/%3E%3Ctext x='150' y='160' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EChrome OS%3C/text%3E%3C/svg%3E" alt="Chrome OS">
-                <div class="title">Chrome OS</div>
-            </div>
-
-            <div class="screenshot-item" data-os="macos-monterey">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cdefs%3E%3ClinearGradient id='macGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FF6B6B'/%3E%3Cstop offset='100%25' stop-color='%234ECDC4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='200' fill='url(%23macGrad)'/%3E%3Crect x='50' y='160' width='200' height='30' fill='rgba(255,255,255,0.3)' rx='15'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EmacOS%3C/text%3E%3C/svg%3E" alt="macOS">
-                <div class="title">macOS</div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23000000'/%3E%3Ctext x='10' y='30' font-family='monospace' font-size='12' fill='%23ffffff'%3EC:\%3Echkdsk%3C/text%3E%3Ctext x='10' y='50' font-family='monospace' font-size='10' fill='%23ffffff'%3EChecking disk...%3C/text%3E%3Ctext x='10' y='70' font-family='monospace' font-size='10' fill='%23ffffff'%3E655,360 total bytes memory%3C/text%3E%3Ctext x='10' y='90' font-family='monospace' font-size='10' fill='%23ffffff'%3E602,704 bytes free%3C/text%3E%3Ctext x='10' y='180' font-family='monospace' font-size='8' fill='%23888888'%3EC:\%3E_■%3C/text%3E%3C/svg%3E" alt="MS-DOS">
+                <div class="title">MS-DOS (Command Line)</div>
+                <div class="info-content">
+                    <h4>MS-DOS - Командна операційна система</h4>
+                    <p><strong>Період:</strong> 1981-1995 роки</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> CLI (тільки текстові команди)</li>
+                        <li><strong>Користувачі:</strong> Однокористувацька</li>
+                        <li><strong>Задачі:</strong> Однозадачна</li>
+                        <li><strong>Особливості:</strong> Основа для ранніх ПК, потребує знання команд</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="screenshot-item" data-os="macos-classic">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%236699CC'/%3E%3Crect x='50' y='160' width='200' height='25' fill='%23CCCCCC' rx='5'/%3E%3Ccircle cx='70' cy='172' r='8' fill='%23FF6B6B'/%3E%3Ccircle cx='90' cy='172' r='8' fill='%23FFD93D'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EMac OS Classic%3C/text%3E%3C/svg%3E" alt="Mac OS Classic">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%236699CC'/%3E%3Crect x='20' y='20' width='260' height='140' fill='%23FFFFFF' stroke='%23000000' stroke-width='1'/%3E%3Crect x='25' y='25' width='250' height='15' fill='%23000000'/%3E%3Ctext x='30' y='35' font-family='Arial' font-size='10' fill='white'%3EApple Menu%3C/text%3E%3Crect x='50' y='170' width='200' height='25' fill='%23CCCCCC' rx='5'/%3E%3Ccircle cx='70' cy='182' r='8' fill='%23FF6B6B'/%3E%3Ccircle cx='230' cy='182' r='8' fill='%23999'/%3E%3C/svg%3E" alt="Mac OS Classic">
                 <div class="title">Mac OS Classic</div>
-            </div>
-
-            <div class="screenshot-item" data-os="ubuntu">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23E95420'/%3E%3Ccircle cx='150' cy='100' r='40' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='120' cy='80' r='8' fill='white'/%3E%3Ccircle cx='180' cy='80' r='8' fill='white'/%3E%3Ccircle cx='150' cy='130' r='8' fill='white'/%3E%3Ctext x='150' y='170' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EUbuntu Linux%3C/text%3E%3C/svg%3E" alt="Ubuntu">
-                <div class="title">Ubuntu Linux</div>
+                <div class="info-content">
+                    <h4>Mac OS Classic - Перший популярний GUI</h4>
+                    <p><strong>Період:</strong> 1984-2001 роки</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI (перший масовий графічний інтерфейс)</li>
+                        <li><strong>Користувачі:</strong> Однокористувацька</li>
+                        <li><strong>Задачі:</strong> Спочатку однозадачна, пізніше кооперативна багатозадачність</li>
+                        <li><strong>Історичне значення:</strong> Популяризував миш, вікна, іконки</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="screenshot-item" data-os="windows98">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23008080'/%3E%3Crect x='20' y='20' width='260' height='140' fill='%23C0C0C0' stroke='%23808080' stroke-width='2'/%3E%3Crect x='25' y='25' width='250' height='20' fill='%23000080'/%3E%3Ctext x='30' y='40' font-family='Arial' font-size='12' fill='white'%3EShut Down Windows%3C/text%3E%3Crect x='20' y='170' width='260' height='25' fill='%23C0C0C0'/%3E%3Ctext x='150' y='185' font-family='Arial' font-size='14' fill='black' text-anchor='middle'%3EWindows 98%3C/text%3E%3C/svg%3E" alt="Windows 98">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23008080'/%3E%3Crect x='20' y='20' width='260' height='140' fill='%23C0C0C0' stroke='%23808080' stroke-width='2'/%3E%3Crect x='25' y='25' width='250' height='20' fill='%23000080'/%3E%3Ctext x='30' y='38' font-family='Arial' font-size='12' fill='white'%3EShut Down Windows%3C/text%3E%3Crect x='0' y='175' width='300' height='25' fill='%23C0C0C0'/%3E%3Crect x='5' y='180' width='80' height='15' fill='%23008000'/%3E%3Ctext x='10' y='190' font-family='Arial' font-size='10' fill='white'%3EStart%3C/text%3E%3C/svg%3E" alt="Windows 98">
                 <div class="title">Windows 98</div>
+                <div class="info-content">
+                    <h4>Windows 98 - Ера Інтернету</h4>
+                    <p><strong>Період:</strong> 1998-2006 роки</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI з інтегрованим веб-браузером</li>
+                        <li><strong>Користувачі:</strong> Багатокористувацька (обмежено)</li>
+                        <li><strong>Задачі:</strong> Багатозадачна</li>
+                        <li><strong>Нововведення:</strong> USB, DVD, інтеграція з Інтернетом</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="screenshot-item" data-os="windows-vista">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cdefs%3E%3ClinearGradient id='vistaGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234A90E2'/%3E%3Cstop offset='100%25' stop-color='%232E7D32'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='200' fill='url(%23vistaGrad)'/%3E%3Crect x='20' y='20' width='260' height='140' fill='rgba(255,255,255,0.2)' rx='10'/%3E%3Crect x='30' y='170' width='240' height='25' fill='rgba(0,0,0,0.3)' rx='12'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EWindows Vista%3C/text%3E%3C/svg%3E" alt="Windows Vista">
-                <div class="title">Windows Vista</div>
-            </div>
+            <!-- Сучасні настільні системи -->
+            <div class="era-title">Сучасні настільні системи</div>
 
             <div class="screenshot-item" data-os="windows11">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cdefs%3E%3ClinearGradient id='win11Grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234CAF50'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='200' fill='url(%23win11Grad)'/%3E%3Crect x='50' y='170' width='200' height='20' fill='rgba(0,0,0,0.3)' rx='10'/%3E%3Crect x='130' y='175' width='10' height='10' fill='white' rx='2'/%3E%3Crect x='150' y='175' width='10' height='10' fill='white' rx='2'/%3E%3Crect x='170' y='175' width='10' height='10' fill='white' rx='2'/%3E%3Ctext x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'%3EWindows 11%3C/text%3E%3C/svg%3E" alt="Windows 11">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cdefs%3E%3ClinearGradient id='win11Grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234CAF50'/%3E%3Cstop offset='100%25' stop-color='%23FFC107'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='200' fill='url(%23win11Grad)'/%3E%3Crect x='0' y='175' width='300' height='25' fill='rgba(0,0,0,0.3)' rx='5'/%3E%3Crect x='120' y='180' width='15' height='15' fill='white' rx='3'/%3E%3Crect x='140' y='180' width='15' height='15' fill='white' rx='3'/%3E%3Crect x='160' y='180' width='15' height='15' fill='white' rx='3'/%3E%3C/svg%3E" alt="Windows 11">
                 <div class="title">Windows 11</div>
+                <div class="info-content">
+                    <h4>Windows 11 - Найновіша Windows</h4>
+                    <p><strong>Випуск:</strong> 2021 рік</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI з центрованим меню Пуск</li>
+                        <li><strong>Користувачі:</strong> Багатокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна з покращеною продуктивністю</li>
+                        <li><strong>Особливості:</strong> Microsoft Teams, віджети, покращена безпека</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screenshot-item" data-os="macos-monterey">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Cdefs%3E%3ClinearGradient id='macGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FF6B6B'/%3E%3Cstop offset='100%25' stop-color='%234ECDC4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='200' fill='url(%23macGrad)'/%3E%3Crect x='0' y='175' width='300' height='25' fill='rgba(255,255,255,0.3)' rx='12'/%3E%3Ccircle cx='30' cy='187' r='8' fill='rgba(255,255,255,0.8)'/%3E%3Ccircle cx='50' cy='187' r='8' fill='rgba(255,255,255,0.8)'/%3E%3Ccircle cx='70' cy='187' r='8' fill='rgba(255,255,255,0.8)'/%3E%3C/svg%3E" alt="macOS">
+                <div class="title">macOS</div>
+                <div class="info-content">
+                    <h4>macOS - Система Apple</h4>
+                    <p><strong>Сучасна версія:</strong> macOS Sequoia (2024)</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI з Dock та меню</li>
+                        <li><strong>Користувачі:</strong> Багатокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна з відмінною оптимізацією</li>
+                        <li><strong>Особливості:</strong> Unix-основа, інтеграція з iPhone/iPad</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screenshot-item" data-os="ubuntu">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23E95420'/%3E%3Crect x='10' y='10' width='40' height='180' fill='%23333333'/%3E%3Ccircle cx='30' cy='30' r='6' fill='white'/%3E%3Ccircle cx='30' cy='50' r='6' fill='white'/%3E%3Ccircle cx='30' cy='70' r='6' fill='white'/%3E%3Ccircle cx='150' cy='100' r='40' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='120' cy='80' r='8' fill='white'/%3E%3Ccircle cx='180' cy='80' r='8' fill='white'/%3E%3Ccircle cx='150' cy='130' r='8' fill='white'/%3E%3C/svg%3E" alt="Ubuntu">
+                <div class="title">Ubuntu Linux</div>
+                <div class="info-content">
+                    <h4>Ubuntu - Популярний Linux</h4>
+                    <p><strong>Випуск:</strong> Кожні 6 місяців з 2004 року</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI (GNOME) + CLI Terminal</li>
+                        <li><strong>Користувачі:</strong> Багатокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна</li>
+                        <li><strong>Переваги:</strong> Безкоштовна, безпечна, відкритий код</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Мобільні системи -->
+            <div class="era-title">Мобільні системи</div>
+
+            <div class="screenshot-item" data-os="ios">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234A90E2' rx='20'/%3E%3Ctext x='150' y='25' font-family='Arial' font-size='12' fill='white' text-anchor='middle'%3E9:41%3C/text%3E%3Crect x='50' y='40' width='200' height='120' fill='rgba(255,255,255,0.2)' rx='15'/%3E%3Ccircle cx='80' cy='70' r='12' fill='white'/%3E%3Ccircle cx='120' cy='70' r='12' fill='white'/%3E%3Ccircle cx='160' cy='70' r='12' fill='white'/%3E%3Ccircle cx='200' cy='70' r='12' fill='white'/%3E%3Ccircle cx='80' cy='110' r='12' fill='white'/%3E%3Ccircle cx='120' cy='110' r='12' fill='white'/%3E%3Ccircle cx='160' cy='110' r='12' fill='white'/%3E%3Ccircle cx='200' cy='110' r='12' fill='white'/%3E%3Crect x='50' y='175' width='200' height='20' fill='rgba(255,255,255,0.3)' rx='10'/%3E%3C/svg%3E" alt="iOS">
+                <div class="title">iOS (iPhone/iPad)</div>
+                <div class="info-content">
+                    <h4>iOS - Мобільна система Apple</h4>
+                    <p><strong>Випуск:</strong> 2007 рік з iPhone</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI (мультитач, жести)</li>
+                        <li><strong>Користувачі:</strong> Однокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна (обмежена для економії батареї)</li>
+                        <li><strong>Особливості:</strong> App Store, висока безпека, закрита система</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screenshot-item" data-os="android">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23333333'/%3E%3Ctext x='150' y='25' font-family='Arial' font-size='12' fill='white' text-anchor='middle'%3E15:44%3C/text%3E%3Crect x='30' y='40' width='50' height='50' fill='%23A4C639' rx='8'/%3E%3Crect x='90' y='40' width='50' height='50' fill='%234285F4' rx='8'/%3E%3Crect x='150' y='40' width='50' height='50' fill='%23EA4335' rx='8'/%3E%3Crect x='210' y='40' width='50' height='50' fill='%23FBBC05' rx='8'/%3E%3Crect x='30' y='100' width='50' height='50' fill='%23FF5722' rx='8'/%3E%3Crect x='90' y='100' width='50' height='50' fill='%239C27B0' rx='8'/%3E%3Crect x='150' y='100' width='50' height='50' fill='%23607D8B' rx='8'/%3E%3Crect x='210' y='100' width='50' height='50' fill='%23795548' rx='8'/%3E%3Crect x='50' y='175' width='200' height='20' fill='%23444444' rx='10'/%3E%3C/svg%3E" alt="Android">
+                <div class="title">Android</div>
+                <div class="info-content">
+                    <h4>Android - Найпопулярніша мобільна ОС</h4>
+                    <p><strong>Випуск:</strong> 2008 рік від Google</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI (сенсорний з віджетами)</li>
+                        <li><strong>Користувачі:</strong> Однокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна</li>
+                        <li><strong>Особливості:</strong> Відкритий код, Google Play, налаштування</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Спеціалізовані системи -->
+            <div class="era-title">Спеціалізовані системи</div>
+
+            <div class="screenshot-item" data-os="chromeos">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234285F4'/%3E%3Crect x='20' y='30' width='260' height='120' fill='rgba(255,255,255,0.2)' rx='15'/%3E%3Crect x='30' y='40' width='240' height='25' fill='white' rx='12'/%3E%3Ctext x='40' y='55' font-family='Arial' font-size='12' fill='%234285F4'%3ESearch your tabs, files, apps%3C/text%3E%3Ccircle cx='60' cy='90' r='12' fill='white'/%3E%3Ccircle cx='100' cy='90' r='12' fill='white'/%3E%3Ccircle cx='140' cy='90' r='12' fill='white'/%3E%3Ccircle cx='180' cy='90' r='12' fill='white'/%3E%3Ccircle cx='220' cy='90' r='12' fill='white'/%3E%3Crect x='0' y='175' width='300' height='25' fill='rgba(0,0,0,0.2)'/%3E%3C/svg%3E" alt="Chrome OS">
+                <div class="title">Chrome OS</div>
+                <div class="info-content">
+                    <h4>Chrome OS - Хмарна система Google</h4>
+                    <p><strong>Випуск:</strong> 2011 рік для Chromebook</p>
+                    <ul>
+                        <li><strong>Інтерфейс:</strong> GUI (веб-орієнтований)</li>
+                        <li><strong>Користувачі:</strong> Багатокористувацька</li>
+                        <li><strong>Задачі:</strong> Багатозадачна (в браузері)</li>
+                        <li><strong>Особливості:</strong> Швидке завантаження, все в хмарі, безпека</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screenshot-item" data-os="android-tv">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23212121'/%3E%3Crect x='50' y='40' width='200' height='120' fill='%234CAF50' rx='10'/%3E%3Ctext x='150' y='70' font-family='Arial' font-size='14' fill='white' text-anchor='middle'%3EAndroid TV%3C/text%3E%3Crect x='70' y='90' width='40' height='30' fill='%23FF5722' rx='5'/%3E%3Crect x='130' y='90' width='40' height='30' fill='%232196F3' rx='5'/%3E%3Crect x='190' y='90' width='40' height='30' fill='%23FF9800' rx='5'/%3E%3Ctext x='90' y='107' font-family='Arial' font-size='8' fill='white' text-anchor='middle'%3ENetflix%3C/text%3E%3Ctext x='150' y='107' font-family='Arial' font-size='8' fill='white' text-anchor='middle'%3EYouTube%3C/text%3E%3Ctext x='210' y='107' font-family='Arial' font-size='8' fill='white' text-anchor='middle'%3EPlex%3C/text%3E%3C/svg%3E" alt="Android TV">
+                <div class="title">Android TV</div>
+                <div class="info-content">
+                    <h4>Android TV - Система для телевізорів</h4>
+                    <p><strong>Випуск:</strong> 2014 рік від Google</p>
+                    <ul>
+                        <li><strong>Призначення:</strong> Вбудована ОС для Smart TV</li>
+                        <li><strong>Інтерфейс:</strong> GUI (пульт дистанційного керування)</li>
+                        <li><strong>Задачі:</strong> Багатозадачна (стрімінг, додатки)</li>
+                        <li><strong>Особливості:</strong> Google Play Store, голосові команди, Chromecast</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screenshot-item" data-os="watchos">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%23000000'/%3E%3Ccircle cx='150' cy='100' r='80' fill='%23333333' stroke='%23666666' stroke-width='3'/%3E%3Ctext x='150' y='60' font-family='Arial' font-size='12' fill='white' text-anchor='middle'%3E14:25%3C/text%3E%3Ctext x='150' y='80' font-family='Arial' font-size='8' fill='%23888' text-anchor='middle'%3EПонеділок 25 березня%3C/text%3E%3Ccircle cx='130' cy='110' r='12' fill='%234CAF50'/%3E%3Ccircle cx='150' cy='110' r='12' fill='%232196F3'/%3E%3Ccircle cx='170' cy='110' r='12' fill='%23FF5722'/%3E%3Ccircle cx='130' cy='130' r='12' fill='%23FF9800'/%3E%3Ccircle cx='150' cy='130' r='12' fill='%239C27B0'/%3E%3Ccircle cx='170' cy='130' r='12' fill='%23607D8B'/%3E%3C/svg%3E" alt="watchOS">
+                <div class="title">watchOS</div>
+                <div class="info-content">
+                    <h4>watchOS - Система для Apple Watch</h4>
+                    <p><strong>Випуск:</strong> 2015 рік з Apple Watch</p>
+                    <ul>
+                        <li><strong>Призначення:</strong> Вбудована ОС для розумних годинників</li>
+                        <li><strong>Інтерфейс:</strong> GUI (сенсорний екран + Digital Crown)</li>
+                        <li><strong>Задачі:</strong> Обмежена багатозадачність (фітнес, повідомлення)</li>
+                        <li><strong>Особливості:</strong> Відстеження здоров'я, Siri, синхронізація з iPhone</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <div id="info-panel" class="info-panel">
-            <button class="close-btn" onclick="closeInfo()">Закрити</button>
-            <div id="info-content"></div>
-        </div>
     </div>
-
     <script>
-        const osInfo = {
-            'linux-mint': {
-                title: 'Linux Mint',
-                description: 'Сучасний Linux дистрибутив з інтуїтивним інтерфейсом',
-                details: [
-                    'Тип: Настільна ОС на базі Linux',
-                    'Інтерфейс: Графічний (GUI) - Cinnamon, MATE або Xfce',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Безкоштовна, стабільна, зручна для новачків у світі Linux'
-                ]
-            },
-            'windows-cli': {
-                title: 'Windows Command Line (CLI)',
-                description: 'Командний інтерфейс Windows для системного адміністрування',
-                details: [
-                    'Тип: Інтерфейс командного рядка',
-                    'Інтерфейс: CLI (Command Line Interface)',
-                    'Використання: Системне адміністрування, автоматизація',
-                    'Переваги: Швидкість, точність, можливість створення скриптів',
-                    'Команди: chkdsk, dir, copy, del та багато інших'
-                ]
-            },
-            'ios': {
-                title: 'iOS (iPhone)',
-                description: 'Мобільна операційна система Apple',
-                details: [
-                    'Тип: Мобільна ОС',
-                    'Інтерфейс: GUI (сенсорний)',
-                    'Користувачі: Однокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Закрита система, високий рівень безпеки, App Store'
-                ]
-            },
-            'android': {
-                title: 'Android',
-                description: 'Найпопулярніша мобільна операційна система від Google',
-                details: [
-                    'Тип: Мобільна ОС',
-                    'Інтерфейс: GUI (сенсорний)',
-                    'Користувачі: Однокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Відкритий код, гнучкість налаштувань, Google Play Store'
-                ]
-            },
-            'chromeos': {
-                title: 'Chrome OS',
-                description: 'Хмарна операційна система від Google',
-                details: [
-                    'Тип: Настільна ОС (хмарна)',
-                    'Інтерфейс: GUI (веб-орієнтований)',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Швидке завантаження, інтеграція з Google сервісами, безпека'
-                ]
-            },
-            'macos-monterey': {
-                title: 'macOS (сучасна версія)',
-                description: 'Сучасна операційна система Apple для комп\'ютерів Mac',
-                details: [
-                    'Тип: Настільна ОС',
-                    'Інтерфейс: GUI з елементами CLI',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Unix-основа, висока безпека, інтеграція з iOS'
-                ]
-            },
-            'macos-classic': {
-                title: 'Mac OS Classic (1980-90-ті)',
-                description: 'Перша графічна операційна система для персональних комп\'ютерів',
-                details: [
-                    'Тип: Настільна ОС (історична)',
-                    'Інтерфейс: GUI (перший популярний графічний інтерфейс)',
-                    'Користувачі: Переважно однокористувацька',
-                    'Задачі: Спочатку однозадачна, пізніше багатозадачна',
-                    'Історичне значення: Популяризувала графічний інтерфейс з вікнами та мишею'
-                ]
-            },
-            'ubuntu': {
-                title: 'Ubuntu Linux',
-                description: 'Найпопулярніший дистрибутив Linux для настільних комп\'ютерів',
-                details: [
-                    'Тип: Настільна/серверна ОС',
-                    'Інтерфейс: GUI (GNOME) + CLI',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Безкоштовна, відкритий код, велика спільнота'
-                ]
-            },
-            'windows98': {
-                title: 'Windows 98',
-                description: 'Популярна настільна ОС кінця 90-х років',
-                details: [
-                    'Тип: Настільна ОС (історична)',
-                    'Інтерфейс: GUI з елементами CLI',
-                    'Користувачі: Багатокористувацька (обмежено)',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Перша Windows з інтегрованим Internet Explorer, підтримка USB'
-                ]
-            },
-            'windows-vista': {
-                title: 'Windows Vista',
-                description: 'Суперечлива версія Windows з новим дизайном Aero',
-                details: [
-                    'Тип: Настільна ОС',
-                    'Інтерфейс: GUI (Aero) з CLI',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Нововведення у безпеці (UAC), красивий але ресурсоємний інтерфейс'
-                ]
-            },
-            'windows11': {
-                title: 'Windows 11',
-                description: 'Найновіша операційна система Microsoft',
-                details: [
-                    'Тип: Настільна ОС',
-                    'Інтерфейс: GUI (модернізований) з CLI та сенсорною підтримкою',
-                    'Користувачі: Багатокористувацька',
-                    'Задачі: Багатозадачна',
-                    'Особливості: Оновлений дизайн, інтеграція з Microsoft Teams, покращена безпека'
-                ]
+        const items = document.querySelectorAll('.screenshot-item');
+        let activeItem = null;
+
+        function toggleInfo(item) {
+            if (activeItem && activeItem !== item) {
+                activeItem.classList.remove('active');
             }
-        };
+            item.classList.toggle('active');
+            activeItem = item.classList.contains('active') ? item : null;
+        }
 
-        let currentActive = null;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const screenshots = document.querySelectorAll('.screenshot-item');
-            
-            screenshots.forEach(item => {
-                item.addEventListener('click', function() {
-                    showInfo(this.dataset.os, this);
-                });
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' && currentActive) {
-                    e.preventDefault();
-                    showInfo(currentActive.dataset.os, currentActive);
-                }
-            });
+        items.forEach(item => {
+            item.addEventListener('click', () => toggleInfo(item));
         });
 
-        function showInfo(osKey, element) {
-            const info = osInfo[osKey];
-            if (!info) return;
-
-            // Remove previous active state
-            document.querySelectorAll('.screenshot-item.active').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Add active state to clicked item
-            element.classList.add('active');
-            currentActive = element;
-
-            const content = `
-                <h3>${info.title}</h3>
-                <p><strong>Опис:</strong> ${info.description}</p>
-                <ul>
-                    ${info.details.map(detail => `<li>${detail}</li>`).join('')}
-                </ul>
-            `;
-
-            document.getElementById('info-content').innerHTML = content;
-            document.getElementById('info-panel').classList.add('show');
-        }
-
-        function closeInfo() {
-            document.getElementById('info-panel').classList.remove('show');
-            document.querySelectorAll('.screenshot-item.active').forEach(item => {
-                item.classList.remove('active');
-            });
-            currentActive = null;
-        }
+        document.body.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (activeItem) {
+                    toggleInfo(activeItem);
+                } else if (items.length > 0) {
+                    toggleInfo(items[0]);
+                }
+            }
+        });
     </script>
 </body>
 </html>
