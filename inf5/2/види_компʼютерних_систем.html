@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Світ Комп'ютерів</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: #0056b3;
+            font-size: 2.5em;
+        }
+        .section {
+            background-color: #fff;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .section h2 {
+            color: #0077cc;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .gallery {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .gallery-item {
+            text-align: center;
+            width: 120px;
+        }
+        .gallery-item svg {
+            width: 64px;
+            height: 64px;
+            fill: #0077cc;
+        }
+        .gallery-item p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .hw-sw-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .hw-sw-card {
+            width: 48%;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+        .hw-card { border-color: #f0ad4e; }
+        .sw-card { border-color: #5bc0de; }
+        .hw-card h3 { color: #f0ad4e; }
+        .sw-card h3 { color: #5bc0de; }
+        .analogy { font-style: italic; color: #555; margin-bottom: 15px; }
+        ul { list-style: none; padding-left: 0; }
+        li { padding: 5px 0; display: flex; align-items: center; }
+        li svg { width: 24px; height: 24px; margin-right: 10px; }
+        .future-gallery-item { text-align: center; width: 150px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Світ Комп'ютерів</h1>
+            <p>Від кишені до далеких зірок!</p>
+        </div>
+
+        <!-- Розділ 1: Види комп'ютерів -->
+        <div class="section">
+            <h2>🖥️ Комп'ютер — це не тільки коробка!</h2>
+            <p>Сьогодні комп'ютери ховаються у найнесподіваніших пристроях:</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M17,1H7A2,2 0 0,0 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3A2,2 0 0,0 17,1M17,19H7V5H17V19M16,13H8V11H16V13Z"/></svg>
+                    <p>Смартфон</p>
+                </div>
+                <div class="gallery-item">
+                     <svg viewBox="0 0 24 24"><path d="M20.5,13.5C21.3,13.5 22,12.8 22,12C22,11.2 21.3,10.5 20.5,10.5C19.7,10.5 19,11.2 19,12C19,12.8 19.7,13.5 20.5,13.5M5,10.5C4.2,10.5 3.5,11.2 3.5,12C3.5,12.8 4.2,13.5 5,13.5C5.8,13.5 6.5,12.8 6.5,12C6.5,11.2 5.8,10.5 5,10.5M12,4C7,4 3,8.4 3,13.8C3,18.7 6.6,22 12,22C17.4,22 21,18.7 21,13.8C21,8.4 17,4 12,4Z"/></svg>
+                    <p>Смарт-годинник</p>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M21,14H3V4H21V14M21,2H3C1.9,2 1,2.9 1,4V14C1,15.1 1.9,16 3,16H10V18H7V20H17V18H14V16H21C22.1,16 23,15.1 23,14V4C23,2.9 22.1,2 21,2Z"/></svg>
+                    <p>Ноутбук</p>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M10,2H14A2,2 0 0,1 16,4V6H8V4A2,2 0 0,1 10,2M17,8H7A2,2 0 0,0 5,10V20A2,2 0 0,0 7,22H17A2,2 0 0,0 19,20V10A2,2 0 0,0 17,8Z"/></svg>
+                    <p>Сервер</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Розділ 2: Апаратна і програмна частини -->
+        <div class="section">
+            <h2>💪 Тіло і Розум Комп'ютера</h2>
+            <div class="hw-sw-container">
+                <div class="hw-sw-card hw-card">
+                    <h3>Апаратна частина ("Залізо")</h3>
+                    <p class="analogy">Це "тіло" комп'ютера — все, до чого можна доторкнутися.</p>
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M4,6V18H20V6H4M6,8H18V16H6V8Z"/></svg>Процесор (мозок)</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M18,18H6V6H18V18M20,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6A2,2 0 0,0 20,4Z"/></svg>Пам'ять (для думок)</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M13,19V16H21V19H13M19,10H14V14H19V10M12,10H3V14H12V10M22,5H2V8H22V5Z"/></svg>Клавіатура (руки)</li>
+                    </ul>
+                </div>
+                <div class="hw-sw-card sw-card">
+                    <h3>Програмна частина ("Програми")</h3>
+                    <p class="analogy">Це "розум" комп'ютера — його думки, вміння та ідеї.</p>
+                    <ul>
+                        <li><svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>Операційна система</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M13.5,8H12V13.5L16.7,16.4L17.5,15.2L13.5,12.5V8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>Браузер (вікно у світ)</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M12,6L13.5,9.5L17,11L13.5,12.5L12,16L10.5,12.5L7,11L10.5,9.5L12,6M22,2V22H2V2H22M20,4H4V20H20V4Z"/></svg>Ігри та програми</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Розділ 3: Де це використовується? -->
+        <div class="section">
+            <h2>🌍 Де живуть комп'ютери?</h2>
+            <p>Інформаційні технології допомагають нам усюди!</p>
+             <div class="gallery">
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M12,3L1,9L12,15L21,10.09V17H23V9L12,3Z"/></svg>
+                    <p>Навчання</p>
+                </div>
+                <div class="gallery-item">
+                     <svg viewBox="0 0 24 24"><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/></svg>
+                    <p>Вдома</p>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V15H12V18H9V15H6V18H4V4H11V9H16V12H19V8L14,3H6V4H11V9H16V12H19V8L14,3H6Z"/></svg>
+                    <p>Медицина</p>
+                </div>
+                <div class="gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M18,6V4H16V6H12V4H10V6H8V4H6V6H5V20H19V6H18M11,15H9V13H11V15M15,15H13V13H15V15M15,11H13V9H15V11M11,11H9V9H11V11Z"/></svg>
+                    <p>Магазини</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Розділ 4: Майбутнє -->
+        <div class="section">
+            <h2>🚀 Що далі? Комп'ютери майбутнього!</h2>
+            <p>Технології постійно змінюються. Яким ти уявляєш майбутнє?</p>
+            <div class="gallery">
+                 <div class="future-gallery-item">
+                     <svg viewBox="0 0 24 24"><path d="M12,2A2,2 0 0,1 14,4A2,2 0 0,1 12,6A2,2 0 0,1 10,4A2,2 0 0,1 12,2M19,11H17.2C16.9,11.9 16.5,12.8 16,13.6L17.5,15L16,16.5L14.4,15C13.6,15.5 12.7,15.9 11.8,16.2V18H9.8V16.2C8.9,15.9 8,15.5 7.2,15L5.8,16.5L4.4,15L5.8,13.6C5.3,12.8 4.9,11.9 4.6,11H3V9H4.6C4.9,8.1 5.3,7.2 5.8,6.4L4.4,5L5.8,3.5L7.2,5C8,4.5 8.9,4.1 9.8,3.8V2H11.8V3.8C12.7,4.1 13.6,4.5 14.4,5L15.8,3.5L17.2,5L15.8,6.4C16.3,7.2 16.7,8.1 17,9H19V11Z"/></svg>
+                    <p>Роботи-помічники</p>
+                </div>
+                <div class="future-gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M22,12V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V12H4V20H20V12H22M11,2H13V4H11V2M9,4H15V6H9V4M7,6H17V8H7V6M5,8H19V10H5V8Z"/></svg>
+                    <p>Розумний дім</p>
+                </div>
+                 <div class="future-gallery-item">
+                    <svg viewBox="0 0 24 24"><path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,6H13V11H18V13H11V6M10.5,15.25C11.33,15.25 12,15.92 12,16.75C12,17.58 11.33,18.25 10.5,18.25C9.67,18.25 9,17.58 9,16.75C9,15.92 9.67,15.25 10.5,15.25Z"/></svg>
+                    <p>Віртуальна реальність</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

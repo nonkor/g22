@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок: Email для профі та детективів</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-option {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-option:hover {
+            transform: scale(1.03);
+        }
+        .correct {
+            background-color: #A7F3D0 !important;
+            border-color: #10B981 !important;
+        }
+        .incorrect {
+            background-color: #FECACA !important;
+            border-color: #EF4444 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-600">Email: Поради для профі та детективів</h1>
+            <p class="text-lg text-gray-600 mt-2">Відкриваємо нові можливості та вчимося безпеці</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Part 1: Pro Tips -->
+            <div>
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-700">Частина 1: Секрети майстрів листування 🧙‍♂️</h2>
+                
+                <section id="reply-forward" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">↪️ Відповісти чи ⏩ Переслати?</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                            <h4 class="font-semibold text-lg">Відповісти (Reply)</h4>
+                            <p>Ти продовжуєш розмову з тим, хто тобі написав. Це як відповідати на питання у діалозі.</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                            <h4 class="font-semibold text-lg">Переслати (Forward)</h4>
+                            <p>Ти ділишся отриманим листом з новою людиною, яка не брала участі в розмові. Це як переказати другові новину.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cc-bcc" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">👥 Кому, Копія (CC) та Прихована копія (BCC)</h3>
+                    <p class="mb-4">Ти можеш відправити лист одразу декільком людям:</p>
+                    <ul class="space-y-3">
+                        <li><strong class="text-purple-600">Кому (To):</strong> Головний отримувач.</li>
+                        <li><strong class="text-purple-600">Копія (CC):</strong> Отримує копію для інформації. Всі бачать, що ця людина в курсі.</li>
+                        <li><strong class="text-purple-600">Прихована копія (BCC):</strong> Отримує "таємну" копію. Інші отримувачі не знають про неї.</li>
+                    </ul>
+                </section>
+
+                <section id="attachments" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">📎 Просунуті вкладення</h3>
+                     <p>Ти вже знаєш, як прикріпити файл. Але пам'ятай:</p>
+                     <ul class="list-disc list-inside mt-2 space-y-1">
+                         <li>Існує <b>обмеження за розміром</b> (зазвичай до 25 МБ). Великий файл, як фільм, не пройде!</li>
+                         <li>Для великих файлів використовуй посилання на <b>хмарні сховища</b> (напр., Google Drive).</li>
+                         <li class="font-bold text-red-600">Ніколи не відкривай вкладення у листах від незнайомців!</li>
+                     </ul>
+                </section>
+
+                <section id="gmail-interface" class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">🖥️ Як виглядає поштова скринька?</h3>
+                    <p class="mb-4">Більшість поштових клієнтів, як-от Gmail, мають схожу структуру. Давай подивимось на основні елементи:</p>
+                    <div class="my-4 p-4 border rounded-lg bg-gray-50">
+                        <img src="gmail.png" alt="Інтерфейс поштового клієнта Gmail" class="w-full rounded-md shadow-sm">
+                    </div>
+                    <ul class="grid md:grid-cols-2 gap-x-8 gap-y-2 list-inside">
+                        <li><strong>Вхідні (Inbox):</strong> Тут лежать усі нові листи.</li>
+                        <li><strong>Надіслані (Sent):</strong> Тут зберігаються листи, які ти відправив.</li>
+                        <li><strong>Чернетки (Drafts):</strong> Незавершені листи, до яких ти можеш повернутись.</li>
+                        <li><strong>Спам (Spam):</strong> Сюди потрапляє реклама та підозрілі листи.</li>
+                        <li><strong>Список листів:</strong> Головне вікно, де ти бачиш, хто і коли тобі написав.</li>
+                        <li><strong>Область перегляду:</strong> Тут ти читаєш зміст вибраного листа.</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Part 2: Security Detectives -->
+            <div>
+                <h2 class="text-3xl font-bold text-center mb-8 text-red-600">Частина 2: Інтернет-детективи: вчимося безпеці 🕵️‍♀️</h2>
+
+                <section id="phishing" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">🎣 Що таке фішинг?</h3>
+                    <p>
+                        Уяви собі рибалку. Тільки замість риби він хоче "зловити" твої паролі, логіни або інші важливі дані. Для цього він закидає "наживку" — хитрий лист, який виглядає як справжній. Це і є **фішинг**.
+                    </p>
+                    <div class="mt-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg">
+                        Мета шахрая — змусити тебе перейти за фальшивим посиланням і ввести свої дані на підробленому сайті.
+                    </div>
+                </section>
+
+                <section id="how-to-spot" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">🚩 5 ознак небезпечного листа</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start"><span class="text-2xl mr-3">🧐</span><div><strong class="block">Дивна адреса відправника.</strong> Наприклад, `support@insta-gram.com` замість `@instagram.com`.</div></div>
+                        <div class="flex items-start"><span class="text-2xl mr-3">😱</span><div><strong class="block">Тиск і залякування.</strong> Фрази "ТЕРМІНОВО", "Ваш акаунт буде видалено!".</div></div>
+                        <div class="flex items-start"><span class="text-2xl mr-3">🎁</span><div><strong class="block">Нереальні обіцянки.</strong> "Ви виграли 1 000 000 гривень!", "Отримайте iPhone безкоштовно!".</div></div>
+                        <div class="flex items-start"><span class="text-2xl mr-3">📝</span><div><strong class="block">Граматичні помилки.</strong> Солідні компанії рідко допускають помилки в листах.</div></div>
+                         <div class="flex items-start"><span class="text-2xl mr-3">🔗</span><div><strong class="block">Підозрілі посилання.</strong> Кнопка "Увійти" веде на незрозумілий сайт.</div></div>
+                    </div>
+                </section>
+
+                <section id="personal-info" class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">💎 Твоя особиста інформація — це скарб!</h3>
+                    <p>
+                        Ніколи і нікому не надсилай у листах свою особисту (персональну) інформацію. Шахраї можуть використати її проти тебе!
+                    </p>
+                    <div class="mt-4 bg-red-50 border-l-4 border-red-400 text-red-800 p-4 rounded-lg">
+                        <strong class="block">Що не можна повідомляти незнайомцям:</strong>
+                        <ul class="list-disc list-inside mt-2">
+                            <li>Твоє повне ім'я, прізвище та адресу.</li>
+                            <li>Номер телефону (твій чи батьків).</li>
+                            <li>Номер школи чи клас.</li>
+                            <li>Паролі від будь-яких акаунтів.</li>
+                            <li>Фото документів.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section class="bg-red-100 border-l-4 border-red-500 text-red-900 p-6 rounded-xl shadow-lg">
+                    <h3 class="font-bold text-2xl text-center">Головне правило детектива:</h3>
+                    <p class="mt-2 text-xl text-center">Сумніваєшся — НЕ КЛІКАЙ! Запитай у дорослих! 👨‍👩‍👧‍👦</p>
+                </section>
+                
+                 <!-- Interactive Phishing Example -->
+                <section id="phishing-game" class="bg-white p-8 rounded-xl shadow-lg mt-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-6 text-center">🎮 Практика: Знайди шахрая!</h3>
+                    <p class="text-center mb-6">Нижче два листи. Який з них небезпечний? Натисни на нього!</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Safe Email -->
+                        <div id="safe-email" class="border-2 rounded-lg p-4 cursor-pointer hover:border-blue-500 transition" onclick="checkPhishing(false)">
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="font-bold">Від: Support <span class="text-gray-500">&lt;support@google.com&gt;</span></div>
+                                <div class="text-sm text-gray-400">14:32</div>
+                            </div>
+                            <h4 class="font-semibold mb-2">Безпека вашого акаунту</h4>
+                            <p class="text-sm">Ми помітили новий вхід у ваш акаунт Google. Якщо це були не ви, будь ласка, перевірте свої налаштування безпеки.</p>
+                        </div>
+                        <!-- Phishing Email -->
+                        <div id="phishing-email" class="border-2 rounded-lg p-4 cursor-pointer hover:border-red-500 transition" onclick="checkPhishing(true)">
+                             <div class="flex justify-between items-center mb-3">
+                                <div class="font-bold">Від: Admin <span class="text-gray-500">&lt;admin@gooogle.login-net.biz&gt;</span></div>
+                                <div class="text-sm text-gray-400">14:35</div>
+                            </div>
+                            <h4 class="font-semibold mb-2 text-red-500">ТЕРМІНОВО! Ваш акаунт буде видалено!</h4>
+                            <p class="text-sm">Ви виграли iPhone! Щоб підтвердити акаунт і отримати приз, ТЕРМІНОВО увійдіть за посиланням нище!</p>
+                        </div>
+                    </div>
+                    <div id="phishing-result" class="text-center mt-6 font-bold text-xl h-6"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function checkPhishing(isPhishing) {
+            const resultEl = document.getElementById('phishing-result');
+            const safeEmail = document.getElementById('safe-email');
+            const phishingEmail = document.getElementById('phishing-email');
+
+            safeEmail.onclick = null;
+            phishingEmail.onclick = null;
+            safeEmail.classList.remove('hover:border-blue-500');
+            phishingEmail.classList.remove('hover:border-red-500');
+
+
+            if (isPhishing) {
+                resultEl.textContent = "Правильно! Це фішинг. Дивна адреса та тиск видають шахрая.";
+                resultEl.style.color = '#10B981'; // green
+                phishingEmail.classList.add('correct');
+                safeEmail.style.opacity = '0.5';
+            } else {
+                resultEl.textContent = "Не зовсім. Цей лист схожий на справжній. Спробуй ще раз подумати!";
+                resultEl.style.color = '#EF4444'; // red
+                safeEmail.classList.add('incorrect');
+                phishingEmail.classList.add('correct');
+            }
+        }
+    </script>
+</body>
+</html>
+
