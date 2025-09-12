@@ -117,6 +117,7 @@
         .materials-container {
             margin-top: 30px;
             display: none;
+            scroll-margin-top: 20px; /* Відступ для кращого скролу */
         }
         
         .materials-container.active {
@@ -233,6 +234,11 @@
             color: #8b7355;
             font-size: 0.9em;
         }
+
+        /* Плавний скрол для всієї сторінки */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
@@ -250,7 +256,7 @@
         <div class="subjects-grid">
             <div class="subject-card" data-subject="geo10">
                 <div class="subject-header">
-                    <div class="subject-icon">📍</div>
+                    <div class="subject-icon">🌍</div>
                     <div>
                         <h2 class="subject-title">Географія 10 клас</h2>
                     </div>
@@ -327,7 +333,7 @@
         </div>
 
         <footer>
-            (ɔ) Микитенко Олександр, 2025
+            © Микитенко Олександр, 2025
         </footer>
     </div>
 
@@ -340,7 +346,7 @@
             'geo10': {
                 title: 'Географія 10 клас',
                 description: 'Регіони та країни світу, глобалізація, політична географія',
-                icon: '📍'
+                icon: '🌍'
             },
             'inf5': {
                 title: 'Інформатика 5 клас',
@@ -403,6 +409,14 @@
             list.innerHTML = '<div class="no-materials">Завантаження...</div>';
             container.classList.add('active');
 
+            // Плавно скролимо до контейнера з матеріалами
+            setTimeout(() => {
+                container.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100); // Невелика затримка для кращого ефекту
+
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${subjectId}`);
                 
@@ -445,7 +459,7 @@
                 return a.name.localeCompare(b.name);
             });
 
-            // Додаємо секції для кожної папки
+            // Додаємо секцію для кожної папки
             for (const folder of folders) {
                 try {
                     const folderResponse = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${subjectId}/${folder.name}`);
@@ -456,7 +470,7 @@
                         if (files.length > 0) {
                             const lessonSection = createLessonSection(folder.name, files.map(f => ({
                                 name: f.name,
-                                path: `${subjectId}/${folder.name}/${f.name}`
+                                path: `https://github.com/${GITHUB_REPO}/raw/main/${subjectId}/${folder.name}/${f.name}`
                             })));
                             container.appendChild(lessonSection);
                         }
@@ -525,7 +539,7 @@
         // Отримання назви заняття
         function getLessonTitle(folderName) {
             if (folderName === 'extra') {
-                return '📎 Додаткові матеріали';
+                return '🔎 Додаткові матеріали';
             }
             
             const num = parseInt(folderName);
