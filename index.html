@@ -440,9 +440,16 @@
             let materials;
             try {
                 const res = await fetch('materials.json');
+                if (!res.ok) {
+                    console.error('materials.json fetch failed:', res.status, res.statusText);
+                    container.innerHTML = '<div class="no-materials">Не вдалося завантажити materials.json</div>';
+                    return;
+                }
                 materials = await res.json();
+                console.log('Loaded materials.json:', materials);
             } catch (e) {
-                container.innerHTML = '<div class="no-materials">Не вдалося завантажити матеріали</div>';
+                console.error('Error loading materials.json:', e);
+                container.innerHTML = '<div class="no-materials">Не вдалося завантажити матеріали (див. консоль)</div>';
                 return;
             }
 
