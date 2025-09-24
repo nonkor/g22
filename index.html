@@ -436,51 +436,24 @@
         async function displaySubjectMaterials(subjectId, contents, container) {
             container.innerHTML = '';
 
-            // Використовуємо локальні файли (папки та файли)
-            // Для цього потрібен список папок і файлів, який можна отримати на сервері або прописати вручну
-            // Для статичного сайту можна згенерувати структуру через JS (наприклад, згенерований об'єкт)
-            // Нижче — приклад для локального використання (заповніть структуру відповідно до вашої папки)
-
-            // === ПОЧАТОК: ЛОКАЛЬНА СТРУКТУРА ===
-            // Приклад: для geo10
-            const localStructure = {
-                'geo10': {
-                    '1': [ 'slides.html', 'Інфографіка.html' ],
-                    '2': [ 'council-of-europe.webp', 'EU.jpeg', 'europe-map.jpg', 'europe-political-map-miller.jpg', 'History_of_NATO_enlargement.png', 'Logo_of_the_Council_of_Europe_(no_lettering).svg', 'NATO_OTAN_Insignia.svg.png', 'Schengen_sign_Sweden.svg', 'політична_мапа_європи.html', 'шенген_logo.jpg', 'шенген.jpeg' ],
-                    '4': [ 'Europe_religion_map_situation_1950_en.png', 'europe-population-change-1.png', 'населення_європи.html', 'Languages_of_Europe_map.jpg', 'Population_density_by_NUTS_3_region_(2017).svg' ],
-                    'extra': [ 'Hispanic Heritage.pdf', 'Картографія. Як ми малюємо світ.pdf' ]
-                },
-                'inf5': {
-                    '1': [ 'Інформація.html' ],
-                    '2': [ 'види_компʼютерних_систем.html' ],
-                    '3': [ 'code.html' ],
-                    '4': [ 'info.html', 'блок-схема.png', 'цикл.png', 'цикли.pptx' ]
-                },
-                'inf6': {
-                    '1': [ 'Поштові_сервіси.html' ],
-                    '2': [ 'gmail.png', 'Операції_з_поштою.html' ],
-                    '4': [ 'info.html', 'picture.png', 'table.webp', 'властивості_сторінки.png', 'можливості_текстового_процесора.png', 'редагування_тексту.png' ]
-                },
-                'inf7': {
-                    '1': [ 'Цифрові_інструменти.html' ],
-                    '2': [ 'game.html', 'llm.html', 'llm.webp' ]
-                },
-                'inf8': {
-                    '1': [ 'Кодування_даних.html' ],
-                    '2': [ 'llm.html' ],
-                    '3': [ 'code.html', 'code2.html', 'code3.html', 'code4.html' ]
-                },
-                'inf9': {
-                    '1': [ 'Класифікація_програм.html', 'Операційні_системи.html' ],
-                    '3': [ 'lesson3.1.html', 'lesson3.html' ]
-                },
-                'inf10': {
-                    '2': [ 'llm.html' ]
+            // Завантажуємо структуру з materials.json
+            let materials;
+            try {
+                const res = await fetch('materials.json');
+                if (!res.ok) {
+                    console.error('materials.json fetch failed:', res.status, res.statusText);
+                    container.innerHTML = '<div class="no-materials">Не вдалося завантажити materials.json</div>';
+                    return;
                 }
-            };
-            // === КІНЕЦЬ: ЛОКАЛЬНА СТРУКТУРА ===
+                materials = await res.json();
+                console.log('Loaded materials.json:', materials);
+            } catch (e) {
+                console.error('Error loading materials.json:', e);
+                container.innerHTML = '<div class="no-materials">Не вдалося завантажити матеріали (див. консоль)</div>';
+                return;
+            }
 
-            const subjectFolders = localStructure[subjectId] || {};
+            const subjectFolders = materials[subjectId] || {};
             const folderNames = Object.keys(subjectFolders);
             if (folderNames.length === 0) {
                 container.innerHTML = '<div class="no-materials">Матеріали в розробці...</div>';
