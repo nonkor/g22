@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтерактивний Урок про Великі Мовні Моделі (LLM)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .slide {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #374151;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div class="container mx-auto">
+
+        <!-- Слайд 1: Вступ -->
+        <div id="slide1" class="slide text-center">
+            <h1 class="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500 mb-4">Що таке LLM?</h1>
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl">
+                Уявіть собі чарівну книгу, яка прочитала майже весь інтернет і тепер може спілкуватися з вами, писати тексти та відповідати на питання.
+            </p>
+            <p class="mt-8 text-teal-400 animate-bounce text-lg">↓ Гортайте донизу ↓</p>
+        </div>
+
+        <!-- Слайд 2: Ключові терміни -->
+        <div id="slide2" class="slide">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center">Як це працює? Три прості кроки</h2>
+            <div class="grid md:grid-cols-3 gap-8 w-full max-w-6xl">
+                <!-- Картка 1: Дані -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-teal-500/50 transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-teal-400 mb-2">1. Навчання</div>
+                    <p class="text-gray-300">Модель "читає" гігантську бібліотеку текстів та книг, щоб вивчити мову, факти та закономірності.</p>
+                </div>
+                <!-- Картка 2: Промпт -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-teal-500/50 transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-teal-400 mb-2">2. Запит (Промпт)</div>
+                    <p class="text-gray-300">Це ваше завдання або питання до моделі. Чим чіткіший запит, тим краща відповідь.</p>
+                </div>
+                <!-- Картка 3: Генерація -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-teal-500/50 transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-teal-400 mb-2">3. Відповідь</div>
+                    <p class="text-gray-300">Модель генерує текст, передбачаючи наступне найбільш імовірне слово, створюючи осмислену відповідь.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 3: Візуалізація -->
+        <div id="slide3" class="slide">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center">Схема роботи LLM</h2>
+            <div class="w-full max-w-4xl h-80 bg-gray-800/50 rounded-xl flex justify-center items-center">
+                <div class="text-center text-gray-400">
+                    <img src="llm.webp" alt="LLM Diagram"  >
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 4: Цікаві факти -->
+        <div id="slide4" class="slide">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center">Неймовірні факти про LLM</h2>
+            <div class="grid md:grid-cols-3 gap-8 w-full max-w-6xl">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-blue-500/50">
+                    <div class="text-4xl mb-3">📚</div>
+                    <h3 class="text-2xl font-bold text-blue-400 mb-2">Гігантська бібліотека</h3>
+                    <p class="text-gray-300">Щоб прочитати обсяг даних, на яких навчається одна велика LLM, людині знадобилося б кілька тисяч років.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-blue-500/50">
+                    <div class="text-4xl mb-3">🤥</div>
+                    <h3 class="text-2xl font-bold text-blue-400 mb-2">Можуть вигадувати!</h3>
+                    <p class="text-gray-300">Іноді моделі "галюцинують" — впевнено видають неправдиву інформацію. Тому завжди перевіряй важливі факти!</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-blue-500/50">
+                    <div class="text-4xl mb-3">📱</div>
+                    <h3 class="text-2xl font-bold text-blue-400 mb-2">Вони вже тут!</h3>
+                    <p class="text-gray-300">Ти вже користуєшся схожими технологіями: голосові асистенти, перекладачі, розумний пошук та навіть автозаповнення слів у телефоні.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 5: Інтерактив -->
+        <div id="slide5" class="slide w-full max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center">Спробуй сам!</h2>
+            <div class="w-full bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <label for="prompt-input" class="block mb-2 text-lg font-medium text-gray-300">Напиши свій запит тут:</label>
+                <textarea id="prompt-input" rows="3" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-teal-500 focus:outline-none" placeholder="Наприклад: напиши короткий вірш про космос..."></textarea>
+                <button id="generate-btn" class="mt-4 w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-lg transition-colors text-lg">
+                    Згенерувати відповідь
+                </button>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-300 mb-2">Відповідь Моделі:</h3>
+                    <div id="output-div" class="w-full min-h-[100px] p-4 bg-gray-900 border-2 border-dashed border-gray-600 rounded-lg text-gray-300 whitespace-pre-wrap">
+                        ...тут з'явиться відповідь...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const promptInput = document.getElementById('prompt-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const outputDiv = document.getElementById('output-div');
+
+        const responses = {
+            'вірш': '✨\nДалекий космос вабить нас,\nМільярди зір у добрий час.\nПланети тануть у імлі,\nЧекають нас на кораблі.',
+            'історія': '🚀\nОдного разу команда юних дослідників знайшла стару карту, що вела до прихованого артефакту на Марсі. Вони збудували ракету з підручних матеріалів і вирушили у неймовірну подорож, повну небезпек та відкриттів.',
+            'код': '💻\nЗвісно! Ось простий приклад на Python:\n\nname = "Учень"\nprint(f"Привіт, {name}! Успіхів у вивченні LLM!")',
+            'жарт': '😂\n- Чому комп\'ютеру було холодно?\n- Бо він залишив вікно Windows відкритим!',
+            'привіт': '👋\nПривіт! Я симуляція великої мовної моделі. Чим можу допомогти?',
+            'default': '🤔\nЦікавий запит! Я поки що проста модель і вчуся відповідати. Спробуйте запитати щось про вірш, історію, код або попросіть розповісти жарт.'
+        };
+
+        generateBtn.addEventListener('click', () => {
+            const promptText = promptInput.value.toLowerCase().trim();
+            outputDiv.textContent = '🧠 Думаю...';
+            generateBtn.disabled = true;
+            generateBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                let foundResponse = responses['default'];
+                if (promptText.includes('вірш')) {
+                    foundResponse = responses['вірш'];
+                } else if (promptText.includes('історія') || promptText.includes('розкажи')) {
+                    foundResponse = responses['історія'];
+                } else if (promptText.includes('код')) {
+                    foundResponse = responses['код'];
+                } else if (promptText.includes('жарт')) {
+                    foundResponse = responses['жарт'];
+                } else if (promptText.includes('привіт')) {
+                    foundResponse = responses['привіт'];
+                }
+                
+                outputDiv.textContent = foundResponse;
+                generateBtn.disabled = false;
+                generateBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            }, 1200); // Симуляція затримки відповіді
+        });
+    </script>
+</body>
+</html>
+

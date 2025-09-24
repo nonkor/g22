@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G22 - Навчальні матеріали</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 50%, #d4c4a8 100%);
+            color: #5d4e37;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .instructor {
+            font-size: 1.1em;
+            color: #8b7355;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #8b4513;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(139, 69, 19, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        .breadcrumb {
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+            text-align: center;
+            color: #8b4513;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .subject-card {
+            background: rgba(255, 250, 240, 0.9);
+            border: 2px solid #c9b882;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(93, 78, 55, 0.15);
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(93, 78, 55, 0.25);
+            border-color: #8b4513;
+        }
+
+        .subject-card.active {
+            border-color: #8b4513;
+            background: rgba(255, 250, 240, 1);
+        }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .subject-title {
+            font-size: 1.5em;
+            color: #8b4513;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .subject-description {
+            font-size: 1em;
+            color: #5d4e37;
+            text-align: left;
+            margin: 0;
+        }
+
+        .materials-container {
+            margin-top: 30px;
+            display: none;
+            scroll-margin-top: 20px; /* Відступ для кращого скролу */
+        }
+
+        .materials-container.active {
+            display: block;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .materials-title {
+            font-size: 2em;
+            color: #8b4513;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .materials-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .materials-list li {
+            margin: 8px 0;
+        }
+
+        .materials-list a {
+            display: block;
+            padding: 10px 12px;
+            background: rgba(255, 250, 240, 0.8);
+            border: 1px solid #e8dcc0;
+            border-radius: 6px;
+            color: #5d4e37;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .materials-list a:hover {
+            background: rgba(201, 184, 130, 0.2);
+            border-color: #a0522d;
+            transform: translateX(3px);
+        }
+
+        .lesson-section {
+            margin: 15px 0;
+            border: 1px solid #d4c4a8;
+            border-radius: 8px;
+            background: rgba(248, 244, 235, 0.5);
+        }
+
+        .lesson-header {
+            padding: 12px 15px;
+            background: rgba(201, 184, 130, 0.2);
+            border-bottom: 1px solid #d4c4a8;
+            cursor: pointer;
+            font-weight: bold;
+            color: #8b4513;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-header:hover {
+            background: rgba(201, 184, 130, 0.3);
+        }
+
+        .lesson-toggle {
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+
+        .lesson-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .lesson-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .lesson-content.expanded {
+            max-height: 500px;
+        }
+
+        .lesson-files {
+            padding: 10px;
+        }
+
+        .no-materials {
+            color: #8b7355;
+            font-style: italic;
+            padding: 15px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #d4c4a8;
+            color: #8b7355;
+            font-size: 0.9em;
+        }
+
+        /* Плавний скрол для всієї сторінки */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>G22 - Навчальні матеріали</h1>
+            <p class="subtitle">Освітні презентації та ресурси</p>
+            <p class="instructor">Викладач: Микитенко Олександр</p>
+        </header>
+
+        <div class="breadcrumb">
+            Оберіть предмет для перегляду матеріалів
+        </div>
+
+        <div class="subjects-grid">
+            <div class="subject-card" data-subject="geo10">
+                <div class="subject-header">
+                    <div class="subject-icon">🌍</div>
+                    <div>
+                        <h2 class="subject-title">Географія 10 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Регіони та країни світу, глобалізація, політична географія</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf5">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 5 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Основи інформатики та комп'ютерної грамотності</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf6">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 6 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Алгоритми, програмування, цифрові технології</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf7">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 7 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Програмування та інформаційні системи</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf8">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 8 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Веб-технології та бази даних</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf9">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 9 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Моделювання та комп'ютерні мережі</p>
+            </div>
+
+            <div class="subject-card" data-subject="inf10">
+                <div class="subject-header">
+                    <div class="subject-icon">💻</div>
+                    <div>
+                        <h2 class="subject-title">Інформатика 10 клас</h2>
+                    </div>
+                </div>
+                <p class="subject-description">Об'єктно-орієнтоване програмування</p>
+            </div>
+        </div>
+
+        <div class="materials-container" id="materialsContainer">
+            <h3 class="materials-title" id="materialsTitle">Матеріали</h3>
+            <div id="materialsList" class="materials-list">
+                <!-- Матеріали будуть завантажуватися тут -->
+            </div>
+        </div>
+
+        <footer>
+            © Микитенко Олександр, 2025
+        </footer>
+    </div>
+
+    <script>
+        // GitHub API для автоматичного сканування папок
+        const GITHUB_REPO = 'nonkor/g22';
+
+        // Конфігурація предметів
+        const subjectsConfig = {
+            'geo10': {
+                title: 'Географія 10 клас',
+                description: 'Регіони та країни світу, глобалізація, політична географія',
+                icon: '🌍'
+            },
+            'inf5': {
+                title: 'Інформатика 5 клас',
+                description: 'Основи інформатики та комп\'ютерної грамотності',
+                icon: '💻'
+            },
+            'inf6': {
+                title: 'Інформатика 6 клас',
+                description: 'Алгоритми, програмування, цифрові технології',
+                icon: '💻'
+            },
+            'inf7': {
+                title: 'Інформатика 7 клас',
+                description: 'Програмування та інформаційні системи',
+                icon: '💻'
+            },
+            'inf8': {
+                title: 'Інформатика 8 клас',
+                description: 'Веб-технології та бази даних',
+                icon: '💻'
+            },
+            'inf9': {
+                title: 'Інформатика 9 клас',
+                description: 'Моделювання та комп\'ютерні мережі',
+                icon: '💻'
+            },
+            'inf10': {
+                title: 'Інформатика 10 клас',
+                description: 'Об\'єктно-орієнтоване програмування',
+                icon: '💻'
+            }
+        };
+
+        // Функція для отримання файлів з GitHub API
+        async function loadSubjectFiles() {
+            const subjectCards = document.querySelectorAll('.subject-card');
+            subjectCards.forEach(card => {
+                card.addEventListener('click', async () => {
+                    const subjectId = card.getAttribute('data-subject');
+                    await loadSubjectMaterials(subjectId);
+                });
+            });
+        }
+
+        // Завантаження матеріалів для конкретного предмета
+        async function loadSubjectMaterials(subjectId) {
+            const config = subjectsConfig[subjectId];
+            if (!config) return;
+
+            // Оновлюємо активну картку
+            document.querySelectorAll('.subject-card').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[data-subject="${subjectId}"]`).classList.add('active');
+
+            // Показуємо контейнер з матеріалами
+            const container = document.getElementById('materialsContainer');
+            const title = document.getElementById('materialsTitle');
+            const list = document.getElementById('materialsList');
+
+            title.textContent = `${config.icon} ${config.title}`;
+            list.innerHTML = '<div class="no-materials">Завантаження...</div>';
+            container.classList.add('active');
+
+            // Плавно скролимо до контейнера з матеріалами
+            setTimeout(() => {
+                container.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100); // Невелика затримка для кращого ефекту
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${subjectId}`);
+
+                if (response.ok) {
+                    const contents = await response.json();
+                    await displaySubjectMaterials(subjectId, contents, list);
+                } else {
+                    list.innerHTML = '<div class="no-materials">Матеріали в розробці...</div>';
+                }
+            } catch (error) {
+                console.log('Помилка завантаження матеріалів:', error);
+                list.innerHTML = '<div class="no-materials">Помилка завантаження матеріалів</div>';
+            }
+        }
+
+        // Відображення матеріалів предмета
+        async function displaySubjectMaterials(subjectId, contents, container) {
+            container.innerHTML = '';
+
+            // Використовуємо локальні файли (папки та файли)
+            // Для цього потрібен список папок і файлів, який можна отримати на сервері або прописати вручну
+            // Для статичного сайту можна згенерувати структуру через JS (наприклад, згенерований об'єкт)
+            // Нижче — приклад для локального використання (заповніть структуру відповідно до вашої папки)
+
+            // === ПОЧАТОК: ЛОКАЛЬНА СТРУКТУРА ===
+            // Приклад: для geo10
+            const localStructure = {
+                'geo10': {
+                    '1': [ 'slides.html', 'Інфографіка.html' ],
+                    '2': [ 'council-of-europe.webp', 'EU.jpeg', 'europe-map.jpg', 'europe-political-map-miller.jpg', 'History_of_NATO_enlargement.png', 'Logo_of_the_Council_of_Europe_(no_lettering).svg', 'NATO_OTAN_Insignia.svg.png', 'Schengen_sign_Sweden.svg', 'політична_мапа_європи.html', 'шенген_logo.jpg', 'шенген.jpeg' ],
+                    '4': [ 'Europe_religion_map_situation_1950_en.png', 'europe-population-change-1.png', 'населення_європи.html', 'Languages_of_Europe_map.jpg', 'Population_density_by_NUTS_3_region_(2017).svg' ],
+                    'extra': [ 'Hispanic Heritage.pdf', 'Картографія. Як ми малюємо світ.pdf' ]
+                },
+                'inf5': {
+                    '1': [ 'Інформація.html' ],
+                    '2': [ 'види_компʼютерних_систем.html' ],
+                    '3': [ 'code.html' ],
+                    '4': [ 'info.html', 'блок-схема.png', 'цикл.png', 'цикли.pptx' ]
+                },
+                'inf6': {
+                    '1': [ 'Поштові_сервіси.html' ],
+                    '2': [ 'gmail.png', 'Операції_з_поштою.html' ],
+                    '4': [ 'info.html', 'picture.png', 'table.webp', 'властивості_сторінки.png', 'можливості_текстового_процесора.png', 'редагування_тексту.png' ]
+                },
+                'inf7': {
+                    '1': [ 'Цифрові_інструменти.html' ],
+                    '2': [ 'game.html', 'llm.html', 'llm.webp' ]
+                },
+                'inf8': {
+                    '1': [ 'Кодування_даних.html' ],
+                    '2': [ 'llm.html' ],
+                    '3': [ 'code.html', 'code2.html', 'code3.html', 'code4.html' ]
+                },
+                'inf9': {
+                    '1': [ 'Класифікація_програм.html', 'Операційні_системи.html' ],
+                    '3': [ 'lesson3.1.html', 'lesson3.html' ]
+                },
+                'inf10': {
+                    '2': [ 'llm.html' ]
+                }
+            };
+            // === КІНЕЦЬ: ЛОКАЛЬНА СТРУКТУРА ===
+
+            const subjectFolders = localStructure[subjectId] || {};
+            const folderNames = Object.keys(subjectFolders);
+            if (folderNames.length === 0) {
+                container.innerHTML = '<div class="no-materials">Матеріали в розробці...</div>';
+                return;
+            }
+
+            // Сортуємо папки: числові спочатку (1, 2, 3...), потім extra
+            folderNames.sort((a, b) => {
+                if (a === 'extra') return 1;
+                if (b === 'extra') return -1;
+                const aNum = parseInt(a);
+                const bNum = parseInt(b);
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return aNum - bNum;
+                }
+                return a.localeCompare(b);
+            });
+
+            for (const folderName of folderNames) {
+                const files = subjectFolders[folderName] || [];
+                if (files.length > 0) {
+                    const lessonSection = createLessonSection(folderName, files.map(f => ({
+                        name: f,
+                        path: `${subjectId}/${folderName}/${f}`
+                    })));
+                    container.appendChild(lessonSection);
+                }
+            }
+        }
+
+        // Створення секції заняття
+        function createLessonSection(folderName, files) {
+            const section = document.createElement('div');
+            section.className = 'lesson-section';
+
+            const header = document.createElement('div');
+            header.className = 'lesson-header';
+
+            const title = getLessonTitle(folderName);
+            header.innerHTML = `
+                <span>${title}</span>
+                <span class="lesson-toggle">▼</span>
+            `;
+
+            const content = document.createElement('div');
+            content.className = 'lesson-content';
+
+            const filesList = document.createElement('div');
+            filesList.className = 'lesson-files';
+
+            const ul = document.createElement('ul');
+            ul.className = 'materials-list';
+
+            // Фільтруємо лише документи (без картинок)
+            const documentExtensions = [
+                'html', 'pdf', 'doc', 'docx', 'ppt', 'pptx', 'txt', 'zip', 'rar'
+            ];
+            files
+                .filter(file => {
+                    const ext = file.name.split('.').pop().toLowerCase();
+                    return documentExtensions.includes(ext);
+                })
+                .forEach(file => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = file.path;
+                    a.textContent = `${getFileIcon(file.name)} ${formatFileName(file.name)}`;
+                    a.target = '_blank';
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+
+            filesList.appendChild(ul);
+            content.appendChild(filesList);
+            section.appendChild(header);
+            section.appendChild(content);
+
+            // Обробник розгортання/згортання
+            header.addEventListener('click', () => {
+                const toggle = header.querySelector('.lesson-toggle');
+                const isExpanded = content.classList.contains('expanded');
+
+                if (isExpanded) {
+                    content.classList.remove('expanded');
+                    toggle.classList.remove('expanded');
+                } else {
+                    content.classList.add('expanded');
+                    toggle.classList.add('expanded');
+                }
+            });
+
+            return section;
+        }
+
+        // Отримання назви заняття
+        function getLessonTitle(folderName) {
+            if (folderName === 'extra') {
+                return '🔎 Додаткові матеріали';
+            }
+
+            const num = parseInt(folderName);
+            if (!isNaN(num)) {
+                return `Заняття ${num}`;
+            }
+
+            return `📁 ${folderName.charAt(0).toUpperCase() + folderName.slice(1)}`;
+        }
+
+        // Отримання іконки для файлу
+        function getFileIcon(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+
+            const icons = {
+                'html': '🌐',
+                'pdf': '📄',
+                'doc': '📝',
+                'docx': '📝',
+                'ppt': '📊',
+                'pptx': '📊',
+                'txt': '📄',
+                'zip': '📦',
+                'rar': '📦',
+                'jpg': '🖼️',
+                'jpeg': '🖼️',
+                'png': '🖼️',
+                'gif': '🖼️',
+                'mp4': '🎥',
+                'avi': '🎥',
+                'mov': '🎥',
+                'mp3': '🎵',
+                'wav': '🎵'
+            };
+
+            return icons[extension] || '📄';
+        }
+
+        // Форматування назви файлу
+        function formatFileName(filename) {
+            return filename
+                .replace(/\.[^/.]+$/, '') // Прибираємо розширення
+                .replace(/[-_]/g, ' ')    // Замінюємо дефіси та підкреслення пробілами
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        // Ініціалізація
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.subject-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+
+            loadSubjectFiles();
+        });
+    </script>
+</body>
+</html>

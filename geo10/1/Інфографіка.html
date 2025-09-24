@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інфографіка: Географія - Регіони та Країни</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The infographic follows a narrative structure designed for educational exploration. It starts with a high-impact "big number" to show the dynamism of the political map. Section 1 visualizes the dramatic changes of the 20th century with two comparative political maps. Section 2 is the core data visualization, featuring a dynamic bar chart for UN regions that allows users to explore a large dataset without being overwhelmed. Section 3 uses a clear, two-column layout to compare the facets of globalization. The final section provides a toolkit of knowledge sources. This thematic flow transforms the dense report into an intuitive, story-driven experience. -->
+    <!-- Visualization & Content Choices: 1. Growth of Nations (55 to 193): Goal -> Inform, Viz -> Animated Big Number, Justification -> High-impact hook, Method -> HTML/JS. 2. Political Map Comparison: Goal -> Change/Compare, Viz -> Image of a political map, Justification -> Direct visual representation of the provided source material, Method -> Image tag with descriptive text. 3. Key Terms (Table 1): Goal -> Organize/Inform, Viz -> Interactive Cards, Justification -> More engaging than a static table, Method -> HTML/CSS/JS. 4. UN Regions Data (Table 2): Goal -> Compare/Organize, Viz -> Dynamic Bar Chart, Interaction -> Buttons to filter by macro-region, Justification -> Best for comparing quantities (countries in subregions) and making a large dataset explorable, Library -> Chart.js (Canvas). 5. Globalization Aspects: Goal -> Compare, Viz -> Two-column card layout, Justification -> Clear visual separation of complex ideas, Method -> HTML/Tailwind. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #073B4C;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+            max-height: 50vh;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-region {
+            transition: all 0.3s ease;
+        }
+        .btn-region.active {
+            background-color: #118AB2 !important;
+            color: white !important;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(17, 138, 178, 0.39);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Географія: Регіони та Країни</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Візуальний посібник з основ політичної географії та глобальних процесів для 10-го класу.</p>
+        </header>
+
+        <section class="mb-20 text-center">
+             <h2 class="text-3xl font-bold mb-2">Політична карта світу — живий організм</h2>
+             <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Протягом XX століття кількість суверенних держав у світі зросла більш ніж утричі, демонструючи неймовірну динаміку.</p>
+            <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md mx-auto">
+                <p class="text-2xl font-semibold text-gray-500">Кількість держав-членів ООН</p>
+                <p id="country-counter" class="text-7xl md:text-8xl font-extrabold my-4" style="color: #06D6A0;">55</p>
+                <p class="text-lg text-gray-600">Від <span class="font-bold">55</span> на початку XX століття до <span class="font-bold">193</span> сьогодні.</p>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Політичні карти: 19-те та 20-те століття</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4" style="color: #118AB2;">Кінець 19-го століття</h3>
+                    <p class="text-gray-700 mb-4">На карті домінують Британська, Російська та Французька імперії. Більша частина Африки та Азії розфарбована в кольори колоніальних держав.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="https://geomap.com.ua/images/wh9a/Maps/14-15.jpg" alt="Політична карта світу кінця 19-го століття" class="w-full h-auto">
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4" style="color: #FF6B6B;">Сучасний світ</h3>
+                    <p class="text-gray-700 mb-4">На карті з'явилися десятки нових, незалежних держав після розпаду колоніальних імперій та СРСР. Карта виглядає набагато більш фрагментованою.</p>
+                    <div class="rounded-lg overflow-hidden">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/%D0%9F%D0%BE%D0%BB%D1%96%D1%82%D0%B8%D1%87%D0%BD%D0%B0_%D0%BA%D0%B0%D1%80%D1%82%D0%B0_%D1%81%D0%B2%D1%96%D1%82%D1%83.svg" alt="Політична карта світу кінця 20-го століття" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Фундаментальні поняття політичної географії</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold mb-2" style="color: #118AB2;">Держава vs. Країна</h3>
+                    <p class="text-gray-700"><span class="font-semibold">Держава</span> — це суверенне політичне утворення з владою. <span class="font-semibold">Країна</span> — це культурно-історична та соціально-економічна спільнота на певній території. Кожна держава є країною, але не кожна країна є державою.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold mb-2" style="color: #FFD166;">Територія та Акваторія</h3>
+                    <p class="text-gray-700"><span class="font-semibold">Територія</span> — це частина земної поверхні з чіткими межами. <span class="font-semibold">Акваторія</span> — це водна частина простору. Разом вони формують простір, на який поширюється суверенітет країни.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold mb-2" style="color: #FF6B6B;">Залежна територія</h3>
+                    <p class="text-gray-700">Це територія, що перебуває під політичним контролем іншої держави (метрополії) і не має повного суверенітету, хоча може мати певну автономію. Наприклад, Гренландія (Данія).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Регіональний поділ світу за класифікацією ООН</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">ООН поділяє світ на 5 макрорегіонів та 22 субрегіони для статистичного аналізу. Оберіть макрорегіон, щоб побачити його структуру.</p>
+            <div id="region-selector" class="flex flex-wrap justify-center gap-3 mb-8">
+                <button class="btn-region active bg-white shadow-md px-4 py-2 rounded-full font-semibold text-gray-700" data-region="europe">Європа</button>
+                <button class="btn-region bg-white shadow-md px-4 py-2 rounded-full font-semibold text-gray-700" data-region="asia">Азія</button>
+                <button class="btn-region bg-white shadow-md px-4 py-2 rounded-full font-semibold text-gray-700" data-region="africa">Африка</button>
+                <button class="btn-region bg-white shadow-md px-4 py-2 rounded-full font-semibold text-gray-700" data-region="americas">Америка</button>
+                <button class="btn-region bg-white shadow-md px-4 py-2 rounded-full font-semibold text-gray-700" data-region="oceania">Океанія</button>
+            </div>
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-xl">
+                <div class="chart-container">
+                    <canvas id="regionsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10">Глобалізація: Інтеграція та суперечності</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">Чотири аспекти глобалізації</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-2xl mr-3" style="color: #06D6A0;">→</span><span><span class="font-semibold">Торгівля та інвестиції:</span> Вільний рух товарів, послуг та капіталу через кордони.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3" style="color: #118AB2;">→</span><span><span class="font-semibold">Рух людей:</span> Міграція та туризм, що сприяють культурному обміну.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3" style="color: #FFD166;">→</span><span><span class="font-semibold">Поширення знань:</span> Миттєвий доступ до інформації та технологій через інтернет.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4">Суперечливі наслідки</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-xl mr-3">✅</span><span>Сприяє економічному зростанню та міжкультурному діалогу.</span></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">❌</span><span>Може поглиблювати нерівність та створювати глобальні екологічні виклики.</span></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">🤝</span><span>Стимулює інтеграцію (ЄС), але й викликає опір уніфікації.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold text-center mb-10">Інструментарій географа: Джерела знань</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl mb-4">📚</p>
+                    <h3 class="text-xl font-bold mb-2">Традиційні</h3>
+                    <p class="text-gray-600">Підручники, атласи, карти та енциклопедії — фундаментальна основа.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl mb-4">📊</p>
+                    <h3 class="text-xl font-bold mb-2">Статистичні</h3>
+                    <p class="text-gray-600">Щорічники та бази даних для глибокого кількісного аналізу.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl mb-4">💻</p>
+                    <h3 class="text-xl font-bold mb-2">Цифрові</h3>
+                    <p class="text-gray-600">ГІС, онлайн-карти та віртуальні подорожі для інтерактивного дослідження.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const countryCounter = document.getElementById('country-counter');
+            let start = 55;
+            const end = 193;
+            const duration = 2000;
+            const stepTime = Math.abs(Math.floor(duration / (end - start)));
+
+            let current = start;
+            const timer = setInterval(() => {
+                current += 1;
+                countryCounter.textContent = current;
+                if (current === end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+
+            const regionsData = {
+                europe: {
+                    labels: ['Північна Європа', 'Західна Європа', 'Південна Європа', 'Східна Європа'],
+                    data: [10, 9, 15, 10]
+                },
+                asia: {
+                    labels: ['Центральна Азія', 'Південна Азія', ['Західна Азія', '(Близький Схід)'], 'Східна Азія', 'Південно-Східна Азія'],
+                    data: [5, 9, 17, 5, 11]
+                },
+                africa: {
+                    labels: ['Північна Африка', 'Центральна Африка', 'Західна Африка', 'Південна Африка', 'Східна Африка'],
+                    data: [6, 9, 16, 5, 18]
+                },
+                americas: {
+                    labels: ['Північна Америка', 'Центральна Америка', 'Карибська Америка', 'Південна Америка'],
+                    data: [2, 8, 13, 12]
+                },
+                oceania: {
+                    labels: [['Австралія і', 'Нова Зеландія'], 'Меланезія', 'Мікронезія', 'Полінезія'],
+                    data: [2, 4, 5, 3]
+                }
+            };
+            
+            let myChart;
+            const ctx = document.getElementById('regionsChart').getContext('2d');
+            const regionSelector = document.getElementById('region-selector');
+            const palette = ['#FF6B6B', '#FFD166', '#06D6A0', '#118AB2', '#073B4C'];
+
+            function updateChart(regionKey) {
+                const region = regionsData[regionKey];
+                const chartData = {
+                    labels: region.labels,
+                    datasets: [{
+                        label: 'Кількість держав',
+                        data: region.data,
+                        backgroundColor: palette,
+                        borderColor: 'rgba(255, 255, 255, 0.5)',
+                        borderWidth: 2,
+                        borderRadius: 5,
+                    }]
+                };
+
+                if (myChart) {
+                    myChart.destroy();
+                }
+
+                myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    drawBorder: false,
+                                },
+                                ticks: {
+                                    padding: 10,
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false,
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true,
+                                backgroundColor: '#073B4C',
+                                titleFont: { size: 16, weight: 'bold' },
+                                bodyFont: { size: 14 },
+                                padding: 15,
+                                cornerRadius: 10,
+                                displayColors: false,
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        let label = item.chart.data.labels[item.dataIndex];
+                                        if (Array.isArray(label)) {
+                                          return label.join(' ');
+                                        } else {
+                                          return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            regionSelector.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const regionKey = e.target.dataset.region;
+                    regionSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    updateChart(regionKey);
+                }
+            });
+            
+            updateChart('europe');
+        });
+    </script>
+
+</body>
+</html>

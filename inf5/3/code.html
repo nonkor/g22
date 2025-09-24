@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентація: Світ Алгоритмів</title>
+    <style>
+        /* Загальні стилі */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Стилі для контейнера слайдів */
+        .presentation-container {
+            width: 90%;
+            max-width: 900px;
+            height: 550px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Стилі для окремого слайда */
+        .slide {
+            width: 100%;
+            height: 100%;
+            padding: 40px 50px;
+            box-sizing: border-box;
+            display: none; /* Всі слайди сховані за замовчуванням */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex; /* Активний слайд показуємо */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Стилі для заголовків та тексту */
+        h1 {
+            font-size: 3em;
+            color: #005A9C;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #2E8B57;
+            margin-bottom: 25px;
+        }
+        
+        p, li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 80%;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        
+        li {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%232E8B57" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>') no-repeat left center;
+            padding-left: 35px;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: #D9534F;
+        }
+
+        /* Стилі для зображень-іконок */
+        .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            align-items: flex-start;
+        }
+
+        .flex-item {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        /* Стилі для навігації */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            font-size: 1em;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <div class="slide active">
+            <div class="icon">🚀</div>
+            <h1>Світ Алгоритмів</h1>
+            <p>Дізнаймося, що таке інструкції та як вони керують світом!</p>
+        </div>
+
+        <div class="slide">
+            <h2>Алгоритми є скрізь!</h2>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <div class="icon">🍳</div>
+                    <p><strong>Рецепт</strong> — це алгоритм для кухаря.</p>
+                </div>
+                <div class="flex-item">
+                    <div class="icon">🧱</div>
+                    <p><strong>Інструкція LEGO</strong> — це алгоритм для будівельника.</p>
+                </div>
+                <div class="flex-item">
+                    <div class="icon">🦷</div>
+                    <p><strong>Чищення зубів</strong> — це теж алгоритм, який ти виконуєш щоранку.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>Виконавець та його Команди</h2>
+            <p><strong>Виконавець</strong> — це той, хто виконує алгоритм (людина, комп'ютер, робот).</p>
+            <p><strong>Система команд</strong> — це набір дій, які розуміє виконавець. <br>Собака не спече торт, а кухар не виконає команду "гав"!</p>
+            <div class="icon">🤖➡️📜</div>
+        </div>
+        
+        <div class="slide">
+             <h2>Три головні типи алгоритмів</h2>
+             <p>Майже всі програми у світі побудовані з цих трьох "цеглинок".</p>
+             <div class="icon">🏗️</div>
+        </div>
+
+        <div class="slide">
+            <h2>1. Слідування (Лінійний алгоритм)</h2>
+            <p>Команди виконуються одна за одною, строго по черзі. Як сходинки.</p>
+            <div class="icon">➡️➡️➡️</div>
+            <ul>
+                <li>Взяти хліб</li>
+                <li>Намастити маслом</li>
+                <li>Покласти ковбасу</li>
+            </ul>
+        </div>
+        
+        <div class="slide">
+            <h2>2. Розгалуження (Алгоритм з умовою)</h2>
+            <p>Програма приймає рішення. Працює за принципом "<strong>Якщо..., то...</strong>".</p>
+            <div class="icon">🤔❓</div>
+            <p><strong>Якщо</strong> в холодильнику є сир,<br> <strong>то</strong> покласти сир,<br> <strong>інакше</strong> — покласти листок салату.</p>
+        </div>
+
+        <div class="slide">
+            <h2>3. Повторення (Циклічний алгоритм)</h2>
+            <p>Дія або набір дій виконується багато разів.</p>
+            <div class="icon">🔁</div>
+            <p><strong>Повторити 3 рази:</strong><br>Покласти на бутерброд шматочок огірка.</p>
+        </div>
+
+        <div class="slide">
+            <div class="icon">🐱</div>
+            <h1>А тепер — до Scratch!</h1>
+            <p>Давайте навчимо комп'ютер виконувати наші алгоритми!</p>
+        </div>
+
+        <div class="slide">
+            <h2>Як це працює у Scratch?</h2>
+            <ul>
+                <li>Наш <strong>Виконавець</strong> — це спрайт (Кіт Рудько).</li>
+                <li>Його <strong>Система команд</strong> — це палітра блоків.</li>
+                <li>Наша <strong>Інструкція</strong> — це програма (скрипт), яку ми зберемо з блоків.</li>
+            </ul>
+        </div>
+        
+        <div class="slide">
+            <h2>Слідування у Scratch</h2>
+            <p>Блоки просто з'єднані один за одним.</p>
+            <img src="https://i.imgur.com/gK1q058.png" alt="Приклад лінійного алгоритму в Scratch" style="border-radius:10px; max-width: 60%;">
+        </div>
+        
+        <div class="slide">
+            <h2>Розгалуження у Scratch</h2>
+            <p>Використовуємо помаранчевий блок "якщо...то".</p>
+            <img src="https://i.imgur.com/G5g2mB1.png" alt="Приклад розгалуження в Scratch" style="border-radius:10px; max-width: 70%;">
+        </div>
+
+        <div class="slide">
+            <h2>Повторення у Scratch</h2>
+            <p>Використовуємо блоки "завжди" або "повторити".</p>
+            <img src="https://i.imgur.com/Jj5fV1d.png" alt="Приклад циклу в Scratch" style="border-radius:10px; max-width: 60%;">
+        </div>
+
+        <div class="slide">
+            <div class="icon">💻✨</div>
+            <h1>Час для практики!</h1>
+            <p>Тепер ви — програмісти. Створімо свій перший проєкт!</p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" class="nav-btn">⬅️ Назад</button>
+        <button id="nextBtn" class="nav-btn">Далі ➡️</button>
+    </div>
+
+    <script>
+        // Простий JS для навігації
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            // Сховуємо всі слайди
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            // Показуємо потрібний слайд
+            slides[index].classList.add('active');
+
+            // Оновлюємо стан кнопок
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Ініціалізація першого слайда
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

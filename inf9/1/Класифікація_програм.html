@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Класифікація програм. Операційні системи</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.6em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2.6em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .card ul li {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .definition-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .definition-card::before {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .definition-card h3 {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .visual-demo {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .visual-demo h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+
+        .visual-demo p, 
+        .visual-demo li {
+            font-size: 1.2em;
+        }
+
+        .software-hierarchy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        .hierarchy-level {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hierarchy-box {
+            background: #667eea;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .hierarchy-box.system {
+            background: #e74c3c;
+        }
+
+        .hierarchy-box.application {
+            background: #2ecc71;
+        }
+
+        .hierarchy-box.utility {
+            background: #f39c12;
+        }
+
+        .hierarchy-arrow {
+            font-size: 2em;
+            color: #667eea;
+            transform: rotate(90deg);
+        }
+
+        .os-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .os-card {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .os-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .os-logo {
+            width: 80px;
+            height: 80px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            border: 2px dashed #ccc;
+        }
+
+        .os-card h4 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .os-card .version {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .os-card .features {
+            text-align: left;
+            font-size: 1em;
+        }
+
+        .timeline {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            margin: 25px 0;
+        }
+
+        .timeline-item {
+            min-width: 200px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-year {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .timeline-event {
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.1em;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 2px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+
+        .highlight-box {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .highlight-box h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .highlight-box p {
+            font-size: 1.2em;
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .interactive-section h3 {
+            color: #8e24aa;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .platform-card {
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(142, 36, 170, 0.3);
+        }
+
+        .platform-card h4 {
+            color: #8e24aa;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.6em;
+            }
+            
+            body {
+                font-size: 16px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .cards-grid,
+            .os-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                font-size: 0.9em;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Класифікація програм. Операційні системи</h1>
+            <p>Розуміння програмного забезпечення та його різновидів</p>
+        </header>
+
+        <div class="content">
+            <section class="section">
+                <h2>Основні поняття</h2>
+                <div class="cards-grid">
+                    <div class="card definition-card">
+                        <h3>Програмне забезпечення</h3>
+                        <p>Сукупність всіх програм, що працюють на комп'ютері. Включає операційну систему, додатки, утиліти та драйвери. Без програмного забезпечення комп'ютер - це просто набір електронних компонентів.</p>
+                    </div>
+                    <div class="card definition-card">
+                        <h3>Операційна система</h3>
+                        <p>Головна програма комп'ютера, яка керує всіма його ресурсами, забезпечує взаємодію між користувачем і апаратним забезпеченням, та створює платформу для роботи інших програм.</p>
+                    </div>
+                    <div class="card definition-card">
+                        <h3>Прикладне ПЗ</h3>
+                        <p>Програми, призначені для вирішення конкретних завдань користувача: текстові редактори, браузери, ігри, графічні редактори, медіаплеєри тощо.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Класифікація програмного забезпечення</h2>
+                <div class="visual-demo">
+                    <h4>Ієрархія програмного забезпечення</h4>
+                    <div class="software-hierarchy">
+                        <div class="hierarchy-level">
+                            <div class="hierarchy-box">Програмне забезпечення</div>
+                        </div>
+                        <div class="hierarchy-arrow">↓</div>
+                        <div class="hierarchy-level">
+                            <div class="hierarchy-box system">Системне ПЗ</div>
+                            <div class="hierarchy-box application">Прикладне ПЗ</div>
+                            <div class="hierarchy-box utility">Інструментальне ПЗ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Системне ПЗ</h3>
+                        <p><strong>Призначення:</strong> керування роботою комп'ютера та його ресурсами</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li><strong>Операційні системи</strong> - Windows, macOS, Linux</li>
+                            <li><strong>Драйвери</strong> - програми для роботи з пристроями</li>
+                            <li><strong>Утиліти</strong> - антивіруси, архіватори, очищувачі диска</li>
+                            <li><strong>Прошивки</strong> - програми в пам'яті пристроїв</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Прикладне ПЗ</h3>
+                        <p><strong>Призначення:</strong> вирішення конкретних завдань користувача</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li><strong>Офісні програми</strong> - Word, Excel, PowerPoint</li>
+                            <li><strong>Браузери</strong> - Chrome, Firefox, Safari</li>
+                            <li><strong>Медіаплеєри</strong> - VLC, Spotify, YouTube</li>
+                            <li><strong>Ігри</strong> - комп'ютерні та мобільні ігри</li>
+                            <li><strong>Графічні редактори</strong> - Photoshop, GIMP</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Інструментальне ПЗ</h3>
+                        <p><strong>Призначення:</strong> створення, налагодження та супровід програм</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li><strong>Текстові редактори коду</strong> - Visual Studio Code</li>
+                            <li><strong>Компілятори</strong> - перетворюють код у виконувані файли</li>
+                            <li><strong>Відладчики</strong> - знаходять помилки в програмах</li>
+                            <li><strong>Системи контролю версій</strong> - Git</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Що таке операційна система?</h2>
+                <div class="visual-demo">
+                    <h4>Функції операційної системи</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #667eea;">
+                            <h5 style="color: #667eea; margin-bottom: 10px; font-size: 1.3em;">Керування ресурсами</h5>
+                            <ul style="font-size: 1.1em;">
+                                <li>Розподіл процесорного часу</li>
+                                <li>Управління пам'яттю</li>
+                                <li>Робота з файловою системою</li>
+                            </ul>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #667eea;">
+                            <h5 style="color: #667eea; margin-bottom: 10px; font-size: 1.3em;">Інтерфейс користувача</h5>
+                            <ul style="font-size: 1.1em;">
+                                <li>Графічний інтерфейс (GUI)</li>
+                                <li>Командна оболонка</li>
+                                <li>Меню та вікна</li>
+                            </ul>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #667eea;">
+                            <h5 style="color: #667eea; margin-bottom: 10px; font-size: 1.3em;">Забезпечення безпеки</h5>
+                            <ul style="font-size: 1.1em;">
+                                <li>Контроль доступу</li>
+                                <li>Захист файлів</li>
+                                <li>Управління правами користувачів</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Операційна система як посередник</h4>
+                    <p>ОС працює як "перекладач" між користувачем і комп'ютером. Коли ви клікаєте на файл, ОС знає, яку програму запустити. Коли програма потребує пам'ять, ОС її виділяє. Без ОС програми не змогли б працювати разом.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Історія розвитку операційних систем</h2>
+                <div class="visual-demo">
+                    <h4>Хронологія розвитку ОС</h4>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1940-50-ті</div>
+                            <div class="timeline-event">Перші комп'ютери без ОС. Програмування через перемикачі та картки.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1960-ті</div>
+                            <div class="timeline-event">Перші ОС для мейнфреймів. Пакетна обробка завдань.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1970-ті</div>
+                            <div class="timeline-event">UNIX - багатокористувацька ОС. Основа для багатьох сучасних систем.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1980-ті</div>
+                            <div class="timeline-event">MS-DOS для персональних комп'ютерів. Командний інтерфейс.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1990-ті</div>
+                            <div class="timeline-event">Windows 95 - перша популярна ОС з графічним інтерфейсом для ПК.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2000-ні</div>
+                            <div class="timeline-event">Mac OS X, Windows XP. Стабільні системи для домашнього використання.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2010-ні</div>
+                            <div class="timeline-event">Мобільні ОС: iOS, Android. Хмарні сервіси.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Різновиди операційних систем</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>За призначенням</h3>
+                        <div style="margin-top: 15px;">
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #667eea; font-size: 1.2em;">ПК (персональні комп'ютери):</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Windows - найпопулярніша для домашнього використання</li>
+                                    <li>macOS - для комп'ютерів Apple</li>
+                                    <li>Linux - для програмістів та серверів</li>
+                                </ul>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <strong style="color: #667eea; font-size: 1.2em;">Мобільні пристрої:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Android - найпоширеніша мобільна ОС</li>
+                                    <li>iOS - для iPhone та iPad</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #667eea; font-size: 1.2em;">Вбудовані системи:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Smart TV - в телевізорах Samsung, LG</li>
+                                    <li>Маршрутизатори та роутери</li>
+                                    <li>Автомобільні системи</li>
+                                    <li>Побутова техніка (холодильники, пральні машини)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>За інтерфейсом</h3>
+                        <div style="margin-top: 15px;">
+                            <div style="margin-bottom: 20px;">
+                                <strong style="color: #667eea; font-size: 1.2em;">Графічні (GUI - Graphical User Interface):</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Вікна, кнопки, меню, іконки</li>
+                                    <li>Керування мишею та дотиками</li>
+                                    <li>Зручно для повсякденного використання</li>
+                                    <li>Приклади: Windows, macOS, Android</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #667eea; font-size: 1.2em;">Командного рядка (CLI - Command Line Interface):</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Текстові команди</li>
+                                    <li>Швидше для досвідчених користувачів</li>
+                                    <li>Менше ресурсів комп'ютера</li>
+                                    <li>Приклади: MS-DOS, Linux Terminal</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>За кількістю користувачів</h3>
+                        <div style="margin-top: 15px;">
+                            <div style="margin-bottom: 20px;">
+                                <strong style="color: #667eea; font-size: 1.2em;">Однокористувацькі:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Тільки один користувач за раз</li>
+                                    <li>Простіша архітектура</li>
+                                    <li>Приклади: старі версії Windows, MS-DOS</li>
+                                    <li>Більшість мобільних ОС</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #667eea; font-size: 1.2em;">Багатокористувацькі:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Кілька користувачів одночасно</li>
+                                    <li>Розподіл ресурсів між користувачами</li>
+                                    <li>Система прав доступу</li>
+                                    <li>Приклади: Linux, Windows Server, macOS</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>За підтримкою задач</h3>
+                        <div style="margin-top: 15px;">
+                            <div style="margin-bottom: 20px;">
+                                <strong style="color: #667eea; font-size: 1.2em;">Однозадачні:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Виконує тільки одну програму за раз</li>
+                                    <li>Простіше управління ресурсами</li>
+                                    <li>Приклади: MS-DOS, ранні ОС</li>
+                                    <li>Деякі вбудовані системи</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #667eea; font-size: 1.2em;">Багатозадачні:</strong>
+                                <ul style="margin: 8px 0; padding-left: 25px;">
+                                    <li>Кілька програм працюють одночасно</li>
+                                    <li>Розподіл процесорного часу</li>
+                                    <li>Перемикання між завданнями</li>
+                                    <li>Приклади: всі сучасні ОС</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-demo">
+                    <h4>Класифікація сучасних ОС</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Операційна система</th>
+                            <th>Призначення</th>
+                            <th>Інтерфейс</th>
+                            <th>Користувачі</th>
+                            <th>Задачі</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Windows 11</strong></td>
+                            <td>ПК</td>
+                            <td>GUI</td>
+                            <td>Багато</td>
+                            <td>Багато</td>
+                        </tr>
+                        <tr>
+                            <td><strong>macOS</strong></td>
+                            <td>ПК</td>
+                            <td>GUI</td>
+                            <td>Багато</td>
+                            <td>Багато</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ubuntu Linux</strong></td>
+                            <td>ПК/Сервер</td>
+                            <td>GUI + CLI</td>
+                            <td>Багато</td>
+                            <td>Багато</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Android</strong></td>
+                            <td>Мобільні</td>
+                            <td>GUI (дотик)</td>
+                            <td>Один</td>
+                            <td>Багато</td>
+                        </tr>
+                        <tr>
+                            <td><strong>iOS</strong></td>
+                            <td>Мобільні</td>
+                            <td>GUI (дотик)</td>
+                            <td>Один</td>
+                            <td>Багато</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MS-DOS</strong></td>
+                            <td>ПК (застаріла)</td>
+                            <td>CLI</td>
+                            <td>Один</td>
+                            <td>Одна</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Еволюція операційних систем</h4>
+                    <p>Сучасні ОС поєднують найкращі можливості: графічний інтерфейс для зручності, багатозадачність для ефективності, багатокористувацький режим для безпеки. Навіть мобільні системи стали потужними багатозадачними платформами!</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Сучасні операційні системи</h2>
+                <div class="os-comparison">
+                    <div class="os-card">
+                        <div class="os-logo">Win</div>
+                        <h4>Microsoft Windows</h4>
+                        <div class="version">Windows 11 (2021)</div>
+                        <div class="features">
+                            <strong>Переваги:</strong>
+                            <ul>
+                                <li>Найбільша кількість програм</li>
+                                <li>Підтримка ігор</li>
+                                <li>Зручний для новачків</li>
+                            </ul>
+                            <strong>Недоліки:</strong>
+                            <ul>
+                                <li>Вразливість до вірусів</li>
+                                <li>Потребує потужне "залізо"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="os-card">
+                        <div class="os-logo">Mac</div>
+                        <h4>Apple macOS</h4>
+                        <div class="version">macOS Sequoia (2024)</div>
+                        <div class="features">
+                            <strong>Переваги:</strong>
+                            <ul>
+                                <li>Висока безпека</li>
+                                <li>Стабільна робота</li>
+                                <li>Інтеграція з iPhone/iPad</li>
+                            </ul>
+                            <strong>Недоліки:</strong>
+                            <ul>
+                                <li>Дорогі комп'ютери</li>
+                                <li>Менше ігор</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="os-card">
+                        <div class="os-logo">Tux</div>
+                        <h4>Linux</h4>
+                        <div class="version">Ubuntu, Debian, Fedora</div>
+                        <div class="features">
+                            <strong>Переваги:</strong>
+                            <ul>
+                                <li>Безкоштовна</li>
+                                <li>Висока безпека</li>
+                                <li>Налаштування під потреби</li>
+                            </ul>
+                            <strong>Недоліки:</strong>
+                            <ul>
+                                <li>Складна для новачків</li>
+                                <li>Менше комерційних програм</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="os-card">
+                        <div class="os-logo">Mob</div>
+                        <h4>Мобільні ОС</h4>
+                        <div class="version">iOS 18, Android 15</div>
+                        <div class="features">
+                            <strong>Особливості:</strong>
+                            <ul>
+                                <li>Сенсорний інтерфейс</li>
+                                <li>Магазини додатків</li>
+                                <li>Оптимізація для батареї</li>
+                                <li>Постійне підключення до інтернету</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Порівняння операційних систем</h2>
+                <div class="visual-demo">
+                    <h4>Детальне порівняння основних ОС</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Характеристика</th>
+                            <th>Windows</th>
+                            <th>macOS</th>
+                            <th>Linux</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Вартість</strong></td>
+                            <td>Платна (~$100-200)</td>
+                            <td>Безкоштовна з Mac</td>
+                            <td>Безкоштовна</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Складність</strong></td>
+                            <td>Легка для новачків</td>
+                            <td>Середня</td>
+                            <td>Складна</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Безпека</strong></td>
+                            <td>Середня</td>
+                            <td>Висока</td>
+                            <td>Дуже висока</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ігри</strong></td>
+                            <td>Найбільше</td>
+                            <td>Мало</td>
+                            <td>Середньо</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Програми</strong></td>
+                            <td>Найбільше</td>
+                            <td>Середньо</td>
+                            <td>Багато безкоштовних</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Апаратна сумісність</strong></td>
+                            <td>Відмінна</td>
+                            <td>Тільки Mac</td>
+                            <td>Дуже хороша</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Файлові системи</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Що таке файлова система?</h3>
+                        <p>Спосіб організації та зберігання файлів на носії інформації. Визначає, як дані записуються, читаються та організовуються в папки.</p>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li><strong>NTFS</strong> - файлова система Windows</li>
+                            <li><strong>APFS</strong> - сучасна файлова система macOS</li>
+                            <li><strong>ext4</strong> - популярна в Linux</li>
+                            <li><strong>FAT32</strong> - для флешок та сумісності</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Особливості файлових систем</h3>
+                        <ul style="padding-left: 20px; font-size: 1.1em;">
+                            <li><strong>Максимальний розмір файлу</strong>
+                                <ul style="margin: 10px 0; padding-left: 20px;">
+                                    <li>FAT32 - до 4 ГБ</li>
+                                    <li>NTFS - до 16 ТБ</li>
+                                    <li>APFS - практично необмежено</li>
+                                </ul>
+                            </li>
+                            <li><strong>Журналювання</strong> - відновлення після збоїв</li>
+                            <li><strong>Права доступу</strong> - хто може читати/писати</li>
+                            <li><strong>Шифрування</strong> - захист даних</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="highlight-box">
+                <h4>Важливо знати</h4>
+                <p>Вибір операційної системи залежить від ваших потреб: Windows - для ігор та широкого вибору програм, macOS - для творчої роботи та безпеки, Linux - для програмування та серверів. Кожна система має свої переваги!</p>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Додаткові ресурси для вивчення</h3>
+                <p style="margin-bottom: 25px; font-size: 1.1em;">Корисні платформи для поглиблення знань:</p>
+                
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <h4>VirtualBox</h4>
+                        <p>Безкоштовна програма для тестування різних ОС без встановлення</p>
+                    </div>
+                    
+                    <div class="platform-card">
+                        <h4>DistroWatch</h4>
+                        <p>Інформація про всі дистрибутиви Linux та їх популярність</p>
+                    </div>
+                    
+                    <div class="platform-card">
+                        <h4>OS Timeline</h4>
+                        <p>Інтерактивна хронологія розвитку операційних систем</p>
+                    </div>
+                    
+                    <div class="platform-card">
+                        <h4>Ubuntu Desktop</h4>
+                        <p>Спробуйте Linux безкоштовно - найпопулярніший дистрибутив для початківців</p>
+                    </div>
+                    
+                    <div class="platform-card">
+                        <h4>Windows Insider</h4>
+                        <p>Тестування нових функцій Windows до офіційного випуску</p>
+                    </div>
+                    
+                    <div class="platform-card">
+                        <h4>File System Comparison</h4>
+                        <p>Детальне порівняння різних файлових систем та їх можливостей</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>© 2025 - Освітні матеріали для 9 класу. Інформаційні технології</p>
+        </footer>
+    </div>
+</body>
+</html>

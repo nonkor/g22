@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентація: Робота з текстом</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Prevent scrolling the whole page */
+        }
+        .slide {
+            display: none; /* Hide all slides by default */
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .active-slide {
+            display: flex; /* Show active slide */
+            opacity: 1;
+        }
+        /* Custom styles for better presentation look */
+        .slide-content {
+            max-width: 900px;
+        }
+        .example-box {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .example-box .correct {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .example-box .incorrect {
+            color: #dc3545;
+            text-decoration: line-through;
+        }
+        .nav-button {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .placeholder-img {
+            border: 2px dashed #9ca3af;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen m-0 p-0">
+
+    <!-- Slide Container -->
+    <div id="presentation-container" class="w-full h-full relative">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active-slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white">
+            <div class="slide-content">
+                <h1 class="text-5xl md:text-6xl font-bold mb-4">Робота з текстом</h1>
+                <p class="text-2xl md:text-3xl">Програмне забезпечення для опрацювання текстів. Правила введення і редагування.</p>
+                <p class="mt-8 text-lg">Інформатика, 6 клас</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: What's wrong? -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Що не так із цим текстом?</h2>
+                <p class="text-xl mb-6">Давайте порівняємо два документи:</p>
+                <div class="grid md:grid-cols-2 gap-8 text-lg">
+                    <div class="bg-red-100 p-6 rounded-lg border-2 border-red-300">
+                        <h3 class="font-bold mb-2 text-red-700">ДОКУМЕНТ 1 (Неправильно)</h3>
+                        <p class="font-mono">привіт,як справи . я роблю домашнє завдання     з інформатики.</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg border-2 border-green-300">
+                        <h3 class="font-bold mb-2 text-green-700">ДОКУМЕНТ 2 (Правильно)</h3>
+                        <p class="font-mono">Привіт, як справи? Я роблю домашнє завдання з інформатики.</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-xl">Сьогодні ми навчимося перетворювати "Документ 1" на "Документ 2"!</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Software -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Програми для роботи з текстом</h2>
+                <div class="grid md:grid-cols-2 gap-8 text-xl">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-2xl mb-4 text-indigo-600">Офлайн-програми</h3>
+                        <p>(встановлені на комп'ютер)</p>
+                        <ul class="list-disc list-inside mt-4 space-y-2">
+                            <li>Microsoft Word</li>
+                            <li>LibreOffice Writer</li>
+                            <li>WordPad</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-2xl mb-4 text-indigo-600">Онлайн-сервіси</h3>
+                        <p>(працюють в Інтернеті)</p>
+                         <ul class="list-disc list-inside mt-4 space-y-2">
+                            <li>Google Docs</li>
+                            <li>Microsoft Word Online</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 4: Placeholder -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Можливості текстового процесора</h2>
+                <div class="w-full h-96 placeholder-img rounded-lg">
+                    <span><img src="можливості_текстового_процесора.png" alt="Можливості текстового процесора"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 5: Placeholder -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Редагування тексту</h2>
+                <div class="w-full h-96 placeholder-img rounded-lg">
+                    <span><img src="редагування_тексту.png" alt="Можливості текстового процесора"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 6: Placeholder -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Властивості сторінки</h2>
+                <div class="w-full h-96 placeholder-img rounded-lg">
+                    <span><img src="властивості_сторінки.png" alt="Можливості текстового процесора"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Objects Intro -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-800 text-white">
+            <div class="slide-content">
+                <h2 class="text-5xl font-bold mb-4">З чого складається текстовий документ?</h2>
+                <p class="text-2xl">Об'єкти текстових документів</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Object - Symbol -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Символ</h3>
+                <p class="text-2xl mb-8">Найменша одиниця тексту: літера, цифра, знак пунктуації, спеціальний знак.</p>
+                <div class="font-mono text-6xl p-8 bg-gray-200 rounded-lg inline-block shadow-inner">
+                    A ? 7 ! %
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Object - Word -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Слово</h3>
+                <p class="text-2xl mb-8">Група символів, відокремлена пробілами або розділовими знаками.</p>
+                <div class="font-mono text-5xl p-8 bg-gray-200 rounded-lg inline-block shadow-inner">
+                    Інформатика
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Object - Sentence -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Речення</h3>
+                <p class="text-2xl mb-8">Завершена думка, що починається з великої літери і закінчується крапкою, `?` або `!`.</p>
+                <div class="text-3xl p-8 bg-gray-200 rounded-lg shadow-inner">
+                    Ми вивчаємо текстові документи.
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Object - Paragraph -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Абзац</h3>
+                <p class="text-2xl mb-8">Частина тексту, що містить одну мікротему. Створення нового абзацу — клавіша **Enter**.</p>
+                <div class="text-lg text-left p-6 bg-gray-200 rounded-lg shadow-inner border-l-4 border-indigo-500">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Це є приклад одного абзацу. Він може містити одне або кілька речень, об'єднаних спільною думкою. Кожен новий абзац зазвичай має відступ першого рядка.
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 12: Object - Page -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Сторінка</h3>
+                <p class="text-2xl mb-8">Складова документа, що вміщується під час друку на одному аркуші паперу.</p>
+                <div class="w-64 h-80 bg-white rounded-lg shadow-xl p-6 border flex flex-col">
+                    <div class="h-4 bg-gray-200 rounded w-full mb-3"></div>
+                    <div class="h-4 bg-gray-200 rounded w-5/6 mb-3"></div>
+                    <div class="h-4 bg-gray-200 rounded w-full mb-3"></div>
+                    <div class="flex-grow"></div>
+                    <div class="text-center text-gray-400">- 1 -</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Object - Graphics -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Графічні об'єкти</h3>
+                <p class="text-2xl mb-8">Зображення, фігури, схеми, які можна додавати до документа.</p>
+                <div class="w-full h-64 placeholder-img rounded-lg">
+                    <span><img src="picture.png" alt="Графічні об'єкти"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Object - Table (Kept for clarity) -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h3 class="text-4xl font-bold text-indigo-600 mb-6">Таблиці</h3>
+                <p class="text-2xl mb-8">Об'єкти для впорядкування даних у рядках і стовпцях.</p>
+                 <div class="w-full h-64 placeholder-img rounded-lg">
+                    <span><img src="table.webp" alt="Графічні об'єкти"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Rule 1 - Space -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №1</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Між словами — лише ОДИН пробіл</h3>
+                <p class="text-xl mb-6">Зайві пробіли роблять текст "дірявим" та неохайним.</p>
+                <div class="example-box text-lg">
+                    <p class="incorrect">Я     люблю     інформатику.</p>
+                    <p class="correct mt-2">Я люблю інформатику.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Rule 2 - Punctuation -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №2</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Розділові знаки: ставимо РАЗОМ зі словом</h3>
+                <p class="text-xl mb-6">Знаки `.` `,` `!` `?` `:` `;` ставляться відразу після слова, а **після** них — пробіл.</p>
+                <div class="example-box text-lg">
+                    <p class="incorrect">Привіт , як твої справи ?</p>
+                    <p class="correct mt-2">Привіт, як твої справи?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: Rule 3 - Brackets & Quotes -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №3</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Дужки та лапки: обіймають слова</h3>
+                <p class="text-xl mb-6">Пробіли ставляться *ззовні* дужок `()` та лапок `«»`.</p>
+                <div class="example-box text-lg">
+                    <p class="incorrect">Книга « Робінзон Крузо » ( автор Даніель Дефо )</p>
+                    <p class="correct mt-2">Книга «Робінзон Крузо» (автор Даніель Дефо)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: Rule 4 - Dash & Hyphen -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №4</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Тире (—) та дефіс (-): це різні знаки!</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-left text-lg">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <p><strong class="text-blue-600">Дефіс (-):</strong> короткий, з'єднує частини слова, пишеться **БЕЗ** пробілів.</p>
+                        <p class="font-mono mt-2">будь-ласка, по-перше</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                         <p><strong class="text-blue-600">Тире (—):</strong> довге, між словами в реченні, виділяється пробілами **З ОБОХ БОКІВ**.</p>
+                         <p class="font-mono mt-2">Інформатика — це цікаво.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: Rule 5 - Enter -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №5</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Новий абзац: клавіша Enter</h3>
+                <p class="text-xl mb-6">Щоб почати новий абзац (новий рядок з відступом), натисніть клавішу **Enter**.</p>
+                <!--  -->
+            </div>
+        </div>
+
+        <!-- SLIDE 20: Rule 6 - Shift+Enter -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gray-50">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-2">Золоті правила редагування</h2>
+                <p class="text-2xl text-gray-600 mb-8">Правило №6</p>
+                <h3 class="text-3xl font-bold text-blue-700 mb-4">Новий рядок (без абзацу): Shift + Enter</h3>
+                <p class="text-xl mb-6">Потрібно для переходу на новий рядок без створення абзацу (наприклад, у віршах).</p>
+                <div class="example-box text-lg">
+                    <p class="correct">Садок вишневий коло хати,<br>Хрущі над вишнями гудуть.</p>
+                    <p class="text-sm mt-2 text-gray-600">(Тут використано Shift+Enter)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21: What not to do -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-red-500 text-white">
+            <div class="slide-content">
+                <h2 class="text-5xl font-bold mb-8">Чого РОБИТИ НЕ МОЖНА!</h2>
+                <ul class="text-2xl space-y-6 text-left list-none bg-white/20 p-8 rounded-lg">
+                    <li class="flex items-start">
+                        <span class="text-4xl mr-4">❌</span>
+                        <div><strong>Робити відступ</strong> на початку абзацу за допомогою <strong class="font-mono">"пробіл-пробіл-пробіл"</strong>.</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-4xl mr-4">❌</span>
+                        <div><strong>Робити відстань</strong> між абзацами, натискаючи <strong class="font-mono">Enter</strong> кілька разів.</div>
+                    </li>
+                </ul>
+                <p class="mt-8 text-xl">Для цього існують спеціальні інструменти форматування!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 22: Practice Time -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                 <h2 class="text-5xl font-bold mb-8">Час для практики!</h2>
+                 <p class="text-2xl mb-8">Тепер, коли ми знаємо всі секрети, давайте перетворимо хаотичний текст на ідеальний документ!</p>
+                 <!--  -->
+            </div>
+        </div>
+
+        <!-- SLIDE 23: Practical Task -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Практичне завдання: "Майстри форматування"</h2>
+                <ol class="text-xl text-left list-decimal list-inside space-y-4 bg-white p-8 rounded-lg shadow-lg">
+                    <li>Відкрийте документ із невідформатованим текстом.</li>
+                    <li>Використовуючи вивчені правила, приведіть його до ладу.</li>
+                    <li>Не забудьте додати тематичне зображення!</li>
+                </ol>
+                <p class="mt-8 text-2xl font-semibold text-indigo-600">Ваша мета — зробити так, щоб текст було легко і приємно читати.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 24: Summary -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+            <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Підсумок уроку</h2>
+                <p class="text-2xl mb-8">Сьогодні ми навчилися:</p>
+                <ul class="text-xl space-y-4 bg-blue-100 p-8 rounded-lg shadow-inner text-left list-disc list-inside">
+                    <li>Розрізняти програми для роботи з текстом.</li>
+                    <li>Застосовувати "золоті правила" введення та редагування.</li>
+                    <li>Робити документи охайними та професійними.</li>
+                </ul>
+                <p class="mt-8 text-xl">Ці навички знадобляться вам для написання рефератів, доповідей та будь-яких інших текстових робіт!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 25: Homework -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center">
+             <div class="slide-content">
+                <h2 class="text-4xl font-bold mb-8">Домашнє завдання</h2>
+                <div class="bg-white p-8 rounded-lg shadow-lg text-left text-xl space-y-4">
+                    <p><strong class="text-indigo-600">1. Повторити</strong> "Золоті правила введення тексту".</p>
+                    <p><strong class="text-indigo-600">2. Відформатувати</strong> свій улюблений короткий вірш у текстовому документі:
+                        <ul class="list-circle list-inside ml-6 mt-2 text-lg">
+                            <li>Вирівняти по центру.</li>
+                            <li>Встановити гарний шрифт.</li>
+                            <li>Виділити ім'я автора курсивом.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 26: Thank You -->
+        <div class="slide w-full h-full flex-col justify-center items-center p-8 text-center bg-gradient-to-br from-green-400 to-teal-500 text-white">
+            <div class="slide-content">
+                <h2 class="text-6xl font-bold mb-8">Дякую за увагу!</h2>
+                <p class="text-4xl">Запитання?</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-0 left-0 w-full p-4 bg-black bg-opacity-50 flex justify-center items-center">
+        <button id="prevBtn" class="nav-button bg-white text-gray-800 font-bold py-2 px-6 rounded-l-lg shadow-lg">
+            ← Назад
+        </button>
+        <div id="slideCounter" class="text-white font-semibold px-6 py-2 bg-gray-800">
+            1 / 26
+        </div>
+        <button id="nextBtn" class="nav-button bg-white text-gray-800 font-bold py-2 px-6 rounded-r-lg shadow-lg">
+            Вперед →
+        </button>
+    </div>
+
+    <script>
+        // Get all necessary elements from the DOM
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Function to show a specific slide
+        function showSlide(slideIndex) {
+            // Hide the currently active slide
+            slides[currentSlide].classList.remove('active-slide');
+
+            // Update currentSlide index, ensuring it's within bounds
+            currentSlide = slideIndex;
+            if (currentSlide >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            }
+            if (currentSlide < 0) {
+                currentSlide = 0;
+            }
+
+            // Show the new slide
+            slides[currentSlide].classList.add('active-slide');
+
+            // Update UI elements
+            updateUI();
+        }
+
+        // Function to update the slide counter and button states
+        function updateUI() {
+            // Update counter text
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+            // Disable/Enable previous button
+            prevBtn.disabled = currentSlide === 0;
+
+            // Disable/Enable next button
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        // Event listeners for navigation buttons
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+
+        // Event listener for keyboard navigation (arrow keys)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                if(currentSlide < totalSlides - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            } else if (event.key === 'ArrowLeft') {
+                if(currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            }
+        });
+
+        // Initial setup on page load
+        updateUI();
+
+    </script>
+</body>
+</html>

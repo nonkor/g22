@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Населення Європи: Інфографіка</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Palette: Energetic & Playful -->
+    <!-- Confirmation: NEITHER Mermaid JS NOR SVG were used in this file. All diagrams are built with HTML/CSS and all charts use the Canvas-based Chart.js library. -->
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F0F4F8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #F28F3B;
+        }
+        .blue-banana {
+            background: linear-gradient(145deg, #0487D9, #00A6A6);
+            border-radius: 50% / 100%;
+            transform: rotate(-35deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .map-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        #mapModal {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .accordion-button span {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-button.open span {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="text-[#1B2152]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#E03616] mb-2">Населення Європи</h1>
+            <p class="text-lg md:text-xl text-[#1B2152]">Візуальний огляд ключових демографічних та урбаністичних процесів, що формують сучасну Європу.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="md:col-span-1 lg:col-span-1 bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+                <h2 class="text-2xl font-semibold mb-2 text-[#0487D9]">Загальна кількість населення</h2>
+                <p class="text-6xl font-bold text-[#1B2152]">~750 млн</p>
+                <p class="text-sm mt-2">(Включаючи європейську частину Росії)</p>
+                <p class="mt-4 text-base">Європа — єдиний регіон світу, де спостерігається тенденція до природного скорочення населення, що створює унікальні демографічні виклики.</p>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-4 text-[#0487D9]">Демографічний виклик: Старіння та депопуляція</h2>
+                <p class="text-center mb-4">Європа переживає "демографічну зиму" — процес, де смертність перевищує народжуваність. Це призводить до зменшення кількості населення (депопуляції) та збільшення частки літніх людей.</p>
+                <div class="chart-container">
+                    <canvas id="populationTrendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-4 text-[#0487D9]">Вікова структура: Два обличчя Європи</h2>
+                <p class="text-center mb-6 max-w-4xl mx-auto">Вікові піраміди наочно демонструють демографічні відмінності. "Старіючі нації", як Німеччина, мають вузьку основу (низька народжуваність) і широку верхівку. "Молоді" країни, як Ірландія, мають більш збалансовану структуру.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-center font-bold text-lg mb-2">Німеччина (регресивний тип)</h3>
+                        <div class="chart-container h-96">
+                            <canvas id="pyramidGermany"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-center font-bold text-lg mb-2">Ірландія (стаціонарний тип)</h3>
+                        <div class="chart-container h-96">
+                            <canvas id="pyramidIreland"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-4 text-[#0487D9]">Інтерактивна модель Демографічного Переходу</h2>
+                <p class="text-center mb-6 max-w-4xl mx-auto">Це модель, що описує історичний перехід від високих до низьких показників народжуваності та смертності. Оберіть фазу, щоб побачити, як змінюється динаміка населення.</p>
+
+                <div id="transition-container" class="w-full">
+                    <div id="phase-display-area" class="p-6 rounded-t-lg bg-gray-50 border-2 border-gray-200 flex flex-col md:flex-row items-center gap-6">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                    <div id="phase-nav" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-1 bg-gray-200 p-1 rounded-b-lg">
+                        <!-- Dynamic buttons will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                 <h2 class="text-2xl font-semibold text-center mb-6 text-[#0487D9]">Механічний рух: Міграція як балансуючий фактор</h2>
+                 <p class="text-center mb-6 max-w-3xl mx-auto">Міграція відіграє ключову роль у демографічній ситуації Європи, компенсуючи природне скорочення населення та забезпечуючи притік робочої сили. Основні потоки спрямовані з менш розвинених регіонів до економічних центрів Західної Європи.</p>
+                <div class="flex flex-col md:flex-row items-center justify-around w-full">
+                    <div class="text-center p-4 rounded-lg bg-blue-50 border border-blue-200">
+                        <h3 class="font-bold text-lg">Країни-донори</h3>
+                        <p>Східна Європа</p>
+                        <p>Північна Африка</p>
+                        <p>Близький Схід</p>
+                    </div>
+                    <div class="flow-arrow my-4 md:my-0 md:mx-8">→</div>
+                    <div class="text-center p-4 rounded-lg bg-green-50 border border-green-200">
+                        <h3 class="font-bold text-lg">Країни-реципієнти</h3>
+                        <p>Німеччина</p>
+                        <p>Франція</p>
+                        <p>Велика Британія</p>
+                         <p>Іспанія</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-6 text-[#0487D9]">Культурні та Демографічні Карти Європи</h2>
+                <p class="text-center mb-6 max-w-3xl mx-auto">Карти допомагають візуалізувати складні демографічні та культурні патерни. Натисніть на карту, щоб переглянути її у повному розмірі.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="map-card" data-src="Europe_religion_map_situation_1950_en.png">
+                        <img src="Europe_religion_map_situation_1950_en.png" alt="Релігійна карта Європи" class="rounded-lg object-cover h-64 w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F0F4F8/1B2152?text=Religious+Map';">
+                        <p class="text-center font-bold mt-2">Релігійна карта</p>
+                    </div>
+                    <div class="map-card" data-src="Languages_of_Europe_map.jpg">
+                        <img src="Languages_of_Europe_map.jpg" alt="Мовна карта Європи" class="rounded-lg object-cover h-64 w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F0F4F8/1B2152?text=Linguistic+Map';">
+                        <p class="text-center font-bold mt-2">Мовна карта</p>
+                    </div>
+                    <div class="map-card" data-src="Population_density_by_NUTS_3_region_(2017).svg">
+                        <img src="Population_density_by_NUTS_3_region_(2017).svg" alt="Карта щільності населення Європи" class="rounded-lg object-cover h-64 w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F0F4F8/1B2152?text=Density+Map';">
+                        <p class="text-center font-bold mt-2">Щільність населення</p>
+                    </div>
+                    <div class="map-card" data-src="europe-population-change-1.png">
+                        <img src="europe-population-change-1.png" alt="Карта приросту населення Європи" class="rounded-lg object-cover h-64 w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F0F4F8/1B2152?text=Growth+Map';">
+                        <p class="text-center font-bold mt-2">Приріст населення</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-1 lg:col-span-1 bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+                 <h2 class="text-2xl font-semibold mb-2 text-[#0487D9]">Рівень урбанізації</h2>
+                <p class="text-6xl font-bold text-[#1B2152]">~75%</p>
+                <p class="text-sm mt-2">населення проживає в містах</p>
+                <p class="mt-4 text-base">Європа — один із найбільш урбанізованих регіонів світу, де міський спосіб життя є домінуючим, що породжує нові форми розселення.</p>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-2 text-[#0487D9]">Центри тяжіння: Світові міста та мегаполіси</h2>
+                <p class="text-center mb-6 max-w-3xl mx-auto">Міська система Європи характеризується наявністю потужних агломерацій та світових міст, що є глобальними центрами фінансів, політики та культури. Найбільше їх скупчення утворює мегаполіс "Блакитний банан".</p>
+                <div class="flex flex-col md:flex-row justify-around items-center gap-8">
+                     <div class="text-center w-full md:w-1/3">
+                        <h3 class="font-bold text-xl mb-3">Світові міста</h3>
+                        <ul class="list-disc list-inside text-left mx-auto max-w-xs">
+                            <li>Лондон</li>
+                            <li>Париж</li>
+                            <li>Брюссель</li>
+                            <li>Цюрих</li>
+                            <li>Франкфурт-на-Майні</li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-2/3 h-80 relative flex items-center justify-center">
+                        <div class="blue-banana w-full h-full p-4 relative">
+                            <div class="transform -rotate-[-35deg] text-white text-center">
+                                <h3 class="font-bold text-xl mb-3">Мегаполіс "Блакитний Банан"</h3>
+                                <p class="text-sm font-light">Лондон • Рандстад • Брюссель • Рейн-Рур • Франкфурт • Цюрих • Мілан</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center mb-6 text-[#0487D9]">Глосарій ключових термінів</h2>
+                <div class="space-y-4">
+                    <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Природний приріст
+                            <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Різниця між кількістю народжених і кількістю померлих за певний період. Якщо смертність перевищує народжуваність, приріст є від'ємним, що називається депопуляцією.
+                        </div>
+                    </div>
+                     <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Демографічний перехід
+                            <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Історичний процес переходу від високих показників народжуваності та смертності до низьких показників у міру соціально-економічного розвитку суспільства. Пояснює, чому відбувається демографічний вибух, а потім стабілізація та депопуляція.
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Міграція
+                             <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Механічне переміщення людей через кордони тих чи інших територій зі зміною місця проживання назавжди або на тривалий час. Є ключовим фактором зміни чисельності населення в Європі.
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Урбанізація
+                             <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Процес зростання міст і міського населення та підвищення їхньої ролі в житті суспільства. Європа є одним із найбільш урбанізованих регіонів світу.
+                        </div>
+                    </div>
+                     <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Субурбанізація
+                             <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Процес відтоку населення (переважно заможного) із центрів великих міст у їхні передмістя. Це призводить до розростання міських агломерацій.
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-button flex justify-between items-center w-full text-left font-semibold text-lg p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
+                            Джентрифікація
+                             <span class="text-2xl text-[#0487D9] font-light">+</span>
+                        </button>
+                        <div class="accordion-content hidden p-4 bg-white border border-t-0 rounded-b-lg">
+                           Реконструкція та оновлення занедбаних районів (часто робітничих кварталів) у центрі міста, що супроводжується зростанням цін і залученням більш заможних мешканців.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="mapModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <span id="closeModal" class="absolute top-4 right-6 text-white text-5xl font-bold cursor-pointer">&times;</span>
+        <img id="modalImage" src="" alt="Full-size map" class="max-w-full max-h-full rounded-lg">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tooltipTitleCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                } else {
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const populationTrendCtx = document.getElementById('populationTrendChart').getContext('2d');
+            new Chart(populationTrendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1995', '2000', '2005', '2010', '2015', '2020', '2025 (прогноз)'],
+                    datasets: [{
+                        label: 'Населення (млн)',
+                        data: [727, 729, 732, 738, 742, 746, 749],
+                        borderColor: '#00A6A6',
+                        backgroundColor: 'rgba(0, 166, 166, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Населення (млн осіб)' }
+                        }
+                    },
+                    ...tooltipTitleCallback
+                }
+            });
+
+            const pyramidLabels = ['80+', '70-79', '60-69', '50-59', '40-49', '30-39', '20-29', '10-19', '0-9'];
+            const germanyData = {
+                male: [-2.8, -4.5, -6.0, -7.1, -6.5, -6.8, -5.0, -4.1, -3.8],
+                female: [3.8, 5.5, 6.8, 7.5, 6.9, 7.1, 5.2, 4.3, 4.0]
+            };
+            const irelandData = {
+                male: [-0.9, -1.8, -2.9, -3.8, -4.5, -5.1, -4.8, -4.2, -3.9],
+                female: [1.1, 2.0, 3.1, 4.0, 4.7, 5.3, 5.0, 4.4, 4.1]
+            };
+
+            function createPyramidChart(ctx, labels, maleData, femaleData) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            { label: 'Чоловіки', data: maleData, backgroundColor: '#0487D9', stack: 'stack1' },
+                            { label: 'Жінки', data: femaleData, backgroundColor: '#F28F3B', stack: 'stack1' }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    callback: function(value) { return Math.abs(value) + '%'; }
+                                },
+                                title: { display: true, text: 'Частка від населення (%)' }
+                            },
+                            y: { stacked: true }
+                        },
+                         ...tooltipTitleCallback
+                    }
+                });
+            }
+
+            createPyramidChart(document.getElementById('pyramidGermany').getContext('2d'), pyramidLabels, germanyData.male, germanyData.female);
+            createPyramidChart(document.getElementById('pyramidIreland').getContext('2d'), pyramidLabels, irelandData.male, irelandData.female);
+
+            const mapCards = document.querySelectorAll('.map-card');
+            const modal = document.getElementById('mapModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+
+            mapCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    modalImage.src = card.dataset.src;
+                    modal.classList.remove('hidden');
+                });
+            });
+
+            const hideModal = () => modal.classList.add('hidden');
+            closeModal.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) hideModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    hideModal();
+                }
+            });
+
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    button.classList.toggle('open');
+                    content.classList.toggle('hidden');
+                });
+            });
+
+            // Interactive Demographic Transition
+            const phasesData = [
+                { id: 1, title: 'Фаза 1: Традиційна', icon: '⚖️', birth: 40, death: 40, growthText: 'Приріст: 0', growthColor: 'text-yellow-600' },
+                { id: 2, title: 'Фаза 2: Демо-вибух', icon: '📈', birth: 40, death: 20, growthText: 'Приріст: Дуже високий', growthColor: 'text-red-600' },
+                { id: 3, title: 'Фаза 3: Сповільнення', icon: '📉', birth: 25, death: 15, growthText: 'Приріст: Сповільнюється', growthColor: 'text-blue-600' },
+                { id: 4, title: 'Фаза 4: Стабілізація', icon: '🔄', birth: 12, death: 12, growthText: 'Приріст: 0 або низький', growthColor: 'text-green-600' },
+                { id: 5, title: 'Фаза 5: Депопуляція', icon: '👵', birth: 9, death: 11, growthText: 'Приріст: Від\'ємний', growthColor: 'text-purple-600' }
+            ];
+
+            const displayArea = document.getElementById('phase-display-area');
+            const navArea = document.getElementById('phase-nav');
+            let transitionChart = null;
+
+            function updatePhaseDisplay(phaseId) {
+                const phase = phasesData.find(p => p.id === phaseId);
+
+                displayArea.classList.add('fading-out');
+
+                setTimeout(() => {
+                    displayArea.innerHTML = `
+                        <div class="w-full md:w-1/2">
+                            <div class="text-5xl mb-4">${phase.icon}</div>
+                            <h3 class="text-2xl font-bold mb-2">${phase.title}</h3>
+                            <div class="text-left space-y-2">
+                                <p><span class="font-bold text-green-600">Народжуваність:</span> ${phase.id <= 2 ? 'Висока' : (phase.id === 3 ? 'Стрімко падає' : 'Низька')}</p>
+                                <p><span class="font-bold text-red-600">Смертність:</span> ${phase.id === 1 ? 'Висока' : (phase.id === 2 ? 'Стрімко падає' : 'Низька')}</p>
+                            </div>
+                             <p class="text-xl font-bold mt-4 ${phase.growthColor}">${phase.growthText}</p>
+                        </div>
+                        <div class="w-full md:w-1/2 h-48">
+                             <canvas id="transitionPhaseChart"></canvas>
+                        </div>
+                    `;
+
+                    if (transitionChart) {
+                        transitionChart.destroy();
+                    }
+
+                    const ctx = document.getElementById('transitionPhaseChart').getContext('2d');
+                    transitionChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Початок', 'Кінець'],
+                            datasets: [
+                                { label: 'Народжуваність', data: [phasesData[0].birth, phase.birth], borderColor: 'rgb(22, 163, 74)', tension: 0.1, fill: false },
+                                { label: 'Смертність', data: [phasesData[0].death, phase.death], borderColor: 'rgb(220, 38, 38)', tension: 0.1, fill: false }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: { y: { beginAtZero: true, max: 45 } },
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+
+                    displayArea.classList.remove('fading-out');
+                }, 300);
+
+                document.querySelectorAll('.phase-selector').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (parseInt(btn.dataset.phase) === phaseId) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            phasesData.forEach(phase => {
+                const button = document.createElement('button');
+                button.className = 'phase-selector text-center font-semibold p-3 bg-white rounded-md hover:bg-gray-100';
+                button.dataset.phase = phase.id;
+                button.innerHTML = `Фаза ${phase.id}`;
+                button.onclick = () => updatePhaseDisplay(phase.id);
+                navArea.appendChild(button);
+            });
+
+            updatePhaseDisplay(1);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія Європи: Політична карта та інтеграція</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .lesson-card {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        h1 {
+            color: #111827;
+        }
+        h2 {
+            color: #1f2937;
+            background-color: #eef2ff;
+            padding: 0.75rem 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        h3 {
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .org-card h3 {
+             margin-top: 2rem; /* Increased margin for subtitles in org cards */
+        }
+        .info-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+        .info-card-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #dbeafe;
+            border-radius: 50%;
+            color: #1e40af;
+        }
+        .region-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .region-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+        .map-container {
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .map-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+        .org-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .org-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .org-header img {
+            height: 50px;
+        }
+        .org-header h2 {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border: none;
+        }
+        .org-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .org-content {
+                grid-template-columns: 2fr 3fr;
+            }
+        }
+        /* Modal styles for image zoom */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            max-height: 85vh;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+        @keyframes zoom {
+            from {transform:scale(0)}
+            to {transform:scale(1)}
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .zoomable-image {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .zoomable-image:hover {opacity: 0.7;}
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">Географія Європи</h1>
+            <p class="text-lg text-gray-600">Політична карта та інтеграційні процеси</p>
+        </header>
+
+        <!-- Урок 1 -->
+        <div class="lesson-card">
+            <h1 class="text-3xl font-bold text-center mb-6">УРОК 1: Економіко-географічне положення та політична карта Європи</h1>
+
+            <!-- Розділ 1.1 -->
+            <h2>Економіко-географічне положення (ЕГП) Європи</h2>
+            <p class="text-center text-lg text-gray-600 mb-6">Географічне положення Європи є надзвичайно вигідним, що історично сприяло її розвитку як центру світової цивілізації та економіки.</p>
+            <div class="map-container">
+                <img src="europe-map.jpg" alt="Фізична карта Європи" class="zoomable-image">
+            </div>
+            
+            <h3 class="text-xl font-bold text-center">Ключові особливості</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 mb-8">
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5" /></svg></div>
+                    <div><h4 class="font-bold">Площа: 10,2 млн км²</h4><p class="text-gray-600">Другий найменший континент</p></div>
+                </div>
+                 <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945" /></svg></div>
+                    <div><h4 class="font-bold">Омивається океанами</h4><p class="text-gray-600">Атлантичним та Північним Льодовитим</p></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg></div>
+                    <div><h4 class="font-bold">Омивається морями</h4><p class="text-gray-600">Середземним, Чорним, Балтійським та ін.</p></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg></div>
+                    <div><h4 class="font-bold">Східний кордон</h4><p class="text-gray-600">Проходить Уральськими горами</p></div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-center">Переваги ЕГП</h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-1.414v.001M9 12h.01M15 12h.01M12 9v.01M12 15v.01" /></svg></div>
+                    <div><h4 class="font-bold">Приморське положення</h4><p class="text-gray-600">Вихід до світових торгових шляхів</p></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
+                    <div><h4 class="font-bold">Транспортна мережа</h4><p class="text-gray-600">Густа сітка доріг, річок, каналів</p></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.707 4.293a1 1 0 010 1.414L5.414 8l2.293 2.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm9.586 11.414a1 1 0 010-1.414L18.586 16l-2.293-2.293a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414 0z" /></svg></div>
+                    <div><h4 class="font-bold">Центральне положення</h4><p class="text-gray-600">Перетин шляхів Азія-Африка-Америка</p></div>
+                </div>
+                 <div class="info-card">
+                    <div class="info-card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg></div>
+                    <div><h4 class="font-bold">Сприятливий клімат</h4><p class="text-gray-600">Комфортний для життя та господарства</p></div>
+                </div>
+            </div>
+
+            <!-- Розділ 1.2 -->
+            <h2>Склад регіону</h2>
+            <p class="text-center text-lg text-gray-600 mb-6">Європу умовно поділяють на чотири великі субрегіони. Загалом тут налічується близько 50 держав.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="region-card">
+                    <h4>Західна Європа</h4>
+                    <p class="text-gray-700">Німеччина, Франція, Велика Британія, Ірландія, Італія, країни Бенілюксу.</p>
+                </div>
+                <div class="region-card">
+                    <h4>Східна Європа</h4>
+                    <p class="text-gray-700">Україна, Польща, Чехія, Словаччина, Угорщина, Румунія.</p>
+                </div>
+                <div class="region-card">
+                    <h4>Північна Європа</h4>
+                    <p class="text-gray-700">Країни Скандинавії (Норвегія, Швеція) та Балтії (Литва, Латвія, Естонія).</p>
+                </div>
+                <div class="region-card">
+                    <h4>Південна Європа</h4>
+                    <p class="text-gray-700">Іспанія, Португалія, Греція, Хорватія та інші країни Балканського п-ва.</p>
+                </div>
+            </div>
+             <div class="map-container">
+                 <img src="europe-subregions-map.jpg" alt="Карта субрегіонів Європи" class="zoomable-image">
+            </div>
+
+            <!-- Розділ 1.3 -->
+            <h2>Сучасна політична карта та прояви сепаратизму</h2>
+            <p>Сучасна політична карта Європи сформувалася внаслідок глобальних історичних подій: розпаду імперій після Першої світової війни, зміни кордонів після Другої світової, а також розпаду СРСР та Югославії наприкінці XX століття.</p>
+             <div class="map-container">
+                 <img src="europe-political-map-miller.jpg" alt="Сучасна політична карта Європи" class="zoomable-image">
+            </div>
+            <p>Незважаючи на інтеграційні процеси, в Європі існують осередки <strong>сепаратизму</strong> — прагнення певних народів чи регіонів до відокремлення та створення власної держави.</p>
+            
+            <div class="table-container mt-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Країна</th>
+                            <th>Регіон</th>
+                            <th>Характеристика та причини сепаратизму</th>
+                            <th>Карта</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Іспанія</td>
+                            <td><strong>Каталонія</strong></td>
+                            <td>Один з найбагатших регіонів Іспанії з власною мовою та культурою. Головні мотиви — економічні (вважають, що "годують" бідніші регіони) та історико-культурні.</td>
+                            <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Каталонії" alt="Карта Каталонії" class="zoomable-image"></td>
+                        </tr>
+                        <tr>
+                            <td>Іспанія</td>
+                            <td><strong>Країна Басків</strong></td>
+                            <td>Баски — етнос із унікальною мовою, що не належить до індоєвропейської сім'ї. Рух за незалежність має глибоке історичне коріння.</td>
+                            <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Країни+Басків" alt="Карта Країни Басків" class="zoomable-image"></td>
+                        </tr>
+                        <tr>
+                            <td>Велика Британія</td>
+                            <td><strong>Шотландія</strong></td>
+                            <td>Має власну правову систему та парламент. Прагнення до незалежності посилилося після виходу Великої Британії з ЄС (Brexit), проти якого голосувала більшість шотландців.</td>
+                             <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Шотландії" alt="Карта Шотландії" class="zoomable-image"></td>
+                        </tr>
+                        <tr>
+                            <td>Велика Британія</td>
+                            <td><strong>Північна Ірландія</strong></td>
+                            <td>Конфлікт має релігійно-політичний характер: між протестантами-юніоністами (за збереження у складі UK) та католиками-націоналістами (за об'єднання з Республікою Ірландія).</td>
+                            <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Північної+Ірландії" alt="Карта Північної Ірландії" class="zoomable-image"></td>
+                        </tr>
+                        <tr>
+                            <td>Італія</td>
+                            <td><strong>Північна Ліга (Паданія)</strong></td>
+                            <td>Політичний рух, що виступає за більшу автономію або незалежність багатих північних регіонів Італії (Паданії) від біднішого півдня. Основний мотив — економічний.</td>
+                            <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Паданії" alt="Карта Паданії" class="zoomable-image"></td>
+                        </tr>
+                         <tr>
+                            <td>Бельгія</td>
+                            <td><strong>Фландрія</strong></td>
+                            <td>Глибокий розкол між нідерландськомовною, економічно розвиненою Фландрією та франкомовною Валлонією. Причини — мовні, культурні та економічні.</td>
+                            <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Фландрії" alt="Карта Фландрії" class="zoomable-image"></td>
+                        </tr>
+                        <tr>
+                            <td>Сербія</td>
+                            <td><strong>Косово</strong></td>
+                            <td>Колишній автономний край Сербії, населений переважно албанцями. Проголосив незалежність у 2008 р. після збройного конфлікту. Визнаний більшістю країн Заходу, але не Сербією.</td>
+                             <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Косово" alt="Карта Косово" class="zoomable-image"></td>
+                        </tr>
+                         <tr>
+                            <td>Кіпр</td>
+                            <td><strong>Північний Кіпр</strong></td>
+                            <td>Острів розділений з 1974 року на грецьку (Республіка Кіпр, член ЄС) та турецьку (невизнана Турецька Республіка Північного Кіпру) частини.</td>
+                             <td><img src="https://placehold.co/200x150/e2e8f0/64748b?text=Карта+Кіпру" alt="Карта Кіпру" class="zoomable-image"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Урок 2 -->
+        <div class="lesson-card">
+            <h1 class="text-3xl font-bold text-center mb-6">УРОК 2: Інтеграційні процеси та міжнародні організації</h1>
+
+            <p class="text-lg text-center mb-8">Після руйнівних світових війн європейські країни обрали шлях інтеграції — об'єднання для забезпечення миру та економічного процвітання. Це призвело до створення низки впливових міжнародних організацій.</p>
+
+            <!-- ЄС -->
+            <div class="org-card">
+                <div class="org-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="Прапор ЄС">
+                    <h2 class="!m-0 !border-0 !p-0 text-2xl font-bold">Європейський Союз (ЄС)</h2>
+                </div>
+                <div class="org-content">
+                    <div>
+                        <p>Унікальний економічний та політичний союз, що налічує <strong>27 держав-членів</strong>. Шлях до його створення був довгим:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li><strong>1951 р.</strong> - Створення Європейського об'єднання вугілля та сталі.</li>
+                            <li><strong>1993 р.</strong> - Маастрихтський договір офіційно створює ЄС.</li>
+                            <li><strong>2004-2013 рр.</strong> - Хвилі розширення на Схід.</li>
+                            <li><strong>2020 р.</strong> - Велика Британія виходить зі складу ЄС (Brexit).</li>
+                        </ul>
+                        <h3 class="text-lg font-semibold">Основні принципи:</h3>
+                         <ul class="list-disc list-inside space-y-1 pl-4 mt-2">
+                            <li><strong>Чотири свободи:</strong> вільний рух товарів, послуг, капіталу та людей.</li>
+                            <li><strong>Спільна валюта:</strong> євро (€) є офіційною для 20 країн єврозони.</li>
+                            <li><strong>Спільна політика:</strong> у сферах торгівлі, сільського господарства, безпеки.</li>
+                        </ul>
+                    </div>
+                     <div class="map-container">
+                        <img src="EU.jpeg" alt="Карта країн-членів ЄС" class="zoomable-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Рада Європи -->
+            <div class="org-card">
+                 <div class="org-header">
+                    <img src="Logo_of_the_Council_of_Europe_(no_lettering).svg" alt="Логотип Ради Європи" style="height: 55px;">
+                    <h2 class="!m-0 !border-0 !p-0 text-2xl font-bold">Рада Європи</h2>
+                </div>
+                <div class="org-content">
+                    <div>
+                        <p>Міжнародна організація (<strong>46 країн-членів</strong>), що фокусується на захисті прав людини, демократії та верховенства права. Не варто плутати її з інституціями ЄС.</p>
+                         <h3 class="text-lg font-semibold">Ключова діяльність:</h3>
+                         <ul class="list-disc list-inside space-y-1 pl-4 mt-2">
+                            <li><strong>Заснована:</strong> 1949 року.</li>
+                            <li><strong>Штаб-квартира:</strong> Страсбург, Франція.</li>
+                            <li><strong>Найважливіший орган:</strong> Європейський суд з прав людини (ЄСПЛ), куди може звернутися будь-який громадянин країни-члена.</li>
+                        </ul>
+                    </div>
+                    <div class="map-container">
+                        <img src="council-of-europe.webp" alt="Карта країн-членів Ради Європи" class="zoomable-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Шенгенська зона -->
+            <div class="org-card">
+                 <div class="org-header">
+                    <img src="шенген_logo.jpg">
+                    <h2 class="!m-0 !border-0 !p-0 text-2xl font-bold">Шенгенська зона</h2>
+                </div>
+                <div class="org-content">
+                    <div>
+                        <p>Територія, що включає <strong>27 європейських країн</strong>, які скасували прикордонний контроль на своїх внутрішніх кордонах. Це одне з найбільших досягнень європейської інтеграції.</p>
+                        <h3 class="text-lg font-semibold">Принципи роботи:</h3>
+                         <ul class="list-disc list-inside space-y-1 pl-4 mt-2">
+                            <li><strong>Безвізовий простір:</strong> вільне пересування людей без паспортного контролю.</li>
+                            <li><strong>Спільна візова політика:</strong> єдина віза для в'їзду в зону.</li>
+                            <li><strong>Посилені зовнішні кордони:</strong> ретельний контроль на кордонах з країнами, що не входять до зони.</li>
+                        </ul>
+                        <p class="mt-2 text-sm text-gray-600"><strong>Важливо:</strong> не всі країни ЄС є членами Шенгену (напр., Ірландія), і навпаки, деякі країни не з ЄС входять до зони (Швейцарія, Норвегія).</p>
+                    </div>
+                    <div class="map-container">
+                        <img src="шенген.jpeg" alt="Карта Шенгенської зони" class="zoomable-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- НАТО -->
+            <div class="org-card">
+                 <div class="org-header">
+                     <img src="NATO_OTAN_Insignia.svg.png" alt="Емблема НАТО">
+                    <h2 class="!m-0 !border-0 !p-0 text-2xl font-bold">НАТО (Організація Північноатлантичного договору)</h2>
+                </div>
+                <div class="org-content">
+                    <div>
+                        <p>Військово-політичний альянс, створений у 1949 році для колективної оборони. Наразі об'єднує 32 держави, більшість з яких — європейські.</p>
+                        <h3 class="text-lg font-semibold">Основа Альянсу:</h3>
+                         <ul class="list-disc list-inside space-y-1 pl-4 mt-2">
+                            <li><strong>Колективна оборона:</strong> Стаття 5 договору стверджує, що напад на одного члена є нападом на всіх.</li>
+                            <li><strong>Стримування агресії:</strong> Гарантування безпеки та стабільності в євроатлантичному регіоні.</li>
+                            <li><strong>Політика "відкритих дверей":</strong> Альянс відкритий для вступу нових демократичних країн, що посилює загальноєвропейську безпеку.</li>
+                        </ul>
+                    </div>
+                    <div class="map-container">
+                        <img src="History_of_NATO_enlargement.png" alt="Карта країн-членів НАТО в Європі" class="zoomable-image">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- The Modal for image zoom -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Get the modal
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+    
+        // Get all images with the zoomable class and add click event
+        const images = document.querySelectorAll('.zoomable-image');
+        images.forEach(img => {
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        });
+    
+        // Get the <span> element that closes the modal
+        const span = document.getElementsByClassName("close-modal")[0];
+    
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // When the user clicks anywhere on the modal background, close it as well
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтерактивний урок: Алгоритми</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+        }
+        .slide {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            padding: 2rem;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .flowchart-shape {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .oval {
+            width: 180px;
+            height: 80px;
+            background-color: #34D399; /* Green */
+            border-radius: 50%;
+        }
+        .rectangle {
+            width: 220px;
+            height: 80px;
+            background-color: #60A5FA; /* Blue */
+            border-radius: 0.5rem;
+        }
+        .rhombus {
+            width: 180px;
+            height: 180px;
+            background-color: #FBBF24; /* Amber */
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="slides-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active bg-blue-500 text-white text-center">
+            <h1 class="text-5xl font-black mb-4">Подорож у світ алгоритмів</h1>
+            <h2 class="text-3xl font-bold">Блок-схеми, розгалуження та цикли</h2>
+        </div>
+
+        <!-- Slide 2: What is a block-scheme? -->
+        <div class="slide bg-gray-100 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">Що таке блок-схема?</h2>
+            <p class="text-2xl text-gray-600 max-w-3xl">Це карта нашого алгоритму! Кожна дія або рішення зображується у вигляді спеціальної фігури. Це допомагає побачити весь шлях від початку до кінця.</p>
+        </div>
+
+        <!-- Slide 3: Basic Elements -->
+        <div class="slide bg-gray-100 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">Наші "будівельні блоки"</h2>
+            <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-12 items-center">
+                <div class="flex flex-col items-center">
+                    <div class="flowchart-shape oval">Початок / Кінець</div>
+                    <p class="mt-4 text-lg text-gray-700">Овалом позначаємо старт і фініш.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="flowchart-shape rectangle">Виконати дію</div>
+                    <p class="mt-4 text-lg text-gray-700">Прямокутник — це команда. <br>Наприклад, "встати з ліжка".</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="flowchart-shape rhombus">Умова</div>
+                     <p class="mt-4 text-lg text-gray-700">Ромб — це запитання, на яке можна <br>відповісти "Так" або "Ні".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Simple Algorithm Example -->
+        <div class="slide bg-gray-100 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">Приклад: Алгоритм "Зробити чай"</h2>
+            <div class="flex items-center space-x-4">
+                <div class="flowchart-shape oval">Початок</div>
+                <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                <div class="flowchart-shape rectangle">Налити воду <br>в чайник</div>
+                <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                <div class="flowchart-shape rectangle">Увімкнути чайник</div>
+                <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                <div class="flowchart-shape oval">Кінець</div>
+            </div>
+             <p class="mt-8 text-xl text-gray-600">Це **лінійний алгоритм** - дії йдуть одна за одною.</p>
+        </div>
+
+        <!-- Slide 5: Introduction to Branching -->
+        <div class="slide bg-amber-100 text-center">
+            <h2 class="text-4xl font-bold text-amber-800 mb-6">А що, як є вибір?</h2>
+            <p class="text-2xl text-amber-700 max-w-3xl mb-8">У житті ми постійно приймаємо рішення. Наприклад, подивившись у вікно, ми вирішуємо, брати парасольку чи ні. В алгоритмах це називається **розгалуження**.</p>
+            <div class="flowchart-shape rhombus">Надворі йде дощ?</div>
+        </div>
+
+        <!-- Slide 6: Branching Placeholder -->
+        <div class="slide bg-gray-100 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">Алгоритм "Поласувати морозивом"</h2>
+            <div class="w-full max-w-4xl h-3/4 bg-gray-200 border-4 border-dashed border-gray-400 rounded-lg flex justify-center items-center">
+                <img src="блок-схема.png" alt="Приклад розгалуження" class="max-h-full max-w-full">
+            </div>
+        </div>
+
+        <!-- Slide 7: Introduction to Cycles -->
+        <div class="slide bg-teal-100 text-center">
+             <h2 class="text-4xl font-bold text-teal-800 mb-6">А якщо треба повторити?</h2>
+             <p class="text-2xl text-teal-700 max-w-3xl mb-8">Щоб не писати одну й ту саму команду багато разів, програмісти використовують **цикли**. Це команди, які змушують виконавця повторювати дії знову і знову, поки не виконається певна умова.</p>
+             <p class="text-2xl font-black text-teal-600">"Роби, ПОКИ..."</p>
+        </div>
+
+        <!-- Slide 8: Cycle Placeholder -->
+        <div class="slide bg-gray-100 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">Алгоритм "Порахувати значення"</h2>
+            <div class="w-full max-w-4xl h-3/4 bg-gray-200 border-4 border-dashed border-gray-400 rounded-lg flex justify-center items-center">
+                <img src="цикл.png" alt="Приклад розгалуження" class="max-h-full max-w-full">
+            </div>
+        </div>
+
+        <!-- Slide 9: Summary and Links -->
+        <div class="slide bg-indigo-500 text-white text-center">
+            <h2 class="text-4xl font-bold mb-6">Чудова робота!</h2>
+            <p class="text-2xl mb-4">Сьогодні ми дізналися:</p>
+            <ul class="text-xl list-disc list-inside text-left max-w-md mx-auto">
+                <li class="mb-2">Блок-схеми допомагають візуалізувати алгоритми.</li>
+                <li class="mb-2">Ромб (умова) дозволяє створювати розгалуження.</li>
+                <li class="mb-2">Цикли дозволяють повторювати дії багато разів.</li>
+            </ul>
+             <p class="text-2xl mt-8">Тепер спробуймо створити свої алгоритми!</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-0 left-0 w-full flex justify-center p-4 bg-gray-100 bg-opacity-80">
+        <button id="prevBtn" class="bg-white text-gray-800 font-bold py-3 px-6 rounded-l-full shadow-lg hover:bg-gray-200 transition-colors">Назад</button>
+        <div id="slide-counter" class="bg-white text-gray-800 font-bold py-3 px-6 shadow-lg">1 / 9</div>
+        <button id="nextBtn" class="bg-white text-gray-800 font-bold py-3 px-6 rounded-r-full shadow-lg hover:bg-gray-200 transition-colors">Вперед</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalSlides - 1;
+            prevBtn.classList.toggle('opacity-50', index === 0);
+            nextBtn.classList.toggle('opacity-50', index === totalSlides - 1);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

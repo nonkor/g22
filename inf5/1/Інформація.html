@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок інформатики 5 клас</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header .topic {
+            color: #667eea;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .goals {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .goals h2 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .goals ul {
+            list-style: none;
+        }
+
+        .goals li {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #4a5568;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .activity {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .activity:hover {
+            transform: translateX(5px);
+        }
+
+        .activity h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .expandable-content {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed rgba(102, 126, 234, 0.3);
+        }
+
+        .theory-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #f6ad55;
+        }
+
+        .definition {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .definition strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .process-step {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: scale(1.05);
+        }
+
+        .arrow {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .quiz-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .homework {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .homework h2 {
+            color: white;
+            border-bottom: 3px solid white;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-set {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .toggle-arrow {
+            float: right;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .process-flow {
+                flex-direction: column;
+            }
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ Урок інформатики 5 клас</h1>
+            <div class="topic">Повідомлення, дані, інформація. Інформаційні процеси та системи</div>
+            <div style="margin-top: 15px; color: #666;">
+                <span style="margin-right: 20px;">⏰ 90 хвилин</span>
+                <span style="margin-right: 20px;">👥 3 учні</span>
+                <span>📱 Смартфони</span>
+            </div>
+        </div>
+
+        <div class="goals">
+            <h2>🎯 Мета уроку</h2>
+            <ul>
+                <li>✨ Розуміти різницю між повідомленнями, даними та інформацією</li>
+                <li>🔄 Познайомитися з інформаційними процесами та системами</li>
+                <li>🔍 Навчитися аналізувати різні джерела та форми подання інформації</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📚 Частина 1: Вступ та знайомство з поняттями</h2>
+            
+            <div class="activity" onclick="toggleSection(this)">
+                <h3>🧠 Розминка "Інформаційний шторм" <span class="toggle-arrow">▼</span></h3>
+                <div class="expandable-content">
+                    <p><strong>Мета:</strong> Налаштувати на позитивну роботу та активізувати мислення.</p>
+                    <p><strong>Хід активності:</strong> Сьогодні ми зануримося у світ, в якому живемо щодня, — світ інформації. Давайте почнемо з гри. Я називаю слово, а ви по черзі швидко кажете асоціацію з ним. Головне правило — не думати довго! Отже, слово... "Інформація"</p>
+                    <p>Всі асоціації записуються на дошці (наприклад: <em>інтернет, телефон, новини, книга, розмова, відео</em>). Це створить "хмару слів", до якої будемо звертатися протягом уроку.</p>
+                </div>
+            </div>
+
+            <div class="activity" onclick="toggleSection(this)">
+                <h3>📞 Гра "Зіпсований телефон" <span class="toggle-arrow">▼</span></h3>
+                <div class="expandable-content">
+                    <p>Учень отримує 3 карточки з питаннями:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Коли твій день народження (число та місяць)</li>
+                        <li>Який подарунок ти отримав на останній день народження (запиши один)</li>
+                        <li>Які емоції ти відчув при цьому?</li>
+                    </ul>
+                    <p>Далі учень пише відповіді на трьох листочках і передає наступному. Той шепче їх на вухо сусіду. Останній має повторити слова і зрозуміти, що вони описують. Пояснити, що дані на інформацію перетворює контекст.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔬 Частина 2: Теорія інформації</h2>
+            
+            <div class="theory-box">
+                <h3>📖 Основні поняття</h3>
+                
+                <div class="definition">
+                    <strong>Повідомлення</strong> — це те, що передається від одного об'єкта до іншого. Наприклад, SMS, електронний лист, розмова.
+                </div>
+                
+                <div class="definition">
+                    <strong>Дані</strong> — це факти у сирому, необробленому вигляді. Наприклад, набір чисел: 25, 12, 2024, 14:30.
+                </div>
+                
+                <div class="definition">
+                    <strong>Інформація</strong> — це оброблені дані, що мають значення та корисність. Наприклад: "25 грудня 2024 року о 14:30 відбудеться контрольна робота з математики".
+                </div>
+
+                <div class="definition">
+                    <strong>Інформаційний процес</strong> — це дії, що виконуються з інформацією: збирання, обробка, зберігання, передача та використання.
+                </div>
+
+                <div class="definition">
+                    <strong>Інформаційна система</strong> — це сукупність технічних засобів, людей та методів, призначених для збирання, зберігання, обробки та передачі інформації.
+                </div>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step" onclick="showExample(0)">ЗБІР</div>
+                <div class="arrow">→</div>
+                <div class="process-step" onclick="showExample(1)">ОБРОБКА</div>
+                <div class="arrow">→</div>
+                <div class="process-step" onclick="showExample(2)">ЗБЕРІГАННЯ</div>
+                <div class="arrow">→</div>
+                <div class="process-step" onclick="showExample(3)">ПЕРЕДАЧА</div>
+                <div class="arrow">→</div>
+                <div class="process-step" onclick="showExample(4)">ВИКОРИСТАННЯ</div>
+            </div>
+
+            <p style="text-align: center; font-style: italic; color: #666;">
+                Приклад: «Ти сфотографував пейзаж (збирання), обрізав фото (обробка), зберіг у галереї (зберігання), надіслав другу (передача), друг побачив фото (використання)»
+            </p>
+
+            <div class="activity" onclick="toggleSection(this)">
+                <h3>🧩 Гра "Збери інформацію" <span class="toggle-arrow">▼</span></h3>
+                <div class="expandable-content">
+                    <p><strong>Мета:</strong> Закріпити на практиці різницю між даними та інформацією.</p>
+                    <p><strong>Завдання:</strong> У вас на стікерах — набір даних. Спробуйте на аркуші паперу скласти з них зрозуміле та корисне речення. Тобто, перетворіть дані на інформацію!</p>
+                    
+                    <div class="card-set">
+                        <div class="card">
+                            <div class="emoji">🏔️</div>
+                            <strong>Набір 1:</strong> "найвища", "гора", "Говерла", "в", "Карпатах"
+                        </div>
+                        <div class="card">
+                            <div class="emoji">🏞️</div>
+                            <strong>Набір 2:</strong> "в", "Дніпро", "впадає", "Чорне", "море"
+                        </div>
+                        <div class="card">
+                            <div class="emoji">🏛️</div>
+                            <strong>Набір 3:</strong> "столиця", "України", "Київ", "мільйон", "жителів"
+                        </div>
+                        <div class="card">
+                            <div class="emoji">🌍</div>
+                            <strong>Набір 4:</strong> "планета", "Земля", "навколо", "Сонця", "обертається"
+                        </div>
+                        <div class="card">
+                            <div class="emoji">📚</div>
+                            <strong>Набір 5:</strong> "в", "році", "12", "місяців", "365", "днів"
+                        </div>
+                        <div class="card">
+                            <div class="emoji">🎭</div>
+                            <strong>Набір 6:</strong> "Тарас", "Шевченко", "великий", "український", "поет"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Частина 3: Джерела та форми інформації</h2>
+            
+            <div class="theory-box">
+                <h3>📡 Джерела інформації</h3>
+                <p><strong>Джерело інформації</strong> — це об'єкт, який містить або передає інформацію.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px;">
+                        <strong>🧑‍🤝‍🧑 Особисті джерела:</strong> люди, власний досвід, спостереження
+                    </div>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px;">
+                        <strong>📚 Документальні:</strong> книги, журнали, документи, звіти
+                    </div>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px;">
+                        <strong>💻 Електронні:</strong> інтернет, бази даних, мобільні додатки
+                    </div>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px;">
+                        <strong>📺 Медіа:</strong> телебачення, радіо, газети, реклама
+                    </div>
+                </div>
+
+                <h3>🎨 Форми подання інформації</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: linear-gradient(135deg, #ff9a9e, #fecfef); padding: 15px; border-radius: 10px; color: white;">
+                        <strong>📝 Текстова</strong><br>Книги, статті, повідомлення
+                    </div>
+                    <div style="background: linear-gradient(135deg, #a8edea, #fed6e3); padding: 15px; border-radius: 10px;">
+                        <strong>🎵 Звукова</strong><br>Музика, розмови, аудіозаписи
+                    </div>
+                    <div style="background: linear-gradient(135deg, #d299c2, #fef9d7); padding: 15px; border-radius: 10px;">
+                        <strong>🖼️ Графічна</strong><br>Фото, малюнки, схеми, графіки
+                    </div>
+                    <div style="background: linear-gradient(135deg, #ffecd2, #fcb69f); padding: 15px; border-radius: 10px;">
+                        <strong>🎬 Відео</strong><br>Фільми, відеозаписи, анімація
+                    </div>
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 15px; border-radius: 10px; color: white;">
+                        <strong>🤲 Жестова</strong><br>Мова жестів, міміка
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity" onclick="toggleSection(this)">
+                <h3>📱 Челендж "Багато способів сказати одне" <span class="toggle-arrow">▼</span></h3>
+                <div class="expandable-content">
+                    <p><strong>Завдання:</strong> Передати повідомлення "У нас сьогодні урок інформатики" різними способами:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 15px 0;">
+                        <div style="background: #f0f8ff; padding: 10px; border-radius: 8px;">1. 📝 <strong>Текст</strong> — написати в месенджері</div>
+                        <div style="background: #fff0f5; padding: 10px; border-radius: 8px;">2. 🖼️ <strong>Зображення</strong> — намалювати картинку</div>
+                        <div style="background: #f0fff0; padding: 10px; border-radius: 8px;">3. 🎵 <strong>Аудіо</strong> — записати голосове</div>
+                        <div style="background: #fffacd; padding: 10px; border-radius: 8px;">4. 🎬 <strong>Відео</strong> — зняти коротке відео</div>
+                        <div style="background: #f5f5dc; padding: 10px; border-radius: 8px;">5. 🤲 <strong>Жести</strong> — показати без слів</div>
+                    </div>
+                    <p><strong>Обговорюємо:</strong> Який спосіб найзрозуміліший? Найшвидший? Найточніший?</p>
+                </div>
+            </div>
+
+            <div class="activity" onclick="toggleSection(this)">
+                <h3>🕵️ Детективна гра "Перевіряємо джерела" <span class="toggle-arrow">▼</span></h3>
+                <div class="expandable-content">
+                    <p><strong>Мета:</strong> Навчити основам медіаграмотності та критичного аналізу інформації.</p>
+                    <p><strong>Сценарій:</strong> "В інтернеті повно інформації, але не вся вона правдива. Іноді створюють фейки — неправдиві новини. Наше завдання — стати детективами і навчитися їх викривати."</p>
+                    
+                    <div style="display: flex; gap: 20px; margin: 15px 0; flex-wrap: wrap;">
+                        <div style="background: #ffebee; border: 2px solid #f44336; border-radius: 10px; padding: 15px; flex: 1; min-width: 250px;">
+                            <strong style="color: #f44336;">❌ Фейк:</strong> "В Україні винайшли шоколад, від якого худнуть!"
+                        </div>
+                        <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 10px; padding: 15px; flex: 1; min-width: 250px;">
+                            <strong style="color: #4caf50;">✅ Правда:</strong> "МОН України оголосило дати зимових канікул: з 25 грудня 2024 по 8 січня 2025 року"
+                        </div>
+                    </div>
+
+                    <p><strong>Як відрізнити правду від брехні?</strong></p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>🔍 Чи є посилання на надійне джерело?</li>
+                        <li>😱 Чи не надто емоційний заголовок? (Слова "Шок!", "Сенсація!")</li>
+                        <li>📸 Чи є докази, фото, відео? Чи не підроблені вони?</li>
+                        <li>📅 Чи актуальна інформація?</li>
+                        <li>👥 Чи підтверджують інші джерела цю інформацію?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Частина 4: Закріплення та рефлексія</h2>
+            
+            <div class="quiz-container">
+                <h3>⚡ Швидка вікторина "Правда чи ні?"</h3>
+                <div class="quiz-item" onclick="revealAnswer(this, false)">
+                    1. Дані та інформація — це одне й те саме
+                    <span style="display: none; color: #f44336; font-weight: bold;"> (НІ - дані це сирі факти, а інформація - оброблені дані)</span>
+                </div>
+                <div class="quiz-item" onclick="revealAnswer(this, true)">
+                    2. Смартфон може бути джерелом інформації
+                    <span style="display: none; color: #4caf50; font-weight: bold;"> (ТАК - через інтернет, додатки, камеру тощо)</span>
+                </div>
+                <div class="quiz-item" onclick="revealAnswer(this, false)">
+                    3. Інформацію можна тільки зберігати в комп'ютері
+                    <span style="display: none; color: #f44336; font-weight: bold;"> (НІ - також у книгах, на папері, у пам'яті людини)</span>
+                </div>
+                <div class="quiz-item" onclick="revealAnswer(this, true)">
+                    4. Переказ — це процес передачі інформації
+                    <span style="display: none; color: #4caf50; font-weight: bold;"> (ТАК - це один з інформаційних процесів)</span>
+                </div>
+                <div class="quiz-item" onclick="revealAnswer(this, true)">
+                    5. Інформація може мати різні форми подання
+                    <span style="display: none; color: #4caf50; font-weight: bold;"> (ТАК - текстова, звукова, графічна, відео)</span>
+                </div>
+                <div class="quiz-item" onclick="revealAnswer(this, false)">
+                    6. Всій інформації в інтернеті можна довіряти
+                    <span style="display: none; color: #f44336; font-weight: bold;"> (НІ - потрібно перевіряти джерела та факти)</span>
+                </div>
+            </div>
+
+            <div style="background: #f0f8ff; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center;">
+                <h3>💭 Рефлексія "Три слова"</h3>
+                <p>Кожен учень називає три слова, які найкраще описують сьогоднішній урок.</p>
+                <button onclick="showReflection()" style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 10px;">Поділитися враженнями</button>
+            </div>
+        </div>
+
+        <div class="homework">
+            <h2>🏠 Домашнє завдання</h2>
+            <p><strong>Завдання:</strong> протягом тижня записати 3 приклади інформаційних процесів, які учні помітять у житті (наприклад, як вони шукали інформацію в Google чи отримали повідомлення від друга).</p>
+            <p><strong>Формат:</strong> записати в зошит або надіслати вчителю через месенджер.</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 25px; border-radius: 15px; margin: 30px 0; text-align: center;">
+            <h3>🌟 Пам'ятайте головне правило:</h3>
+            <p style="font-size: 1.2em; font-weight: bold;">
+                "Не кількість інформації робить нас розумнішими, а вміння її правильно знаходити, аналізувати та використовувати!"
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            const content = element.querySelector('.expandable-content');
+            const arrow = element.querySelector('.toggle-arrow');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                arrow.textContent = '▲';
+                element.style.background = 'linear-gradient(135deg, #fed6e3, #a8edea)';
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▼';
+                element.style.background = 'linear-gradient(135deg, #a8edea, #fed6e3)';
+            }
+        }
+
+        function revealAnswer(element, isCorrect) {
+            const answer = element.querySelector('span');
+            if (answer.style.display === 'none') {
+                answer.style.display = 'inline';
+                element.style.background = isCorrect ? 
+                    'linear-gradient(135deg, #c8e6c9, #a5d6a7)' : 
+                    'linear-gradient(135deg, #ffcdd2, #ef9a9a)';
+            }
+        }
+
+        function showExample(index) {
+            const examples = [
+                "Фотографування, запис звуку, введення тексту",
+                "Редагування фото, переклад тексту, обчислення",
+                "Збереження у файлі, записування у зошит, запам'ятовування",
+                "Надсилання повідомлення, публікація посту, розповідь другу",
+                "Перегляд фото, читання новин, слухання музики"
+            ];
+            
+            const processNames = ["ЗБІР", "ОБРОБКА", "ЗБЕРІГАННЯ", "ПЕРЕДАЧА", "ВИКОРИСТАННЯ"];
+            alert(`${processNames[index]}: ${examples[index]}`);
+        }
+
+        function showReflection() {
+            const reflections = [
+                "захоплююче", "корисно", "інтерактивно",
+                "пізнавально", "цікаво", "практично",
+                "сучасно", "важливо", "зрозуміло"
+            ];
+            const randomReflections = reflections
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 3)
+                .join(', ');
+            
+            alert(`Приклади рефлексії учнів: ${randomReflections}`);
+        }
+    </script>
+</body>
+</html>
