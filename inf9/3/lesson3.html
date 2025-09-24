@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторське Право та Управління ПЗ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1b26;
+            --surface-color: #24283b;
+            --text-color: #a9b1d6;
+            --heading-color: #c0caf5;
+            --accent-color: #73daca;
+            --danger-color: #f7768e;
+            --success-color: #9ece6a;
+            --border-color: #414868;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        h1, h2, h3 {
+            color: var(--heading-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(115, 218, 202, 0.4);
+        }
+        
+        h2 {
+            font-size: 2.1em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: var(--accent-color);
+        }
+        
+        .icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-color);
+            filter: drop-shadow(0 0 8px rgba(115, 218, 202, 0.5));
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.05em;
+        }
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+        tbody tr:hover {
+            background-color: #2f334d;
+        }
+
+        dl dt {
+            font-weight: 600;
+            font-size: 1.2em;
+            color: var(--heading-color);
+            margin-top: 15px;
+        }
+        dl dd {
+            margin-left: 0;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-color);
+            font-size: 1.1em;
+        }
+
+        .danger-zone {
+            background: linear-gradient(145deg, rgba(247, 118, 142, 0.1), rgba(247, 118, 142, 0.05));
+            border: 1px solid var(--danger-color);
+            border-left: 5px solid var(--danger-color);
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-top: 20px;
+        }
+        .danger-zone h3 {
+            color: var(--danger-color);
+            margin-top: 0;
+        }
+        .danger-zone ul {
+            padding-left: 20px;
+        }
+        .danger-zone li::marker { content: '🚨 '; }
+        
+        .management-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .management-column {
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .install { border-top: 4px solid var(--success-color); }
+        .install h3 { color: var(--success-color); margin-top: 0; }
+        .uninstall { border-top: 4px solid var(--danger-color); }
+        .uninstall h3 { color: var(--danger-color); margin-top: 0; }
+        .management-column ol { padding-left: 20px; font-size: 1.05em; }
+
+        .resource-card {
+            background-color: #2f334d;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        .resource-card h3 { margin-top: 0; }
+        .resource-card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .resource-card a:hover { text-decoration: underline; }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9em;
+            color: #7aa2f7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Авторське Право та Управління ПЗ</h1>
+
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14.4,6C14,6,13.6,6.2,13.4,6.6L9,12L13.4,17.4C13.6,17.8,14,18,14.4,18H15.5C16.3,18,17,17.3,17,16.5V7.5C17,6.7,16.3,6,15.5,6H14.4M9.6,18H8.5C7.7,18,7,17.3,7,16.5V7.5C7,6.7,7.7,6,8.5,6H9.6C10,6,10.4,6.2,10.6,6.6L15,12L10.6,17.4C10.4,17.8,10,18,9.6,18Z"></path></svg>
+            Авторське Право ©: Основи
+        </h2>
+        <dl>
+            <dt>Авторське право</dt>
+            <dd>Набір прав, які належать автору на його твір. Виникають автоматично в момент створення і захищають конкретну реалізацію (код, дизайн), а не саму ідею.</dd>
+            <dt>Піратство</dt>
+            <dd>Незаконне копіювання, розповсюдження та використання ПЗ. Є порушенням закону, що несе технічні, юридичні та етичні ризики.</dd>
+        </dl>
+
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"></path></svg>
+            Типи Ліцензій ПЗ
+        </h2>
+        <p>Ліцензія (EULA) — це договір, що визначає правила використання програми. Ви купуєте не саму програму, а право нею користуватися.</p>
+        <table>
+            <thead><tr><th>Тип ліцензії</th><th>Суть</th><th>Приклади</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Proprietary (Власницька)</strong></td><td>Платне ПЗ із закритим кодом. Використання суворо обмежене.</td><td>Microsoft Office, Adobe Photoshop, Windows</td></tr>
+                <tr><td><strong>Freeware (Безкоштовне)</strong></td><td>Безкоштовне використання, але код закритий, змінювати заборонено.</td><td>Google Chrome, Telegram, Spotify</td></tr>
+                <tr><td><strong>Shareware (Умовно-безкоштовне)</strong></td><td>"Спробуй, перш ніж купити". Обмежений час або функціонал.</td><td>WinRAR, Bandicam, Sublime Text</td></tr>
+                <tr><td><strong>Open Source (Відкритий код)</strong></td><td>Безкоштовне використання, вивчення, зміна та поширення.</td><td>Linux, Firefox, Blender, VS Code</td></tr>
+            </tbody>
+        </table>
+
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12,1L9,4L12,7L15,4L12,1M19,11L16,14L19,17L22,14L19,11M5,11L2,14L5,17L8,14L5,11M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"></path></svg>
+            Світ Open Source: Сила Спільноти
+        </h2>
+        <p>Програми з відкритим кодом — це більше, ніж просто безкоштовне ПЗ. Це філософія, що базується на свободі та співпраці.</p>
+        <dl>
+            <dt>Чотири свободи</dt>
+            <dd>Фундаментальні права, які дає Open Source: свобода запускати програму, вивчати її код, поширювати копії та покращувати її для всієї спільноти.</dd>
+            <dt>Переваги</dt>
+            <dd><strong>Прозорість та безпека:</strong> тисячі людей можуть перевірити код на наявність помилок чи вірусів. <strong>Інновації:</strong> компанії та ентузіасти будують нові проєкти на основі існуючих. <strong>Надійність:</strong> проєкт не "помре", якщо його покине основний розробник.</dd>
+        </dl>
+        <table>
+            <thead><tr><th>Проєкт</th><th>Тип</th><th>Чому це важливо?</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Linux Kernel</strong></td><td>Ядро операційної системи</td><td>Основа для Android, серверів по всьому світу, суперкомп'ютерів.</td></tr>
+                <tr><td><strong>Git</strong></td><td>Система контролю версій</td><td>Стандарт для спільної роботи програмістів над будь-яким проєктом.</td></tr>
+                <tr><td><strong>Blender</strong></td><td>3D-редактор</td><td>Потужна безкоштовна альтернатива дорогим програмам для 3D-моделювання та анімації.</td></tr>
+                <tr><td><strong>Visual Studio Code</strong></td><td>Редактор коду</td><td>Найпопулярніший інструмент для програмістів, створений Microsoft на відкритій основі.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path></svg>
+            Кейгени та Креки: Прихована Загроза
+        </h2>
+        <div class="danger-zone">
+            <h3>Чому "зламане" ПЗ — це завжди пастка?</h3>
+            <ul>
+                <li><strong>Вбудоване шкідливе ПЗ:</strong> "Креки" — найпопулярніший спосіб поширення вірусів-троянів, шпигунів та програм-вимагачів (ransomware).</li>
+                <li><strong>Крадіжка даних:</strong> Зламані програми можуть таємно відправляти ваші паролі, дані банківських карт та особисті файли зловмисникам.</li>
+                <li><strong>Нестабільність і втрата даних:</strong> Таке ПЗ працює з помилками, не оновлюється та може пошкодити ваші проєкти без можливості відновлення.</li>
+            </ul>
+        </div>
+        
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19,7H16V5A1,1 0 0,0 15,4H9A1,1 0 0,0 8,5V7H5A1,1 0 0,0 4,8V19A1,1 0 0,0 5,20H19A1,1 0 0,0 20,19V8A1,1 0 0,0 19,7M9,6H15V7H9V6M12,17A2.5,2.5 0 0,1 9.5,14.5A2.5,2.5 0 0,1 12,12A2.5,2.5 0 0,1 14.5,14.5A2.5,2.5 0 0,1 12,17Z"></path></svg>
+            Управління ПЗ
+        </h2>
+        <div class="management-section">
+            <div class="management-column install">
+                <h3>✅ Правильна Інсталяція</h3>
+                <ol>
+                    <li>Завантажуйте ПЗ **лише з офіційних сайтів**.</li>
+                    <li>Запустіть інсталятор та погодьтеся з ліцензією (EULA).</li>
+                    <li>Оберіть шлях (зазвичай `C:\Program Files`).</li>
+                    <li>Дотримуйтесь інструкцій до завершення.</li>
+                </ol>
+            </div>
+            <div class="management-column uninstall">
+                <h3>❌ Правильна Деінсталяція</h3>
+                <ol>
+                    <li>**Ніколи не видаляйте папку програми вручну!**</li>
+                    <li>Відкрийте: **Параметри → Програми → Встановлені програми.**</li>
+                    <li>Знайдіть потрібну програму у списку.</li>
+                    <li>Натисніть "Видалити" і запустіть офіційний деінсталятор.</li>
+                </ol>
+            </div>
+        </div>
+
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12.89,3L14.85,6.43L18.9,7.25L15.9,10.45L16.81,14.81L12.89,12.6L8.97,14.81L9.88,10.45L6.88,7.25L10.93,6.43L12.89,3M19.6,18.35L17.7,16.29L14.36,17.45L12.89,21L11.42,17.45L8.08,16.29L6.18,18.35L7.29,14.4L4.19,11.5L8.24,10.69L10.13,7.12L12,3.38L12.89,2L15.65,7.12L19.7,7.94L22.6,11.5L18.5,14.4L19.6,18.35Z"></path></svg>
+            Що далі? Матеріали для занурення
+        </h2>
+        <div class="resource-card">
+            <h3>Дослідіть GitHub</h3>
+            <p>Це "соціальна мережа для програмістів" і найбільша у світі колекція Open Source проєктів. Тут можна подивитись код майже будь-чого. <a href="https://github.com/" target="_blank">Перейти на GitHub &rarr;</a></p>
+        </div>
+        <div class="resource-card">
+            <h3>Ліцензії Creative Commons</h3>
+            <p>Це як Open Source, але для творчого контенту: фото, музики, текстів. Дізнайтесь, як легально використовувати контент для ваших проєктів. <a href="https://creativecommons.org/about/cclicenses/" target="_blank">Дізнатись про ліцензії CC &rarr;</a></p>
+        </div>
+         <div class="resource-card">
+            <h3>Спробуйте нове Open Source ПЗ</h3>
+            <p>Встановіть та налаштуйте потужну програму з відкритим кодом. Наприклад, спробуйте графічний редактор <a href="https://krita.org/" target="_blank">Krita</a> як альтернативу Photoshop, або відеоредактор <a href="https://kdenlive.org/" target="_blank">Kdenlive</a>.</p>
+        </div>
+
+        <footer>
+            <p>Свідоме використання ПЗ — це повага до чужої праці та запорука безпеки вашого цифрового світу.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

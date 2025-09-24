@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Огляд Сучасних Мов Програмування</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1e1e2f;
+            --container-bg: #27293d;
+            --text-color: #dcdce0;
+            --header-color: #ffffff;
+            --accent-color: #00aaff;
+            --accent-glow: rgba(0, 170, 255, 0.5);
+            --border-color: #4b4e6e;
+            --green-accent: #00ffaa;
+        }
+
+        @keyframes grow {
+            from { width: 0; }
+            to { width: var(--bar-width); }
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 15px 30px;
+            background-color: var(--container-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        h1, h2, h3 {
+            color: var(--header-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-top: 35px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--accent-color);
+            border-bottom: none;
+            text-shadow: 0 0 15px var(--accent-glow);
+            justify-content: center;
+        }
+        
+        h2 { font-size: 2em; }
+        h3 { 
+            font-size: 1.5em;
+            border-bottom-style: dashed;
+            border-bottom-width: 1px;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 5px var(--accent-glow));
+        }
+
+        p, li, dd { font-size: 1.1em; }
+
+        /* Таблиці */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td { padding: 14px 18px; text-align: left; }
+
+        th {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        tr {
+            background-color: #31334a;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover {
+            background-color: #4b4e6e;
+            transform: scale(1.015);
+        }
+
+        /* Визначення */
+        dl {
+            background-color: #31334a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+        }
+        dt {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.2em;
+            margin-top: 15px;
+        }
+        dd {
+            margin-left: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        dd:last-child { border-bottom: none; }
+        
+        /* Код */
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--bg-color);
+            color: #82e0aa;
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+        
+        /* Стилі для графіків */
+        .chart-container {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #31334a;
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-weight: 600;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: var(--header-color);
+        }
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+        .bar-label {
+            width: 120px; /* Фіксована ширина для назв */
+            font-weight: 600;
+        }
+        .bar-wrapper {
+            flex-grow: 1;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            height: 30px;
+        }
+        .bar {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--accent-color), var(--green-accent));
+            color: var(--bg-color);
+            text-align: right;
+            padding-right: 10px;
+            line-height: 30px;
+            font-weight: 700;
+            animation: grow 1.5s ease-out forwards;
+        }
+        .disclaimer {
+            font-size: 0.9em;
+            color: #a0a0b8;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #7f849c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Огляд Мов Програмування</h1>
+
+        <h2>Ключові Терміни</h2>
+        <dl>
+            <dt>Мова програмування</dt>
+            <dd>Формальна знакова система для написання комп'ютерних програм. Це набір лексичних, синтаксичних та семантичних правил, що визначають зовнішній вигляд програми та дії, які виконає комп'ютер під її керуванням.</dd>
+            
+            <dt>Синтаксис</dt>
+            <dd>Правила граматики мови. Визначає, як правильно писати команди, розставляти символи (<code>;</code>, <code>{}</code>, <code>()</code>), і структурувати код.</dd>
+            
+            <dt>Транслятор (Компілятор / Інтерпретатор)</dt>
+            <dd>Спеціальна програма, що перекладає вихідний код, написаний програмістом, у машинний код (нулики та одинички), який розуміє процесор.</dd>
+        </dl>
+        
+        <h2>Рівні мов програмування: Абстракція</h2>
+        <table>
+            <thead><tr><th>Рівень</th><th>Опис</th><th>Приклади</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>Високорівневі</strong></td>
+                    <td>Ближчі до людської мови, простіші у вивченні. Мають високий рівень абстракції (ховають складні деталі).</td>
+                    <td><code>Python</code>, <code>JavaScript</code>, <code>C#</code>, <code>Swift</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Низькорівневі</strong></td>
+                    <td>Ближчі до "заліза", дають прямий доступ до пам'яті та процесора. Складніші, але забезпечують максимальну швидкість.</td>
+                    <td><code>C</code>, <code>C++</code>, <code>Assembly</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Основні елементи коду</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Елемент</th>
+                    <th>Аналогія</th>
+                    <th>Приклад у коді (Python)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Змінна</strong></td>
+                    <td>Іменований контейнер для даних</td>
+                    <td><code>score = 100</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Функція</strong></td>
+                    <td>Іменований блок коду для дії</td>
+                    <td><code>def greet_user():</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Умова (If/Else)</strong></td>
+                    <td>Прийняття рішень, розгалуження</td>
+                    <td><code>if health <= 0: print("Game Over")</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Цикл (For/While)</strong></td>
+                    <td>Повторення дії N разів</td>
+                    <td><code>for i in range(10): move_forward()</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Класифікація Мов за Призначенням</h2>
+
+        <h3>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+            Веброзробка
+        </h3>
+        <table>
+            <thead><tr><th>Технологія</th><th>Призначення</th><th>Приклад використання</th></tr></thead>
+            <tbody>
+                <tr><td><strong>HTML/CSS</strong></td><td>Frontend (Структура та стиль)</td><td><code>HTML</code> створює скелет сторінки, <code>CSS</code> її "одягає" (кольори, шрифти).</td></tr>
+                <tr><td><strong>JavaScript</strong></td><td>Frontend + Backend (Інтерактивність)</td><td>Анімації кнопок, перевірка форм, сервери (Node.js).</td></tr>
+                <tr><td><strong>Python</strong> (з Django/Flask)</td><td>Backend (Логіка сервера)</td><td>Обробка даних користувачів Instagram, рекомендаційні алгоритми YouTube.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+            Мобільна розробка
+        </h3>
+        <table>
+            <thead><tr><th>Мова</th><th>Платформа</th><th>Ключова особливість</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Swift</strong></td><td>Apple iOS / iPadOS</td><td>Сучасна, безпечна та швидка мова, створена компанією Apple спеціально для своїх пристроїв.</td></tr>
+                <tr><td><strong>Kotlin</strong></td><td>Google Android</td><td>Офіційна мова для розробки під Android. Практична, лаконічна та сумісна зі старим кодом.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 16.09l-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19h0c.68 0 1.32-.27 1.76-.75L9 15.5h6l2.29 2.75c.44.48 1.08.75 1.76.75h0c1.55 0 2.74-1.37 2.53-2.91zM11 11H9v2H7v-2H5V9h2V7h2v2h2v2zm4-1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+            Розробка ігор (GameDev)
+        </h3>
+        <table>
+            <thead><tr><th>Мова</th><th>Ігровий движок</th><th>Приклади ігор</th></tr></thead>
+            <tbody>
+                <tr><td><strong>C++</strong></td><td><strong>Unreal Engine</strong></td><td>Fortnite, Cyberpunk 2077, The Witcher 3. Використовується для ААА-проєктів з максимальною продуктивністю.</td></tr>
+                <tr><td><strong>C# (C Sharp)</strong></td><td><strong>Unity</strong></td><td>Among Us, Genshin Impact, Hollow Knight. Дуже популярний серед інді-розробників та для мобільних ігор.</td></tr>
+                <tr><td><strong>Lua</strong></td><td>Roblox, World of Warcraft (UI)</td><td>Легка скриптова мова, що часто використовується для логіки ігрових подій та налаштувань.</td></tr>
+            </tbody>
+        </table>
+        
+        <h3>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-.62 16.63c-1.87-1.13-3.28-3.73-3.28-5.83 0-2.05 1.3-4.54 3.07-5.69.13-.08.28-.08.41 0 1.77 1.15 3.07 3.64 3.07 5.69 0 2.1-1.41 4.7-3.27 5.83-.06.04-..14.05-.2.05s-.14-.01-.2-.05zM12 8.16c-1.3 0-2.48.95-2.88 2.21l.46 1.4c.16.51.65.84 1.18.84h2.48c.53 0 1.02-.33 1.18-.84l.46-1.4c-.4-1.26-1.58-2.21-2.88-2.21z"/></svg>
+            Наука про дані та Штучний Інтелект (AI/ML)
+        </h3>
+        <table>
+            <thead><tr><th>Мова</th><th>Основні інструменти (бібліотеки)</th><th>Де використовується?</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Python</strong></td><td>TensorFlow, PyTorch, pandas, Scikit-learn</td><td>Навчання нейромереж (ChatGPT), розпізнавання облич, медична діагностика, автопілоти.</td></tr>
+                <tr><td><strong>R</strong></td><td>ggplot2, dplyr</td><td>Статистичний аналіз, наукові дослідження, візуалізація даних в академічній сфері.</td></tr>
+            </tbody>
+        </table>
+
+        <h2>
+             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/></svg>
+            Тренди, Популярність та Ринок Праці
+        </h2>
+        <p>Світ ІТ динамічний: одні технології стають популярнішими, інші відходять на другий план. Розглянемо актуальні тенденції на 2025 рік.</p>
+
+        <div class="chart-container">
+            <div class="chart-title">Популярність мов програмування (Stack Overflow Survey)</div>
+            <div class="chart-bar">
+                <span class="bar-label">JavaScript</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 91%;">91%</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">Python</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 85%;">85%</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">SQL</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 78%;">78%</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">C#</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 55%;">55%</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">C++</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 48%;">48%</div></div>
+            </div>
+             <div class="chart-bar">
+                <span class="bar-label">Rust</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 41%;">41%</div></div>
+            </div>
+            <p class="disclaimer">Дані базуються на опитуваннях професійних розробників щодо технологій, які вони використовували протягом року.</p>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">Порівняння зарплат в Україні (Middle Developer)</div>
+             <div class="chart-bar">
+                <span class="bar-label">Swift</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 95%;">$3400</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">C# / .NET</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 90%;">$3100</div></div>
+            </div>
+             <div class="chart-bar">
+                <span class="bar-label">C++</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 88%;">$3000</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">Python</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 85%;">$2900</div></div>
+            </div>
+            <div class="chart-bar">
+                <span class="bar-label">JavaScript</span>
+                <div class="bar-wrapper"><div class="bar" style="--bar-width: 82%;">$2800</div></div>
+            </div>
+            <p class="disclaimer">Приблизні медіанні зарплати за даними DOU.ua. Реальні суми залежать від досвіду, компанії та проєкту.</p>
+        </div>
+
+        <h3>Майбутні Напрямки та Перспективи</h3>
+        <table>
+            <thead><tr><th>Тренд</th><th>Опис</th><th>Ключові технології</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><strong>Штучний інтелект (AI)</strong></td>
+                    <td>Створення "розумних" систем, що аналізують дані, навчаються та приймають рішення.</td>
+                    <td><code>Python</code> (з TensorFlow, PyTorch)</td>
+                </tr>
+                <tr>
+                    <td><strong>Безпека та Продуктивність</strong></td>
+                    <td>Попит на мови, що гарантують безпеку роботи з пам'яттю та високу швидкість.</td>
+                    <td><code>Rust</code>, <code>Go</code>, <code>C++</code></td>
+                </tr>
+                 <tr>
+                    <td><strong>Low-code / No-code</strong></td>
+                    <td>Платформи, що дозволяють створювати додатки за допомогою візуальних конструкторів з мінімальним написанням коду.</td>
+                    <td>Bubble, Adalo, Webflow</td>
+                </tr>
+                 <tr>
+                    <td><strong>Кросплатформна розробка</strong></td>
+                    <td>Написання одного коду, який працює і на iOS, і на Android, що економить час та ресурси.</td>
+                    <td>Flutter (мова Dart), React Native (JavaScript)</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <footer>
+            <p>Вибір мови програмування — це вибір інструменту для вирішення конкретної задачі.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
