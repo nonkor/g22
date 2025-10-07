@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Господарство країн Європи</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #0d2c4e;
+            --secondary-color: #2a5a8a;
+            --accent-color-primary: #4CAF50; /* Green */
+            --accent-color-secondary: #FF9800; /* Orange */
+            --accent-color-tertiary: #03A9F4; /* Blue */
+            --bg-color: #f7f9fc;
+            --card-bg-color: #ffffff;
+            --text-color: #333333;
+            --light-text-color: #555555;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        header h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            text-align: center;
+            font-size: 1.1em;
+            color: var(--light-text-color);
+            margin-bottom: 40px;
+        }
+
+        /* Стилі для секції з діаграмами */
+        .charts-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+            align-items: stretch;
+        }
+
+        .chart-container {
+            width: 50%;
+            background: var(--card-bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            /* --- ОСНОВНЕ ВИПРАВЛЕННЯ --- */
+            /* Обмежуємо висоту та додаємо відносне позиціонування для коректної роботи діаграм */
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-container h3 {
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-top: 0;
+        }
+
+        .chart-container canvas {
+            max-height: 330px; /* Додатково обмежуємо висоту самої діаграми */
+        }
+
+        .sectors-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .sector-card {
+            background: var(--card-bg-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 32%;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid;
+        }
+
+        .sector-card.primary { border-color: var(--accent-color-primary); }
+        .sector-card.secondary { border-color: var(--accent-color-secondary); }
+        .sector-card.tertiary { border-color: var(--accent-color-tertiary); }
+
+        .card-header { padding: 20px; }
+        .card-header h2 { margin: 0; font-size: 1.8em; font-weight: 500; }
+        .primary .card-header h2 { color: var(--accent-color-primary); }
+        .secondary .card-header h2 { color: var(--accent-color-secondary); }
+        .tertiary .card-header h2 { color: var(--accent-color-tertiary); }
+        .card-header .subtitle { font-size: 0.9em; color: var(--light-text-color); font-style: italic; }
+        .card-content { padding: 0 20px 20px; flex-grow: 1; }
+        .card-content h3 { color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 15px; font-weight: 500; }
+        .card-content ul { list-style: none; padding-left: 0; }
+        .card-content ul li { padding-left: 20px; position: relative; margin-bottom: 8px; }
+        .card-content ul li::before { content: '✓'; position: absolute; left: 0; font-weight: bold; }
+        .primary ul li::before { color: var(--accent-color-primary); }
+        .secondary ul li::before { color: var(--accent-color-secondary); }
+        .tertiary ul li::before { color: var(--accent-color-tertiary); }
+
+        .image-placeholder { width: 100%; height: 180px; background-color: #ccc; cursor: pointer; background-size: cover; background-position: center; transition: opacity 0.3s; }
+        .image-placeholder:hover { opacity: 0.85; }
+
+        #definitions { margin-top: 60px; padding: 30px; background: var(--card-bg-color); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        #definitions h2 { text-align: center; color: var(--primary-color); margin-top: 0; }
+        dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        dt { font-weight: 700; color: var(--secondary-color); }
+        dd { margin-left: 0; font-size: 0.95em; color: var(--light-text-color); }
+
+        .fullscreen-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 1000; cursor: pointer; }
+        .fullscreen-image { max-width: 90%; max-height: 90%; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Господарство країн Європи</h1>
+            <p>Огляд ключових рис економіки, її структури та провідних галузей</p>
+        </header>
+
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>Структура ВВП Євросоюзу за секторами</h3>
+                <canvas id="sectorPieChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Найбільші економіки Європи за номінальним ВВП, трлн $ (2024)</h3>
+                <canvas id="gdpBarChart"></canvas>
+            </div>
+        </section>
+
+        <main class="sectors-container">
+            <div class="sector-card primary">
+                <div class="card-header">
+                    <h2>Первинний</h2>
+                    <span class="subtitle">Видобуток сировини та аграрний сектор</span>
+                </div>
+                <div class="image-placeholder" style="background-image: url('1.jpg');" onclick="showFullscreen('https://i.ibb.co/L5hY6yG/vineyards.jpg')"></div>
+                <div class="card-content">
+                    <h3>Сільське господарство</h3>
+                    <ul>
+                        <li><b>Продуктивність:</b> Високий рівень завдяки інтенсивності та субсидіям (напр. Єдина аграрна політика ЄС).</li>
+                        <li><b>Тваринництво:</b> Переважає у більшості країн; молочне скотарство (північ), м'ясо-молочне (центр), свинарство (Німеччина, Данія).</li>
+                        <li><b>Рослинництво:</b> Зернові, картопля, цукровий буряк. Південна Європа спеціалізується на фруктах, винограді, оливках.</li>
+                    </ul>
+                    <h3>Добувна промисловість</h3>
+                    <ul>
+                        <li><b>Ресурси:</b> Видобуток нафти і газу (Північне море), вугілля (Німеччина, Польща), залізної руди (Швеція, Україна).</li>
+                        <li><b>Залежність:</b> Більшість країн залежать від імпорту сировини через виснаження власних родовищ.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sector-card secondary">
+                <div class="card-header">
+                    <h2>Вторинний</h2>
+                    <span class="subtitle">Промисловість та будівництво</span>
+                </div>
+                <div class="image-placeholder" style="background-image: url('2.jpg');" onclick="showFullscreen('https://i.ibb.co/P9tGzTf/car-factory.jpg')"></div>
+                <div class="card-content">
+                    <h3>Промислові райони</h3>
+                    <ul>
+                        <li><b>"Центральна вісь розвитку":</b> Головна зона концентрації промисловості від Англії через Бенілюкс, ФРН, Швейцарію до Північної Італії.</li>
+                    </ul>
+                    <h3>Провідні галузі</h3>
+                    <ul>
+                        <li><b>Машинобудування:</b> Автомобілебудування (ФРН, Франція), авіакосмічне (Airbus), верстатобудування (ФРН, Швейцарія).</li>
+                        <li><b>Хімічна промисловість:</b> Високотехнологічна продукція: фармацевтика (Швейцарія), парфумерія (Франція), пластмаси (ФРН).</li>
+                        <li><b>Реіндустріалізація:</b> Розвиток сучасних наукоємних виробництв (фармацевтика, нові матеріали) замість старих.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sector-card tertiary">
+                <div class="card-header">
+                    <h2>Третинний</h2>
+                    <span class="subtitle">Сфера послуг</span>
+                </div>
+                <div class="image-placeholder" style="background-image: url('3.jpg');" onclick="showFullscreen('https://i.ibb.co/bF9N4fQ/financial-district.jpg')"></div>
+                <div class="card-content">
+                    <h3>Фінанси та ІТ</h3>
+                    <ul>
+                        <li><b>Фінансові центри:</b> Лондон, Франкфурт, Цюрих, Париж — ключові вузли світових фінансових потоків.</li>
+                        <li><b>ІТ-послуги:</b> Стрімко зростає роль комп'ютерного програмування та інформаційних технологій.</li>
+                    </ul>
+                    <h3>Транспорт і туризм</h3>
+                    <ul>
+                        <li><b>Транспортна мережа:</b> Розвиток Транс'європейської мережі, що об'єднує національні системи. Найбільший порт — Роттердам.</li>
+                        <li><b>Туризм:</b> Європа є головним туристичним регіоном світу, лідери — Франція та Іспанія.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <section id="definitions">
+            <h2>Глосарій: ключові терміни</h2>
+            <dl>
+                <div>
+                    <dt>ВВП (Валовий внутрішній продукт)</dt>
+                    <dd>Ринкова вартість усіх кінцевих товарів і послуг, вироблених у країні за рік. Основний показник розміру економіки.</dd>
+                </div>
+                <div>
+                    <dt>Центральна вісь розвитку</dt>
+                    <dd>Найбільш економічно розвинена та концентрована промислова зона Європи, що простягається від Великої Британії до Північної Італії.</dd>
+                </div>
+                <div>
+                    <dt>Реіндустріалізація</dt>
+                    <dd>Процес розвитку сучасних наукоємних виробництв на основі досягнень науково-технічного прогресу, що приходить на зміну старим галузям.</dd>
+                </div>
+                 <div>
+                    <dt>Первинний сектор</dt>
+                    <dd>Галузі, що видобувають сировину з природи: сільське господарство, рибальство, добувна промисловість.</dd>
+                </div>
+                 <div>
+                    <dt>Вторинний сектор</dt>
+                    <dd>Обробна промисловість та будівництво. Перетворює сировину на готову продукцію.</dd>
+                </div>
+                 <div>
+                    <dt>Третинний сектор</dt>
+                    <dd>Сфера послуг: торгівля, транспорт, фінанси, туризм, освіта, медицина. Домінує в економіці розвинених країн.</dd>
+                </div>
+            </dl>
+        </section>
+
+    </div>
+
+    <div class="fullscreen-overlay" id="fullscreen-container" onclick="closeFullscreen()">
+        <img src="" alt="Fullscreen Image" class="fullscreen-image" id="fullscreen-image">
+    </div>
+
+    <script>
+        // Функціонал для зображень
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        const fullscreenImage = document.getElementById('fullscreen-image');
+
+        function showFullscreen(imageUrl) {
+            fullscreenImage.src = imageUrl;
+            fullscreenContainer.style.display = 'flex';
+            window.addEventListener('keydown', handleEscKey);
+        }
+
+        function closeFullscreen() {
+            fullscreenContainer.style.display = 'none';
+            fullscreenImage.src = '';
+            window.removeEventListener('keydown', handleEscKey);
+        }
+
+        function handleEscKey(event) {
+            if (event.key === 'Escape') {
+                closeFullscreen();
+            }
+        }
+
+        // Ініціалізація діаграм
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Кругова діаграма секторів економіки
+            const pieCtx = document.getElementById('sectorPieChart').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Третинний сектор (Послуги)', 'Вторинний сектор (Промисловість)', 'Первинний сектор (С/Г, видобуток)'],
+                    datasets: [{
+                        label: 'Структура ВВП',
+                        data: [74.5, 24.1, 1.4],
+                        backgroundColor: [
+                            'rgba(3, 169, 244, 0.8)',
+                            'rgba(255, 152, 0, 0.8)',
+                            'rgba(76, 175, 80, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(3, 169, 244, 1)',
+                            'rgba(255, 152, 0, 1)',
+                            'rgba(76, 175, 80, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            // 2. Гістограма ВВП країн
+            const barCtx = document.getElementById('gdpBarChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Німеччина', 'Велика Британія', 'Франція', 'Італія', 'Іспанія', 'Нідерланди'],
+                    datasets: [{
+                        label: 'Номінальний ВВП, трлн $',
+                        data: [4.5, 3.5, 3.1, 2.2, 1.6, 1.1],
+                        backgroundColor: 'rgba(42, 90, 138, 0.7)',
+                        borderColor: 'rgba(42, 90, 138, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
