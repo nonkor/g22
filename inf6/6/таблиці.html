@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вступ до Електронних Таблиць</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .slider {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+        .slide-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 4rem;
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #1565c0;
+        }
+        p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 2;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 1rem;
+            z-index: 2;
+        }
+        ul {
+            text-align: left;
+            font-size: 1.4rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slider">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Вступ до Електронних Таблиць</h1>
+                <p>Ваш новий інструмент для роботи з даними!</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Проблема: Ми провели опитування...</h2>
+                <p>...але де ж подивитись усі відповіді разом? Як їх порахувати?</p>
+                <img src="https://i.imgur.com/vHq05sJ.png" alt="Приклад Google Form" style="max-width: 600px;">
+            </div>
+        </div>
+
+        <!-- Slide 3: Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Рішення: Google Таблиці!</h2>
+                <p>Усі відповіді автоматично збираються у зручну електронну таблицю.</p>
+                <img src="https://i.imgur.com/k26z98i.png" alt="Відповіді у Google Sheets" style="max-width: 800px;">
+            </div>
+        </div>
+
+        <!-- Slide 4: What is a spreadsheet -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Що таке електронна таблиця?</h2>
+                <p>Це комп'ютерна програма для роботи з даними. Уявіть собі "чарівний зошит", який вміє сам рахувати, сортувати та малювати графіки.</p>
+                 <img src="https://i.imgur.com/3Z4h4dE.png" alt="Інтерфейс електронної таблиці">
+            </div>
+        </div>
+
+        <!-- Slide 5: Purpose -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Для чого вони потрібні?</h2>
+                <ul>
+                    <li>✅ Організовувати інформацію (розклад, списки)</li>
+                    <li>➕ Виконувати обчислення (бюджет, оцінки)</li>
+                    <li>📊 Будувати діаграми та графіки (візуалізувати дані)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Environment -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Середовище табличного процесора</h2>
+                <p>Давайте познайомимось з основними елементами.</p>
+                <img src="https://i.imgur.com/rMv2f4B.png" alt="Інтерфейс Google Sheets з підписами">
+            </div>
+        </div>
+
+        <!-- Slide 7: Main Objects -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Головні об'єкти таблиці</h2>
+                 <img src="https://i.imgur.com/GjN9q8v.png" alt="Стовпці, рядки та клітинки">
+            </div>
+        </div>
+
+        <!-- Slide 8: Data Types -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Типи даних у клітинках</h2>
+                <p>У клітинки можна вводити текст, числа та формули.</p>
+                <img src="https://i.imgur.com/qE4J3q5.png" alt="Приклади даних у клітинках">
+            </div>
+        </div>
+
+        <!-- Slide 9: Practical Task -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Практична робота</h2>
+                <p>Створіть таблицю "Мій улюблений YouTube-канал" з трьома стовпцями: Назва, Тематика, Кількість підписників.</p>
+                <img src="https://i.imgur.com/eBf2K54.png" alt="Приклад таблиці для практичної роботи">
+            </div>
+        </div>
+
+        <!-- Slide 10: Formatting -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Форматування даних</h2>
+                <p>Зробімо нашу таблицю гарною! Використовуйте жирний шрифт, заливку кольором та межі.</p>
+                <img src="https://i.imgur.com/zW7E22y.png" alt="Приклад форматування таблиці">
+            </div>
+        </div>
+
+        <!-- Slide 11: Game -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Гра: "Табличний Морський Бій"</h2>
+                <p>Створіть поле 10x10 та "сховайте" 5 одноклітинкових кораблів, зафарбувавши клітинки. По черзі називайте адреси клітинок!</p>
+                <img src="https://i.imgur.com/gK2T36U.png" alt="Приклад поля для гри Морський Бій">
+            </div>
+        </div>
+
+        <!-- Slide 12: Summary -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Підсумок уроку</h2>
+                <ul>
+                    <li>Що таке електронна таблиця?</li>
+                    <li>Як утворюється адреса клітинки?</li>
+                    <li>Назвіть три основні об'єкти таблиці.</li>
+                    <li>Для чого потрібне форматування?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Homework -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Домашнє завдання</h2>
+                <p>Створіть у Google Таблицях свій розклад уроків на тиждень. Застосуйте форматування: розфарбуйте різні предмети у різні кольори та додайте рамки.</p>
+                <img src="https://i.imgur.com/s6X8xDm.png" alt="Приклад домашнього завдання">
+            </div>
+        </div>
+
+        <button class="nav-button prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="nav-button next" onclick="changeSlide(1)">&#10095;</button>
+        <div class="slide-counter"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideCounter = document.querySelector('.slide-counter');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            slideCounter.textContent = `${index + 1} / ${slides.length}`;
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

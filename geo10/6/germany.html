@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Німеччина: Економічний огляд</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a69bd;
+            --secondary-color: #1e3799;
+            --text-dark: #2c3e50;
+            --text-light: #576574;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #e9ecef;
+            --shadow: 0 10px 30px rgba(0,0,0,0.07);
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 25px;
+            font-size: 18px; /* Адаптивний розмір шрифту */
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        header {
+            text-align: center;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--bg-white);
+            padding: 40px 20px;
+            border-radius: 12px 12px 0 0;
+            margin: -40px -40px 40px -40px;
+        }
+        header h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 1.8rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            padding-bottom: 15px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .section-grid, .section-grid-2x2, .section-grid-3-col {
+            display: grid;
+            gap: 30px;
+            align-items: stretch;
+        }
+        .section-grid {
+             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+        .section-grid-2x2 { grid-template-columns: 1fr; }
+        .section-grid-3-col { grid-template-columns: 1fr; }
+
+        @media (min-width: 768px) {
+            .section-grid-2x2 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 992px) {
+             .section-grid-3-col { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .card {
+            background-color: var(--bg-white);
+            padding: 25px;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .card-icon {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .card-icon svg {
+            width: 45px;
+            height: 45px;
+            fill: var(--primary-color);
+            flex-shrink: 0;
+        }
+        .card h3 {
+             margin: 0 0 10px 0;
+             font-size: 1.5rem;
+             font-weight: 600;
+             color: var(--text-dark);
+        }
+        .card p, .card li {
+             color: var(--text-light);
+        }
+        .card span {
+             font-weight: 600;
+             color: var(--text-dark);
+        }
+        .card ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .pie-chart-container {
+            text-align: center;
+        }
+        .donut-chart {
+            width: 100%;
+            max-width: 400px;
+            margin: 30px auto;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            font-size: 1.2rem;
+            margin-top: 25px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+        .map img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            height: 100%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .map img:hover {
+            transform: scale(1.03);
+        }
+        .info-box {
+            background-color: #eff3f7;
+            border-left: 6px solid var(--primary-color);
+            padding: 25px;
+            margin-top: 50px;
+            border-radius: 8px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+        .info-box ul {
+            padding-left: 20px;
+            font-size: 1.3rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.5s;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 900px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+         @media (max-width: 768px) {
+            body { font-size: 16px; padding: 15px; }
+            header h1 { font-size: 2.5rem; }
+            header p { font-size: 1.3rem; }
+            h2 { font-size: 2.2rem; }
+            .card { font-size: 1.1rem; }
+            .section-grid, .section-grid-2x2, .section-grid-3-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Німеччина</h1>
+            <p>Економічний огляд</p>
+        </header>
+
+        <section>
+            <h2>Візитна картка</h2>
+            <div class="section-grid" style="align-items: center;">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <p>Столиця: <span>Берлін</span></p>
+                    </div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16.5 12c1.38 0 2.5-1.12 2.5-2.5S17.88 7 16.5 7 14 8.12 14 9.5s1.12 2.5 2.5 2.5zM9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm7.5 3c-1.83 0-5.5.92-5.5 2.75V18h11v-1.25c0-1.83-3.67-2.75-5.5-2.75zM9 13c-2.33 0-7 1.17-7 3.5V18h7v-1.5c0-.83.67-1.5 1.5-1.5.15 0 .29.02.43.05-.71-.58-1.26-1.3-1.63-2.12z"/></svg>
+                        <p>Населення: <span>84,5 млн осіб (2024 р.)</span></p>
+                    </div>
+                     <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5L12 2zm-1 12.32V22h2v-7.68L4.93 11 11 7.68zm12.93-3.32L13 15.32V22h2v-7.68l8.07-4.04-2.14-.96z"/></svg>
+                        <p>Форма правління: <span>Парламентська республіка, федеративна держава</span></p>
+                    </div>
+                </div>
+                <div class="map">
+                    <img id="mapTrigger" src="states-of-germany-map.webp" alt="Карта Німеччини та її сусідів">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Ключові показники</h2>
+            <div class="section-grid-3-col">
+                <div class="card">
+                    <div class="card-icon">
+                         <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c2.14-.46 3.5-1.63 3.5-3.6 0-2.05-1.5-3.2-4.2-3.95z"/></svg>
+                         <p>ВВП (номінал): <span>3-тє місце у світі.</span></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.09-4-4L2 17.08l1.5 1.41zM3 3h2v2H3zm0 4h2v2H3zm0 4h2v2H3zm0 4h2v2H3zm4 0h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+                        <p>ВВП (ПКС) на душу населення: <span>~ $66,000 (19-те місце у світі).</span></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                         <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.29-6.29L22 12V6h-6z"/></svg>
+                        <p>Індекс розвитку людського потенціалу (ІРЛП): <span>5-те місце у світі (2020 р.).</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Структура господарства (ВВП)</h2>
+            <div class="pie-chart-container">
+                <svg viewBox="-10 -10 120 120" class="donut-chart">
+                    <circle r="45" cx="50" cy="50" fill="transparent" stroke="#e0e0e0" stroke-width="10"></circle>
+                    <circle r="45" cx="50" cy="50" fill="transparent" stroke="#f1c40f" stroke-width="10" stroke-dasharray="calc(1 * 282.6 / 100) 282.6" transform="rotate(-90 50 50)"></circle>
+                    <circle r="45" cx="50" cy="50" fill="transparent" stroke="#e74c3c" stroke-width="10" stroke-dasharray="calc(30 * 282.6 / 100) 282.6" transform="rotate(-86.4 50 50)"></circle>
+                    <circle r="45" cx="50" cy="50" fill="transparent" stroke="#4a69bd" stroke-width="10" stroke-dasharray="calc(69 * 282.6 / 100) 282.6" transform="rotate(21.6 50 50)"></circle>
+                </svg>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background-color: #4a69bd;"></div><span>Сфера послуг (69%)</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: #e74c3c;"></div><span>Промисловість (30%)</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background-color: #f1c40f;"></div><span>Сільське господарство (1%)</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Провідні галузі промисловості</h2>
+            <div class="section-grid">
+                <div class="card">
+                    <h3>Машинобудування</h3>
+                    <p>Лідер Європи. Виробляє майже 50% промислової продукції країни та 60% її експорту.</p>
+                    <ul>
+                        <li>Продукція: автомобілі, верстати, промислові роботи, обладнання.</li>
+                        <li>Бренди: Volkswagen, BMW, Mercedes-Benz, Siemens, Bosch.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Хімічна промисловість</h3>
+                    <p>№2 у світі за виробництвом та №1 за експортом.</p>
+                    <ul>
+                        <li>Продукція: пластмаси, полімери, фарби, ліки, косметика.</li>
+                        <li>Бренди: BASF, Bayer.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Відносини з Україною</h2>
+            <div class="section-grid-2x2">
+                <div class="card">
+                    <h3>Торговельне партнерство</h3>
+                    <p>Товарообіг між країнами у 2023 році сягнув <span>$9 млрд</span>. Німеччина залишається одним з ключових економічних партнерів України в ЄС.</p>
+                    <ul>
+                        <li>Україна експортує: IT-послуги, автокомпоненти, агропродукцію.</li>
+                        <li>Німеччина постачає: автомобілі, обладнання, фармацевтику.</li>
+                    </ul>
+                </div>
+                 <div class="card">
+                    <h3>Прихисток для біженців</h3>
+                    <p>За останніми даними, Німеччина надала тимчасовий захист <span>понад 1,2 мільйону</span> українців, ставши одним зі світових лідерів за цим показником.</p>
+                </div>
+                <div class="card">
+                    <h3>Військова підтримка</h3>
+                    <p>Німеччина є другим у світі донором військової допомоги для України після США. Загальна вартість наданої та обіцяної допомоги перевищує <span>€28 мільярдів</span>.</p>
+                </div>
+                 <div class="card">
+                    <h3>Інвестиції та відбудова</h3>
+                    <p>Німеччина посідає одне з провідних місць за обсягами інвестицій в економіку України та відіграє активну роль у плануванні майбутньої відбудови країни.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-box">
+            <h3>Що таке Індекс розвитку людського потенціалу (ІРЛП)?</h3>
+            <p>Це комплексний показник, який використовується для порівняння рівня життя, освіти та довголіття в різних країнах. Він допомагає зрозуміти, наскільки держава забезпечує добробут своїх громадян. </p>
+            <ul>
+                <li>Довголіття: оцінюється через середню очікувану тривалість життя.</li>
+                <li>Освіта: враховує середню кількість років, витрачених на навчання, та очікувану тривалість навчання.</li>
+                <li>Рівень життя: вимірюється через валовий національний дохід (ВНД) на душу населення.</li>
+            </ul>
+        </section>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Get modal elements
+        var modal = document.getElementById("imageModal");
+        var mapTrigger = document.getElementById("mapTrigger");
+        var modalImg = document.getElementById("modalImage");
+        var closeModal = document.querySelector(".close-modal");
+
+        // Open modal
+        mapTrigger.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+        }
+
+        // Close modal functions
+        function closeTheModal() {
+            modal.style.display = "none";
+        }
+
+        closeModal.onclick = closeTheModal;
+        modal.onclick = function(event) {
+            if (event.target == modal) {
+                closeTheModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTheModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
