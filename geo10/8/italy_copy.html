@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія: Італія</title>
+
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Підключення Google Fonts (Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Підключення Chart.js та плагіну Datalabels -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        /* 1. БАЗОВІ СТИЛІ ТА ШРИФТИ */
+        :root {
+            --font-main: 'Montserrat', sans-serif;
+
+            /* Акцентні кольори Італії */
+            --color-italy-green: #008C45;
+            --color-italy-red: #CD212A;
+            --color-italy-white: #FFFFFF;
+
+            --color-dark: #2c3e50;
+            --card-bg: #ffffff;
+            --body-bg: #f9fbf9; /* Світлий сіро-зелений фон */
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+            /* Тема */
+            --header-bg: #2c3e50;
+            --header-text: #ffffff;
+            --link-color: #008C45; /* Зелений акцент */
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--body-bg);
+            color: var(--color-dark);
+            line-height: 1.7;
+            font-size: 17px; /* ЗБІЛЬШЕНО: Базовий розмір шрифту */
+        }
+
+        /* 2. СТИЛІЗАЦІЯ КОМПОНЕНТІВ */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.025em; /* ЗМІНЕНО: Додано "дихання" */
+        }
+
+        h2 {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem;
+            color: var(--color-dark); /* ПОВЕРНУЛИ: Колір тексту */
+            border-left: 4px solid var(--color-italy-green);
+            padding-left: 0.75rem;
+            margin-bottom: 1.25rem;
+
+            /* ЗМІНЕНО: Градієнт для ФОНУ, а не тексту */
+            /* Створює ефект "в'їжджання" зліва, злегка прозорий */
+            background: linear-gradient(90deg, rgba(0, 140, 69, 0.08), transparent);
+            /* rgba(0, 140, 69, 0.08) - це --color-italy-green (#008C45)
+               з 8% непрозорістю
+            */
+
+            /* ВИДАЛЕНО: Градієнт тексту */
+            /*
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            */
+        }
+
+        h3 {
+            font-size: 1.125rem; /* 18px */
+            line-height: 1.75rem;
+            font-weight: 700; /* ЗМІНЕНО: 600 -> 700 */
+            color: var(--color-italy-green);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Стиль "Картки" */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem; /* p-6 */
+            width: 100%;
+        }
+
+        /* Контейнер для діаграм */
+        .chart-container {
+            position: relative;
+            height: 250px; /* Зменшено висоту для кругових */
+            width: 100%;
+        }
+
+        /* 3. СТИЛІ ФУТЕРА-ГЛОСАРІЯ */
+        footer {
+            background-color: var(--color-dark);
+            color: #f0f0f0;
+            padding: 2.5rem 1rem;
+            margin-top: 2rem;
+        }
+        footer details {
+            max-width: 900px;
+            margin: 0.5rem auto;
+            background-color: #3e5770; /* Трохи світліше за фон */
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        footer details:hover {
+            background-color: #4a6580;
+        }
+        footer summary {
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none; /* Сховати трикутник */
+            position: relative;
+            user-select: none;
+        }
+        footer summary::after {
+            /* Власний індикатор */
+            content: '+';
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            font-weight: 400;
+            transition: transform 0.2s ease-in-out;
+        }
+        footer details[open] summary::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+        footer .glossary-content {
+            padding: 0 1.25rem 1.25rem 1.25rem;
+            color: #ddd;
+            font-size: 0.95rem;
+        }
+        footer .glossary-content dd {
+            color: #ccc;
+            margin-left: 0;
+        }
+
+        /* 4. СТИЛІ МОДАЛЬНОГО ВІКНА (LIGHTBOX) */
+        .modal {
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .modal-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            transition: transform 0.25s ease;
+            background-color: #ffffff; /* ДОДАНО: Білий фон для SVG-плейсхолдерів */
+        }
+        /* Анімація появи */
+        .modal:not(.hidden) {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal:not(.hidden) .modal-image {
+            transform: scale(1);
+        }
+        /* Початковий стан (для анімації) */
+        .modal.hidden .modal-image {
+            transform: scale(0.9);
+        }
+
+        /* 5. СТИЛІ ПЕРЕМИКАЧА ДЛЯ БЛОКУ "ДУАЛЬНІСТЬ" */
+        .duality-tab {
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .duality-tab.active {
+            background-color: var(--color-italy-green);
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- === HEADER === -->
+    <header style="background-color: var(--header-bg); color: var(--header-text);" class="py-6 shadow-md">
+        <div class="container mx-auto px-4 md:px-6">
+            <h1 class="text-3xl md:text-4xl font-bold">Географічний огляд: Італія</h1>
+            <p class="text-lg opacity-90">§ 14. Країни Європи: Італійська Республіка</p>
+        </div>
+    </header>
+
+    <!-- === MAIN CONTENT === -->
+    <main class="container mx-auto p-4 md:p-6">
+
+        <!-- Карта (Placeholder) - ПЕРЕМІЩЕНО НАГОРУ -->
+        <!-- ЗМІНЕНО: Контейнеру задано адаптивну висоту, img має h-full -->
+        <div class="w-full h-64 md:h-80 lg:h-96 bg-gray-100 rounded-lg overflow-hidden border mb-6 shadow">
+            <img src="Italian_regions_provinces.svg"
+                 alt="Плейсхолдер для мапи Італії"
+                 class="w-full h-full object-cover modal-trigger cursor-pointer"> <!-- ЗМІНЕНО: h-auto на h-full -->
+        </div>
+
+        <!-- Головна сітка: 3 колонки -->
+        <!-- ЗМІНЕНО: Прибрано lg:grid-cols-3 для створення єдиної колонки -->
+        <div class="grid grid-cols-1 gap-6">
+
+            <!-- === ЛІВА КОЛОНКА (Основна інформація) === -->
+            <!-- ЗМІНЕНО: Прибрано lg:col-span-2 -->
+            <div class="space-y-6">
+
+                <!-- Картка: Візитівка -->
+                <section class="card">
+                    <h2 class="!mt-0">Італійська Республіка (Repubblica Italiana)</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><span class="font-semibold">Столиця:</span> Рим ("Вічне місто")</li>
+                        <li><span class="font-semibold">Форма правління:</span> Парламентська республіка</li>
+                        <li><span class="font-semibold">Площа:</span> 301 340 км²</li>
+                        <li><span class="font-semibold">Населення:</span> ~58.9 млн осіб (одна з найбільш "старих" націй світу)</li>
+                        <li><span class="font-semibold">ВВП (номінал):</span> ~$2.28 трлн (2024 р.), 8-ма економіка світу, член G7 та ЄС</li>
+                        <li><span class="font-semibold">Адміністративний устрій:</span> Унітарна держава, 20 регіонів</li>
+                        <li><span class="font-semibold">Анклави:</span> На території Італії знаходяться дві незалежні держави-анклави: Ватикан та Сан-Марино.</li>
+                    </ul>
+                </section>
+
+                <!-- НОВИЙ БЛОК: Дуальність економічного розвитку -->
+                <section class="card">
+                    <h2>Дуальність економічного розвитку Італії</h2>
+
+                    <!-- Навігація по зображеннях -->
+                    <div class="flex flex-wrap gap-2 border-b border-gray-200 pb-3 mb-4">
+                        <button class="duality-tab p-2 px-4 rounded-lg text-sm border active" data-target="gdp">ВВП на душу населення</button>
+                        <button class="duality-tab p-2 px-4 rounded-lg text-sm border" data-target="labor">Ринок праці</button>
+                        <button class="duality-tab p-2 px-4 rounded-lg text-sm border" data-target="balance">Фіскальний баланс (2019)</button>
+                    </div>
+
+                    <!-- Контейнер для зображення -->
+                    <!-- ЗМІНЕНО: Тепер тут 3 окремих зображення, 2 з яких сховані -->
+                    <div class="w-full bg-gray-50 rounded-lg overflow-hidden border relative min-h-[300px]">
+                        <img id="duality-gdp"
+                             src="gdp.jpg"
+                             alt="ВВП на душу населення"
+                             class="duality-image-item w-full h-auto object-cover modal-trigger cursor-pointer">
+                        <img id="duality-labor"
+                             src="labor.jpg"
+                             alt="Ринок праці"
+                             class="duality-image-item w-full h-auto object-cover modal-trigger cursor-pointer hidden">
+                        <img id="duality-balance"
+                             src="fiscal.jpg"
+                             alt="Фіскальний баланс 2019"
+                             class="duality-image-item w-full h-auto object-cover modal-trigger cursor-pointer hidden">
+                    </div>
+                </section>
+
+                <!-- Картка: Сектори Економіки -->
+                <section class="card">
+                    <h2>Сектори Економіки</h2>
+
+                    <!-- ЗАМІНА АБЗАЦІВ НА ТАБЛИЦЮ -->
+                    <!-- ОНОВЛЕНО: Додано діаграму як першу колонку + вкладені таблиці для описів -->
+                    <div class="overflow-x-auto mt-4">
+                        <table class="w-full text-left text-base divide-y divide-gray-200"> <!-- ЗМІНЕНО: text-sm на text-base -->
+                            <thead class="bg-gray-50 rounded">
+                                <tr>
+                                    <th class="p-3 font-semibold w-[300px]">Структура ВВП (2023)</th>
+                                    <th class="p-3 font-semibold">Сектор</th>
+                                    <th class="p-3 font-semibold">Ключові галузі та спеціалізація</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+
+                                <tr class="align-top">
+                                    <!-- КОЛОНКА 1: Діаграма (охоплює 3 ряди) -->
+                                    <td class="p-3 align-top" rowspan="3">
+                                        <div class="chart-container" style="height: 250px; width: 100%; min-width: 250px;">
+                                            <canvas id="gdpSectorChart"></canvas>
+                                        </div>
+                                    </td>
+
+                                    <!-- КОЛОНКА 2: Сектор (Третинний) -->
+                                    <td class="p-3">
+                                        <h3 class="!mt-0 !mb-1 text-base"><span class="text-xl">III</span> Третинний сектор</h3>
+                                        <span class="font-bold">(~73% ВВП, ~71% зайнятих)</span>
+                                    </td>
+
+                                    <!-- КОЛОНКА 3: Опис (Третинний) - Вкладена таблиця -->
+                                    <td class="p-3 text-gray-700">
+                                        <table class="w-full text-base">
+                                            <tbody>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold w-1/3">Туризм:</td>
+                                                    <td class="py-1">Одна з топ-5 найбільш відвідуваних країн світу.</td>
+                                                </tr>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold">Фінанси:</td>
+                                                    <td class="py-1">Розвинений банківський сектор (напр., UniCredit).</td>
+                                                </tr>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold">Мода:</td>
+                                                    <td class="py-1">Дизайн, маркетинг (Мілан — світова столиця моди).</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr class="align-top">
+                                    <!-- Колонка 1 відсутня (rowspan) -->
+                                    <!-- КОЛОНКА 2: Сектор (Вторинний) -->
+                                    <td class="p-3">
+                                        <h3 class="!mt-0 !mb-1 text-base"><span class="text-xl">II</span> Вторинний сектор</h3>
+                                        <span class="font-bold">(~25% ВВП, ~25% зайнятих)</span>
+                                    </td>
+
+                                    <!-- КОЛОНКА 3: Опис (Вторинний) - Вкладена таблиця -->
+                                    <td class="p-3 text-gray-700">
+                                        <table class="w-full text-base">
+                                            <tbody>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold w-1/3">Центр:</td>
+                                                    <td class="py-1"><b>"Промисловий трикутник"</b> (Мілан–Турин–Генуя).</td>
+                                                </tr>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold">Галузі:</td>
+                                                    <td class="py-1">
+                                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                                            <li><b>Автомобілі:</b> (FIAT, Ferrari, Lamborghini)</li>
+                                                            <li><b>Побутова техніка:</b> (Indesit)</li>
+                                                            <li><b>Легка пром.:</b> Одяг, взуття (Armani, Prada)</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr class="align-top">
+                                    <!-- Колонка 1 відсутня (rowspan) -->
+                                    <!-- КОЛОНКА 2: Сектор (Первинний) -->
+                                    <td class="p-3">
+                                        <h3 class="!mt-0 !mb-1 text-base"><span class="text-xl">I</span> Первинний сектор</h3>
+                                        <span class="font-bold">(~2% ВВП, ~4% зайнятих)</span>
+                                    </td>
+
+                                    <!-- КОЛОНКА 3: Опис (Первинний) - Вкладена таблиця -->
+                                    <td class="p-3 text-gray-700">
+                                        <table class="w-full text-base">
+                                            <tbody>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold w-1/3">Спеціалізація:</td>
+                                                    <td class="py-1"><b>"Середземноморська тріада"</b></td>
+                                                </tr>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold">Продукція:</td>
+                                                    <td class="py-1">
+                                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                                            <li>Виноград (лідер з виробництва вина)</li>
+                                                            <li>Оливки (оливкова олія)</li>
+                                                            <li>Цитрусові (Південь)</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr class="align-top">
+                                                    <td class="pr-2 py-1 font-semibold">Ресурси:</td>
+                                                    <td class="py-1">Бідна на енергоносії (імпорт).</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- КІНЕЦЬ ЗАМІНИ -->
+
+                </section>
+
+                <!-- Картка: Відносини з Україною -->
+                <section class="card">
+                    <h2>Італія та Україна</h2>
+
+                    <!-- ЗАМІНА АБЗАЦІВ НА ТАБЛИЦЮ -->
+                    <div class="overflow-x-auto mt-2">
+                        <table class="w-full text-left text-base divide-y divide-gray-200"> <!-- ЗМІНЕНО: text-sm на text-base -->
+                            <thead class="bg-gray-50 rounded">
+                                <tr>
+                                    <th class="p-3 font-semibold">Сфера</th>
+                                    <th class="p-3 font-semibold">Деталі</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="align-top">
+                                    <td class="p-3 font-medium">Економічні відносини</td>
+                                    <td class="p-3 text-gray-700">
+                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                            <li><b>Експорт з України:</b> Метали, агропродукція (зерно, олія), деревина.</li>
+                                            <li><b>Імпорт з Італії:</b> Обладнання, автомобілі, одяг, продукти харчування.</li>
+                                            <li>Велика українська громада в Італії.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="p-3 font-medium">Військова допомога (після 2022)</td>
+                                    <td class="p-3 text-gray-700">
+                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                            <li>Надання пакетів військової допомоги (артилерія, боєприпаси).</li>
+                                            <li>Надання систем ППО (зокрема, ЗРК SAMP/T спільно з Францією).</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="p-3 font-medium">Гуманітарна підтримка</td>
+                                    <td class="p-3 text-gray-700">
+                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                            <li>Прийняття десятків тисяч українських біженців.</li>
+                                            <li>Надання фінансової та гуманітарної допомоги.</li>
+                                            <li>Підтримка відновлення інфраструктури (патронат над Одесою).</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr class="align-top">
+                                    <td class="p-3 font-medium">Політична підтримка</td>
+                                    <td class="p-3 text-gray-700">
+                                        <ul class="list-disc list-outside ml-4 space-y-1">
+                                            <li>Послідовна підтримка санкцій проти РФ.</li>
+                                            <li>Підтримка статусу кандидата та євроінтеграційного курсу України.</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- КІНЕЦЬ ЗАМІНИ -->
+
+                </section>
+
+            </div>
+
+            <!-- === ПРАВА КОЛОНКА (Візуали та глосарій) === -->
+            <!-- ЗМІНЕНО: Прибрано lg:col-span-1. Цей блок тепер просто йде за попереднім -->
+            <div class="space-y-6">
+
+                <!-- Картка: Структура ВВП -->
+                <!-- ВИДАЛЕНО: Ця картка тепер інтегрована в таблицю "Сектори Економіки" -->
+
+                <!-- ПОВЕРНУЛИ КАРТКУ: Вікова Гістограма -->
+                <section class="card">
+                    <h2>Вікова структура населення (2023)</h2>
+                    <div class="chart-container" style="height: 200px;"> <!-- Висота налаштована для цього чарту -->
+                        <canvas id="ageHistogramChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Картка: Цікаві Факти -->
+                <section class="card">
+                    <h2>Цікаві факти</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>Італія ділить перше місце з Китаєм за кількістю об'єктів Світової спадщини ЮНЕСКО.</li>
+                        <li>На території Італії знаходиться єдиний діючий вулкан материкової Європи — Везувій.</li>
+                        <li>Італійці винайшли фортепіано, окуляри, термометр та барометр.</li>
+                        <li>Університет Болоньї (заснований у 1088 році) вважається найстарішим університетом у західному світі.</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- === FOOTER GLOSSARY === -->
+    <footer class="mt-12">
+        <div class="container mx-auto max-w-4xl px-4">
+            <h2 class="text-2xl font-bold text-center text-white mb-6">Глосарій ключових термінів</h2>
+
+            <details class="mb-2">
+                <summary>Меццоджорно (Mezzogiorno)</summary>
+                <div class="glossary-content">
+                    <dl><dd>"Південь"; термін для позначення економічно менш розвинених південних регіонів Італії (включаючи Сицилію та Сардинію).</dd></dl>
+                </div>
+            </details>
+
+            <details class="mb-2">
+                <summary>Промисловий трикутник</summary>
+                <div class="glossary-content">
+                     <dl><dd>Історичне промислове ядро Італії, утворене містами Мілан, Турин та Генуя на півночі країни.</dd></dl>
+                </div>
+            </details>
+
+            <details class="mb-2">
+                <summary>G7 (Велика Сімка)</summary>
+                <div class="glossary-content">
+                     <dl><dd>Група семи; міжнародний клуб урядів семи найрозвиненіших економік світу, до якого входить Італія.</dd></dl>
+                </div>
+            </details>
+
+            <details>
+                <summary>Анклав</summary>
+                <div class="glossary-content">
+                    <dl><dd>Держава або частина держави, оточена з усіх боків територією іншої держави (напр., Ватикан та Сан-Марино всередині Італії).</dd></dl>
+                </div>
+            </details>
+        </div>
+    </footer>
+
+    <!-- НОВИЙ БЛОК: Модальне вікно (Lightbox) -->
+    <div id="imageModal" class="modal hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 cursor-pointer" onclick="closeModal()">
+        <!-- Кнопка закриття (X) -->
+        <button id="modalClose" class="absolute top-4 right-6 text-white text-5xl font-light hover:text-gray-300 transition-colors z-50">&times;</button>
+
+        <!-- Контейнер для зображення -->
+        <div class="relative">
+            <img id="modalImage" src="" alt="Збільшене зображення" class="modal-image rounded-lg shadow-xl" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
+    <!-- === JAVASCRIPT === -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Реєстрація плагіну Datalabels
+            Chart.register(ChartDataLabels);
+
+            Chart.defaults.plugins.datalabels.color = '#111';
+            Chart.defaults.plugins.datalabels.font = { weight: 'bold' };
+            Chart.defaults.plugins.legend.position = 'bottom';
+            Chart.defaults.plugins.legend.labels.padding = 20;
+
+            // --- 1. Структура ВВП ---
+            const gdpCtx = document.getElementById('gdpSectorChart').getContext('2d');
+            new Chart(gdpCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Послуги (73%)', 'Промисловість (25%)', 'С/Г (2%)'],
+                    datasets: [{
+                        label: 'Частка ВВП, %',
+                        data: [73, 25, 2],
+                        backgroundColor: [
+                            '#008C45', // Green
+                            '#EEEEEE', // White/Gray
+                            '#CD212A'  // Red
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 3,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        datalabels: {
+                            display: false, // Вимкнемо, бо є в таблиці і легенді
+                        },
+                        legend: {
+                            labels: {
+                                font: { size: 13 }
+                            }
+                        },
+                        title: { display: false }
+                    },
+                    cutout: '60%' // Робить "пончик"
+                }
+            });
+
+            // --- 3. ПОВЕРНУЛИ: Вікова Гістограма ---
+            const ageCtx = document.getElementById('ageHistogramChart').getContext('2d');
+
+            const ageData = {
+                labels: ['0-14 років', '15-64 роки', '65+ років'],
+                values: [12.5, 63.5, 24.0] // %
+            };
+
+            new Chart(ageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ageData.labels,
+                    datasets: [{
+                        label: 'Частка населення, %',
+                        data: ageData.values,
+                        backgroundColor: [
+                            '#008C45', // Італійський зелений
+                            '#dddddd',
+                            '#CD212A'  // Італійський червоний
+                        ],
+                        borderColor: '#ccc',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Горизонтальна гістограма
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 70,
+                            ticks: { callback: (value) => value + '%' }
+                        },
+                        y: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            color: '#111',
+                            anchor: 'end',
+                            align: 'end',
+                            font: { weight: 'bold' },
+                            formatter: (value) => value.toFixed(1) + '%'
+                        },
+                        title: { display: false }
+                    }
+                }
+            });
+
+            // --- 4. НОВИЙ КОД: Перемикач для блоку "Дуальність" ---
+            // ЗМІНЕНО: Логіка тепер ховає/показує 3 різні <img>, а не міняє src одного
+            const tabs = document.querySelectorAll('.duality-tab');
+            const dualityImages = {
+                gdp: document.getElementById('duality-gdp'),
+                labor: document.getElementById('duality-labor'),
+                balance: document.getElementById('duality-balance')
+            };
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    // 1. Оновити активну кнопку
+                    tabs.forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+
+                    // 2. Оновити зображення (показати/сховати)
+                    const targetKey = e.currentTarget.dataset.target; // 'gdp', 'labor', or 'balance'
+
+                    // Сховати всі зображення
+                    Object.values(dualityImages).forEach(img => {
+                        if (img) img.classList.add('hidden');
+                    });
+
+                    // Показати потрібне зображення
+                    if (dualityImages[targetKey]) {
+                        dualityImages[targetKey].classList.remove('hidden');
+                    }
+                });
+            });
+
+            // --- 5. НОВИЙ КОД: Логіка Модального вікна (Lightbox) ---
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
+            const triggers = document.querySelectorAll('.modal-trigger');
+
+            const openModal = (e) => {
+                // Взяти src з натиснутого зображення
+                modalImage.src = e.currentTarget.src;
+                modal.classList.remove('hidden');
+            };
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                modalImage.src = ""; // Очистити src
+            };
+
+            // Навішуємо слухачі на всі зображення-тригери
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Зупинити спливання, якщо тригер всередині іншого клікабельного елемента
+                    openModal(e);
+                });
+            });
+
+            // Слухачі для закриття
+            modalClose.addEventListener('click', (e) => {
+                e.stopPropagation(); // Зупинити спливання, щоб не спрацював клік на modal
+                closeModal();
+            });
+
+            // Закриття по кліку на фон (вже є в HTML, але дублюємо для надійності)
+            modal.addEventListener('click', closeModal);
+
+            // Закриття по 'Escape'
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            // Перехоплення кліку на саму картинку в модалці, щоб вона не закривала модалку
+            modalImage.addEventListener('click', (e) => e.stopPropagation());
+
+            // Оновлення тригерів для зображення, що змінюється
+            // Оскільки dualityImage змінює src, нам не треба оновлювати слухач,
+            // він вже навішений на сам елемент dualityImage.
+        });
+    </script>
+
+</body>
+</html>

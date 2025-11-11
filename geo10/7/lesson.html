@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія: Франція та Велика Британія</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        /* 1. БАЗОВІ СТИЛІ ТА ШРИФТИ */
+        :root {
+            --font-main: 'Montserrat', sans-serif;
+            --color-france: #0056b3;
+            --color-uk: #C8102E;
+            --color-dark: #2c3e50;
+            --card-bg: #ffffff;
+            --body-bg: #f9fbf9; /* Світлий сіро-зелений фон */
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+            /* Світло-зелена тема */
+            --header-accent-color: #2ecc71;
+            --header-accent-bg: #f8fdfb;
+
+            /* Зелена тема для фактів */
+            --facts-color: #27ae60;
+            --facts-border-color: #2ecc71;
+            --facts-bg: #f8fdfb;
+            --facts-border-light: #eafaf1;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-dark);
+            background-color: var(--body-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 2. СТИЛІ ЗАГОЛОВКІВ */
+        h1 {
+            font-weight: 700;
+            text-align: center;
+            color: var(--color-dark);
+            font-size: 4rem;
+            margin: 30px 0;
+            line-height: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        h1 span {
+            font-size: 4.5rem;
+        }
+
+        /* Єдиний стиль H2 (Світло-зелений) */
+        h2 {
+            font-weight: 700;
+            text-align: left;
+            color: var(--color-dark);
+            font-size: 2.2rem;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--header-accent-color);
+            background-color: var(--header-accent-bg);
+            padding: 10px 0 10px 15px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h3.france-title {
+            color: var(--color-france);
+        }
+        h3.uk-title {
+            color: var(--color-uk);
+        }
+
+        /* 3. ДИЗАЙН КАРТОК */
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-top: 6px solid #e0e0e0;
+        }
+
+        .france-card {
+            border-top-color: var(--color-france);
+        }
+        .uk-card {
+            border-top-color: var(--color-uk);
+        }
+
+        .france-card h3 {
+            color: var(--color-france);
+        }
+        .uk-card h3 {
+            color: var(--color-uk);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .comparison-grid .content-card {
+            margin-bottom: 0;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 30px;
+            margin-top: 0; /* Оновлено для таблиць */
+            margin-bottom: 0; /* Оновлено для таблиць */
+        }
+        li {
+            margin-bottom: 12px;
+        }
+
+        /* 4. СТИЛЬ ТАБЛИЦІ ВІЗИТІВКИ */
+        .intro-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        .intro-table th, .intro-table td {
+            border: 1px solid #ddd;
+            padding: 14px;
+            text-align: left;
+            vertical-align: top; /* Оновлено для довгих списків */
+        }
+        .intro-table th {
+            background-color: #f4f7f6;
+            font-weight: 600;
+        }
+        /* Стилі для контенту в таблиці */
+        .intro-table td:nth-child(2) {
+            color: var(--color-dark);
+            font-weight: normal;
+        }
+        .intro-table td:nth-child(3) {
+            color: var(--color-dark);
+            font-weight: normal;
+        }
+        /* Окремі стилі для кольорових акцентів, якщо потрібні */
+        .intro-table .france-text {
+            color: var(--color-france);
+            font-weight: 600;
+        }
+        .intro-table .uk-text {
+            color: var(--color-uk);
+            font-weight: 600;
+        }
+
+
+        .intro-table tr.full-width-row td {
+            font-weight: normal;
+            color: var(--color-dark);
+            background-color: #fdfdfd;
+        }
+        .intro-table tr.full-width-row ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .intro-table tr.full-width-row h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .map-grid div {
+            border: 2px solid #eee;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .map-grid img {
+            display: block;
+            width: 100%;
+        }
+
+        /* 5. КНОПКИ ПЕРЕМИКАННЯ ГРАФІКІВ */
+        .chart-toggle-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .chart-toggle-buttons button {
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #ccc;
+            background-color: #fff;
+            color: #555;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .chart-toggle-buttons button:hover {
+            background-color: #f5f5f5;
+            border-color: #aaa;
+        }
+        .chart-toggle-buttons button.active {
+            background-color: var(--color-dark);
+            color: white;
+            border-color: var(--color-dark);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* 6. ІНТЕРАКТИВНІ ЗОБРАЖЕННЯ (MODAL) */
+        .clickable-img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            border: 2px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .clickable-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .symbols-guessing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        .symbols-guessing-grid .clickable-img {
+            height: 180px;
+        }
+
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            padding-top: 50px; left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.92);
+        }
+        .modal-content {
+            margin: auto; display: block;
+            max-width: 90%; max-height: 90vh;
+        }
+        .close {
+            position: absolute; top: 15px; right: 35px;
+            color: #f1f1f1; font-size: 60px;
+            font-weight: bold; cursor: pointer;
+        }
+
+        /* 7. БЛОК "ЦІКАВІ ФАКТИ" ТА "ЧИЙ СИМВОЛ?" (ЗЕЛЕНА ТЕМА) */
+        .facts-container {
+            background-color: var(--facts-bg);
+            border-top: 6px solid var(--facts-border-color);
+            margin-top: 60px;
+        }
+        .facts-container h2 {
+            color: var(--facts-color);
+            margin-top: 0;
+            text-align: center;
+            border-left: none;
+            padding-left: 0;
+            background-color: transparent;
+            border-bottom: 3px solid var(--facts-border-light);
+            border-radius: 0;
+        }
+        .fact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .fact-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--facts-border-color);
+            opacity: 0.6;
+            line-height: 1;
+        }
+
+        h2.quiz-title-inner {
+            color: var(--facts-color);
+            margin-top: 50px;
+            text-align: center;
+            border-left: none;
+            padding-left: 0;
+            background-color: transparent;
+            border-bottom: 2px dashed var(--facts-border-light);
+            border-radius: 0;
+            font-size: 2.0rem;
+            margin-bottom: 30px;
+        }
+
+        /* 7.5 ПЛЕЙСХОЛДЕР */
+        .placeholder-box {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            background-color: #fafafa;
+            color: #777;
+            font-style: italic;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* 8. ГЛОСАРІЙ */
+        footer {
+            background-color: var(--color-dark);
+            color: #ecf0f1;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+        #glossary {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        #glossary h2 {
+            color: #ffffff;
+            text-align: center;
+            border-left: none;
+            padding-left: 0;
+            background-color: transparent;
+            border-bottom: 3px solid #7f8c8d;
+            border-radius: 0;
+        }
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        details {
+            background-color: #34495e;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+        }
+        summary {
+            padding: 18px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #3498db;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+        }
+        summary::before {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        details[open] summary::before {
+            transform: rotate(45deg);
+        }
+        .glossary-content {
+            padding: 0 20px 20px 20px;
+            color: #bdc3c7;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* 9. АДАПТИВНІСТЬ */
+        @media (max-width: 1000px) {
+            .comparison-grid, .glossary-grid, .map-grid, .symbols-guessing-grid {
+                grid-template-columns: 1fr;
+            }
+            body { font-size: 16px; }
+            h1 { font-size: 2.5rem; gap: 15px; }
+            h1 span { font-size: 2.5rem; }
+            h2, h2.quiz-title-inner { font-size: 1.8rem; }
+            .fact { flex-direction: column; text-align: center; gap: 5px;}
+            .intro-table th, .intro-table td { padding: 10px; }
+            @media (min-width: 600px) {
+                .symbols-guessing-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <main>
+        <header>
+            <h1><span>🇫🇷</span> Франція vs Велика Британія <span>🇬🇧</span></h1>
+        </header>
+
+        <section id="intro">
+
+            <div class="comparison-grid map-grid" style="margin-bottom: 30px;">
+                <div>
+                    <img src="1.jpeg" alt="Мапа Франції" class="clickable-img">
+                </div>
+                <div>
+                    <img src="2.jpeg" alt="Мапа Великої Британії" class="clickable-img">
+                </div>
+            </div>
+
+            <div class="content-card">
+                <table class="intro-table">
+                    <thead>
+                        <tr>
+                            <th>Показник</th>
+                            <th>Французька Республіка</th>
+                            <th>Сполучене Королівство</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Форма правління</strong></td>
+                            <td class="france-text">Президентсько-парламентська республіка</td>
+                            <td class="uk-text">Конституційна монархія</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Площа</strong></td>
+                            <td class="france-text">551,6 тис. км²</td>
+                            <td class="uk-text">244,1 тис. км²</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Населення (2024)</strong></td>
+                            <td class="france-text">~66,5 млн осіб</td>
+                            <td class="uk-text">~69,1 млн осіб</td>
+                        </tr>
+                         <tr>
+                            <td><strong>Столиця</strong></td>
+                            <td class="france-text">Париж</td>
+                            <td class="uk-text">Лондон</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ЕГП</strong></td>
+                            <td>Центральна вісь розвитку ЄС, вихід до Атлантики та Середземного моря.</td>
+                            <td>Острівне положення, зв'язок з материком через Євротунель.</td>
+                        </tr>
+                        <tr class="full-width-row">
+                            <td colspan="3">
+                                <h4>Спільні риси</h4>
+                                <ul>
+                                    <li>Члени <strong>G7 (Велика Сімка)</strong></li>
+                                    <li>Постійні члени <strong>Ради Безпеки ООН</strong></li>
+                                    <li>Члени <strong>НАТО</strong> та ядерні держави</li>
+                                    <li>Високорозвинені постіндустріальні країни</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="full-width-row">
+                            <td colspan="3">
+                                <h4>Ключова відмінність: Brexit</h4>
+                                <ul>
+                                    <li><strong>Велика Британія</strong> у 2020 році <strong>вийшла зі складу ЄС</strong>.</li>
+                                    <li><strong>Франція</strong>, навпаки, є одним з <strong>лідерів ЄС</strong>.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="economy">
+            <div class="content-card">
+                <h3>Порівняння ВВП</h3>
+                <div class="chart-toggle-buttons">
+                    <button id="btn-nominal" class="active">Номінальний ВВП</button>
+                    <button id="btn-ppp">ВВП (ПКС) на душу</button>
+                </div>
+                <div class="chart-container" style="height: 250px;">
+                    <canvas id="gdpBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="employment">
+            <h2>Структура зайнятості</h2>
+            <div class="content-card">
+                <div class="comparison-grid">
+                    <div>
+                        <h3 class="france-title">Франція</h3>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="sectorChartFrance"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="uk-title">Велика Британія</h3>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="sectorChartUK"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demographics">
+            <h2>Вікова структура</h2>
+            <div class="content-card">
+                <div class="comparison-grid">
+                    <div class="placeholder-box">
+                        <img src="ageFR.png" class="clickable-img" alt="Вікова піраміда Франції" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="placeholder-box">
+                        <img src="ageGB.png" class="clickable-img" alt="Вікова піраміда Великої Британії" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2>Третинний сектор (послуги)</h2>
+            <div class="comparison-grid">
+                <div class="content-card france-card">
+                    <h3>Франція (туризм та технології)</h3>
+                    <ul>
+                        <li>Світовий лідер з туризму: Париж, Лазуровий берег, Альпи.</li>
+                        <li>Транспорт: Високошвидкісні потяги <strong>(TGV)</strong>.</li>
+                        <li>Наука: Технологічний парк Софія-Антиполіс.</li>
+                    </ul>
+                </div>
+                <div class="content-card uk-card">
+                    <h3>Велика Британія (фінанси та освіта)</h3>
+                    <ul>
+                        <li>Світовий фінансовий центр: Лондон-Сіті (банки, біржі).</li>
+                        <li>Освіта: Найпрестижніші університети світу (Оксфорд, Кембридж).</li>
+                        <li>Транспорт: Аеропорт <strong>Хітроу (Лондон)</strong> – один з найбільших хабів світу.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="industry">
+            <h2>Вторинний сектор (промисловість)</h2>
+            <div class="comparison-grid">
+                <div class="content-card france-card">
+                    <h3>Франція (АЕС та люкс)</h3>
+                    <ul>
+                        <li>Енергетика: Лідерство <strong>АЕС (понад 2/3 енергії)</strong>.</li>
+                        <li>Машинобудування: Авіакосмічне (літаки <strong>Airbus</strong>), автомобілі (Renault, Peugeot).</li>
+                        <li>Сектор люкс: світовий центр моди (Dior), парфумерії.</li>
+                    </ul>
+                </div>
+                <div class="content-card uk-card">
+                    <h3>Велика Британія (нафта та фармацевтика)</h3>
+                    <ul>
+                        <li>Енергетика: Власні нафта і газ (шельф Північного моря), розвиток ВЕС (вітрові).</li>
+                        <li>Машинобудування: Високотехнологічне (двигуни Rolls-Royce).</li>
+                        <li>Хімія: <strong>Фармацевтика</strong> (AstraZeneca).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="agriculture">
+            <h2>Первинний сектор (аграрний сектор)</h2>
+            <div class="comparison-grid">
+                <div class="content-card france-card">
+                    <h3>Франція (фокус: рослинництво)</h3>
+                    <ul>
+                        <li>Місце в ЄС: Найбільший виробник та експортер сільгосппродукції.</li>
+                        <li>Продукція: Пшениця, кукурудза, <strong>виноград (вино)</strong>, <strong>сири</strong>.</li>
+                    </ul>
+                </div>
+                <div class="content-card uk-card">
+                    <h3>Велика Британія (фокус: тваринництво)</h3>
+                    <ul>
+                        <li>Особливості: Сприятливі умови (вологий клімат) для <strong>пасовищ</strong>.</li>
+                        <li>Продукція: Молочне та м'ясо-молочне скотарство, <strong>вівчарство</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="ukraine">
+            <h2>Звʼязки з Україною</h2>
+            <div class="content-card">
+                <table class="intro-table">
+                    <thead>
+                        <tr>
+                            <th>Сфера</th>
+                            <th>Французька Республіка</th>
+                            <th>Сполучене Королівство</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Економічні зв'язки</strong></td>
+                            <td>
+                                <ul>
+                                    <li>Один з ТОП-10 інвесторів (Renault, Auchan, Credit Agricole).</li>
+                                    <li><strong>Імпорт з України:</strong> ріпак, олія, кукурудза.</li>
+                                    <li><strong>Експорт в Україну:</strong> пестициди, ліки, авто, косметика.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Підписана Угода про вільну торгівлю (2020).</li>
+                                    <li><strong>Повне скасування всіх мит</strong> та квот на товари з України (з 2022 до 2029 року).</li>
+                                    <li>Значний інвестор (близько $2 млрд до 2022 р.).</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Політична та військова підтримка (після 2022)</strong></td>
+                            <td>
+                                <ul>
+                                    <li>Підписання двосторонньої <strong>безпекової угоди</strong> (2024).</li>
+                                    <li>Постачальник артилерії (САУ CAESAR).</li>
+                                    <li>Надання далекобійних ракет (SCALP).</li>
+                                    <li>Надання фінансової та гуманітарної допомоги.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>**Перша країна G7**, що підписала **безпекову угоду** (січень 2024).</li>
+                                    <li>Лідер у постачанні зброї: танки (Challenger 2), ракети (Storm Shadow).</li>
+                                    <li>Масштабна програма тренувань ЗСУ (Операція Interflex).</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="facts-and-quiz" class="content-card facts-container">
+            <h2>Цікаві факти</h2>
+            <div class="fact">
+                <span class="fact-number">1</span>
+                <div>
+                    <strong>Тунель під Ла-Маншем (Євротунель)</strong> – найдовший підводний тунель у світі (50.5 км). Він з'єднує Фолкстон (Англія) і Кале (Франція) лише за 35 хвилин.
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-number">2</span>
+                <div>
+                    Близько 300 років (з 1066) <strong>французька мова була офіційною мовою Англії</strong>! Саме тому в англійській мові так багато слів французького походження.
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-number">3</span>
+                <div>
+                    <strong>Британія</strong> – країна чаю. Британці випивають 100 мільйонів чашок чаю щодня, що майже в 25 разів більше, ніж американці.
+                </div>
+            </div>
+            <div class="fact">
+                <span class="fact-number">4</span>
+                <div>
+                    У Франції виробляється понад <strong>1200 видів сиру</strong>. Якщо їсти по одному новому сорту щодня, знадобиться більше трьох років, щоб скуштувати їх усі.
+                </div>
+            </div>
+
+            <h2 class="quiz-title-inner">Чий символ?</h2>
+            <div class="symbols-guessing-grid">
+                <img src="history-of-stonehenge-archaeological-investigations.jpg" alt="Символ країни" class="clickable-img"> <img src="cathédrale-Notre-Dame-de-Paris.jpg" alt="Символ країни" class="clickable-img"> <img src="7-7.jpg" alt="Символ країни" class="clickable-img"> <img src="beatles-abbeyroad-square-reuters-applecorps.jpg.webp" alt="Символ країни" class="clickable-img"> <img src="box-1536x1097.jpg" alt="Символ країни" class="clickable-img"> <img src="QueensBandsPiper.jpg" alt="Символ країни" class="clickable-img"> <img src="наполеон.jpg" alt="Символ країни" class="clickable-img"> <img src="guillotine-R4Z3THD-min-2-scaled.webp" alt="Символ країни" class="clickable-img"> </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section id="glossary">
+            <h2>Глосарій ключових термінів</h2>
+
+            <div class="glossary-grid">
+                <details>
+                    <summary>G7 (Велика Сімка)</summary>
+                    <div class="glossary-content">
+                        Об'єднання семи провідних економічно розвинених країн світу.
+                    </div>
+                </details>
+                <details>
+                    <summary>BREXIT</summary>
+                    <div class="glossary-content">
+                        Процес виходу Великої Британії зі складу Європейського Союзу (2020).
+                    </div>
+                </details>
+                <details>
+                    <summary>АЕС (атомна електростанція)</summary>
+                    <div class="glossary-content">
+                        Електростанція, що використовує ядерну енергію. Франція – лідер за часткою АЕС.
+                    </div>
+                </details>
+                <details>
+                    <summary>ВВП (валовий внутрішній продукт)</summary>
+                    <div class="glossary-content">
+                        Загальна вартість усіх товарів і послуг, вироблених у країні за рік.
+                    </div>
+                </details>
+                 <details>
+                    <summary>Євротунель</summary>
+                    <div class="glossary-content">
+                        Залізничний тунель під протокою Ла-Манш, що з'єднує Велику Британію та Францію.
+                    </div>
+                </details>
+                <details>
+                    <summary>ПКС (паритет купівельної спроможності)</summary>
+                    <div class="glossary-content">
+                        Економічний показник, що враховує різницю цін у країнах для більш точного порівняння рівня життя.
+                    </div>
+                </details>
+                <details>
+                    <summary>Лондон-Сіті</summary>
+                    <div class="glossary-content">
+                        Історичний та фінансовий центр Лондона, один з головних фінансових центрів світу.
+                    </div>
+                </details>
+                <details>
+                    <summary>TGV (Train à Grande Vitesse)</summary>
+                    <div class="glossary-content">
+                        Французька система високошвидкісних пасажирських поїздів.
+                    </div>
+                </details>
+            </div>
+        </section>
+    </footer>
+
+    <script>
+        // --- Скрипт для модального вікна (зображень) ---
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var images = document.querySelectorAll(".clickable-img");
+        var span = document.getElementsByClassName("close")[0];
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+        images.forEach(img => {
+            img.onclick = function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+            }
+        });
+        span.onclick = closeModal;
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") closeModal();
+        });
+        modal.onclick = function(event) {
+            if (event.target == modal) closeModal();
+        }
+
+        // --- Скрипти для Chart.js ---
+
+        Chart.register(ChartDataLabels);
+
+        // Глобальні налаштування datalabels
+        Chart.defaults.plugins.datalabels = {
+            color: '#ffffff',
+            font: { weight: 'bold', size: 14, },
+            textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        };
+
+        const COLOR_UK = '#C8102E';
+        const COLOR_FRANCE = '#0056b3';
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Логіка перемикання ВВП ---
+            const gdpCtx = document.getElementById('gdpBarChart').getContext('2d');
+            const btnNominal = document.getElementById('btn-nominal');
+            const btnPpp = document.getElementById('btn-ppp');
+
+            const gdpData = {
+                nominal: {
+                    labels: ['Велика Британія', 'Франція'],
+                    data: [3.4, 3.1],
+                    label: 'Номінальний ВВП, трлн $',
+                    max: 4.0,
+                    formatter: (value) => '$' + value.toLocaleString() + ' трлн'
+                },
+                ppp: { // ОНОВЛЕНО
+                    labels: ['Велика Британія', 'Франція'],
+                    data: [58300, 58200], // ВВП (ПКС) на душу
+                    label: 'ВВП (ПКС) на душу, $',
+                    max: 60000, // ОНОВЛЕНО
+                    formatter: (value) => '$' + value.toLocaleString()
+                }
+            };
+
+            let gdpBarChart = new Chart(gdpCtx, {
+                type: 'bar',
+                data: {
+                    labels: gdpData.nominal.labels,
+                    datasets: [{
+                        label: gdpData.nominal.label,
+                        data: gdpData.nominal.data,
+                        backgroundColor: [COLOR_UK, COLOR_FRANCE],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'start',
+                            color: '#333',
+                            textShadow: 'none',
+                            formatter: gdpData.nominal.formatter
+                        }
+                    },
+                    scales: {
+                        x: { beginAtZero: true, max: gdpData.nominal.max }
+                    }
+                }
+            });
+
+            function updateGdpChart(type) {
+                const data = gdpData[type];
+                gdpBarChart.data.labels = data.labels;
+                gdpBarChart.data.datasets[0].label = data.label;
+                gdpBarChart.data.datasets[0].data = data.data;
+                gdpBarChart.options.scales.x.max = data.max;
+                gdpBarChart.options.plugins.datalabels.formatter = data.formatter;
+
+                gdpBarChart.update();
+
+                btnNominal.classList.toggle('active', type === 'nominal');
+                btnPpp.classList.toggle('active', type === 'ppp');
+            }
+
+            btnNominal.onclick = () => updateGdpChart('nominal');
+            btnPpp.onclick = () => updateGdpChart('ppp');
+
+
+            // --- 2. Кругова діаграма: Франція ---
+            const pieCtxFrance = document.getElementById('sectorChartFrance').getContext('2d');
+            new Chart(pieCtxFrance, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Послуги', 'Промисловість', 'С/Г'],
+                    datasets: [{
+                        data: [79, 18.5, 2.5], // ОНОВЛЕНО
+                        backgroundColor: ['#3498db', '#e67e22', '#2ecc71']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                            formatter: (value) => value.toFixed(1) + '%'
+                        }
+                    }
+                }
+            });
+
+            // --- 3. Кругова діаграма: Велика Британія ---
+            const pieCtxUK = document.getElementById('sectorChartUK').getContext('2d');
+            new Chart(pieCtxUK, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Послуги', 'Промисловість', 'С/Г'],
+                    datasets: [{
+                        data: [83.5, 15.2, 1.3],
+                        backgroundColor: ['#3498db', '#e67e22', '#2ecc71']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        datalabels: {
+                            formatter: (value) => value.toFixed(1) + '%'
+                        }
+                    }
+                }
+            });
+
+            // --- 4. Вікові піраміди ---
+
+        });
+    </script>
+
+</body>
+</html>

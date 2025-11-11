@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія: Польща</title>
+
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Підключення Chart.js та плагіну для відображення даних -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <!-- Підключення шрифту Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Вбудовані стилі -->
+    <style>
+        /* 1. БАЗОВІ ЗМІННІ ТА СТИЛІ */
+        :root {
+            --font-main: 'Inter', sans-serif;
+
+            /* --- Акцентні кольори Польщі --- */
+            --color-poland-red: #DC143C; /* Офіційний відтінок червоного */
+            --color-poland-white: #FFFFFF;
+            --color-accent-primary: var(--color-poland-red); /* ГОЛОВНИЙ АКЦЕНТ */
+
+            --color-dark: #1f2937; /* Tailwind gray-800 */
+            --color-light: #f3f4f6; /* Tailwind gray-100 */
+            --card-bg: #ffffff;
+            --body-bg: #f9fafb; /* Tailwind gray-50 */
+            --border-radius: 0.75rem; /* 12px */
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--body-bg);
+            color: var(--color-dark);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* 2. СТИЛІЗАЦІЯ КОМПОНЕНТІВ */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem;
+            color: var(--color-dark);
+            border-left: 4px solid var(--color-accent-primary); /* АКЦЕНТНИЙ КОЛІР */
+            padding-left: 0.75rem;
+            margin-bottom: 1.25rem;
+            /* Градієнт для ФОНУ */
+            background: linear-gradient(90deg, rgba(220, 20, 60, 0.08), transparent);
+        }
+
+        h3 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 1rem; /* 16px */
+            font-weight: 600;
+            color: var(--color-accent-primary); /* АКЦЕНТНИЙ КОЛІР */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table-auto th, .table-auto td {
+            border: 1px solid var(--color-light);
+            padding: 0.75rem 1rem;
+            vertical-align: top;
+        }
+
+        .table-auto th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .nested-table {
+            font-size: 0.9em;
+            width: 100%;
+        }
+        .nested-table td {
+            border: none;
+            padding: 0.3rem 0.5rem;
+            vertical-align: middle;
+        }
+        .nested-table td:first-child {
+            font-weight: 500;
+            width: 120px;
+            color: var(--color-dark);
+        }
+        .nested-table tr:not(:last-child) td {
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        /* 3. СТИЛІЗАЦІЯ МОДАЛЬНОГО ВІКНА (LIGHTBOX) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1000px;
+            height: 90%;
+            max-height: 800px;
+            position: relative;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -10px;
+            right: 0px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0 12px;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        /* 4. СТИЛІЗАЦІЯ ГЛОСАРІЮ У ФУТЕРІ */
+        footer {
+            background-color: var(--color-dark);
+            color: #d1d5db; /* gray-300 */
+        }
+        .glossary-item summary {
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 1rem 0;
+            border-bottom: 1px solid #4b5563; /* gray-600 */
+            list-style: none; /* Прибирає маркер */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .glossary-item summary::-webkit-details-marker {
+            display: none; /* Прибирає маркер в Chrome/Safari */
+        }
+        .glossary-item summary::after {
+            content: '+'; /* Знак плюса */
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.2s ease-in-out;
+        }
+        .glossary-item[open] summary::after {
+            transform: rotate(45deg); /* Повертає в "х" */
+        }
+        .glossary-item div {
+            padding: 1rem 0;
+            border-bottom: 1px solid #4b5563; /* gray-600 */
+        }
+
+        /* 5. КЛАСИ ДЛЯ ІНТЕРАКТИВУ (ТАБИ) */
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+            background-color: var(--color-light);
+            color: #374151; /* gray-700 */
+        }
+        .tab-btn.active {
+            background-color: var(--color-accent-primary);
+            color: white;
+            border-color: var(--color-accent-primary);
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #e5e7eb; /* gray-200 */
+        }
+        .tab-content {
+            display: none; /* Приховано за замовчуванням */
+        }
+        .tab-content.active {
+            display: block; /* Показано при активації */
+        }
+
+        /* 6. Стилі для GIF-перемикача */
+        .gif-toggle {
+            cursor: pointer;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            border: 1px solid #d1d5db;
+            color: var(--color-dark);
+            background-color: #f9fafb;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .gif-toggle:hover {
+            background-color: #e5e7eb;
+        }
+        .gif-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            margin-top: 0.5rem;
+        }
+        .gif-container.open {
+            max-height: none; /* Достатня висота для розкриття */
+        }
+    </style>
+
+</head>
+<body class="antialiased">
+
+    <!-- === ШАПКА === -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Логотип/Назва -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="w-8 h-8 mr-2 text-3xl">🇵🇱</span>
+                    <h1 class="text-xl font-bold text-gray-800">
+                        Країни Європи: <span style="color: var(--color-accent-primary);">Польща</span>
+                    </h1>
+                </div>
+                <!-- Навігація -->
+                <nav class="hidden sm:flex sm:space-x-8">
+                    <a href="#overview" class="font-medium text-gray-500 hover:text-gray-900">Огляд</a>
+                    <a href="#economy" class="font-medium text-gray-500 hover:text-gray-900">Економіка</a>
+                    <a href="#relations" class="font-medium text-gray-500 hover:text-gray-900">Відносини</a>
+                    <a href="#facts" class="font-medium text-gray-500 hover:text-gray-900">Факти</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- === ОСНОВНИЙ КОНТЕНТ === -->
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Блок з мапою -->
+        <section id="overview" class="mb-8">
+            <div class="card w-full">
+                <!-- Контейнер для мапи -->
+                <div class="w-full h-[300px] md:h-[400px] lg:h-[500px] bg-gray-200">
+                    <img src="polska.webp"
+                         alt="Мапа Польщі"
+                         class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity modal-trigger"
+                         title="Натисніть, щоб збільшити">
+                </div>
+                <div class="p-6">
+                    <!-- "Візитівка" у вигляді таблиці -->
+                    <table class="table-auto text-base mt-4">
+                        <tbody>
+                            <tr>
+                                <th>Столиця</th>
+                                <td>Варшава</td>
+                                <th>Форма правління</th>
+                                <td>Парламентсько-президентська республіка</td>
+                            </tr>
+                            <tr>
+                                <th>Площа</th>
+                                <td>312 696 км²</td>
+                                <th>Населення</th>
+                                <td>~38.0 млн (2024)</td>
+                            </tr>
+                            <tr>
+                                <th>ВВП (ном.)</th>
+                                <td>~0.75 трлн $ (2024)</td>
+                                <th>ВВП на душу</th>
+                                <td>~19 800 $ (2024)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Сітка для карток -->
+        <div class="grid grid-cols-1 gap-6 lg:gap-8">
+
+            <!-- === СЕКЦІЯ: ЕКОНОМІКА === -->
+            <section id="economy">
+                <h2>Економіка: Сектори та Структура</h2>
+
+                <!-- Картка: Сектори Економіки + Діаграма ВВП -->
+                <div class="card">
+                    <!-- Таблиця з інтегрованою діаграмою -->
+                        <table class="table-auto text-base w-full">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/3">Структура ВВП (за секторами)</th>
+                                    <th class="w-1/4">Сектор</th>
+                                    <th class="w-2/5">Ключові галузі та спеціалізація</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Рядок Первинного сектору -->
+                                <tr>
+                                    <!-- Діаграма, що об'єднує 3 рядки -->
+                                    <td rowspan="3" class="align-middle text-center p-4">
+                                        <div class="relative w-full h-64 md:h-80 mx-auto">
+                                            <canvas id="gdpSectorChart"></canvas>
+                                        </div>
+                                    </td>
+
+                                    <!-- Первинний -->
+                                    <td class="font-semibold" style="color: #6b7280;">
+                                        Первинний<br>(~3% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Вугілля:</td>
+                                                <td>Значний видобуток (Верхня Сілезія), але сектор трансформується.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>С/Г:</td>
+                                                <td>Один з найбільших в ЄС виробників яблук, птиці, молочних продуктів.</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- Рядок Вторинного сектору -->
+                                <tr>
+                                    <!-- Вторинний -->
+                                    <td class="font-semibold" style="color: var(--color-accent-primary);">
+                                        Вторинний<br>(~39% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Автомобілебудування:</td>
+                                                <td>"Автоскладальний цех" Європи (заводи VW, Stellantis, Mercedes).</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Харчова пром-сть:</td>
+                                                <td>Потужна переробка м'яса, молока та фруктів на експорт.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Меблі/Побутова техніка:</td>
+                                                <td>Один зі світових лідерів з експорту меблів та побутової техніки.</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- Рядок Третинного сектору -->
+                                <tr>
+                                    <!-- Третинний -->
+                                    <td class="font-semibold" style="color: #3b82f6;">
+                                        Третинний<br>(~58% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Логістика:</td>
+                                                <td>Ключовий транзитний хаб "Схід-Захід" в ЄС.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IT / BPO:</td>
+                                                <td>Центри бізнес-послуг (BPO) та розробки (CD Projekt RED).</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Торгівля:</td>
+                                                <td>Розвинена внутрішня та міжнародна торгівля.</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </section>
+
+            <!-- Картка: Вікова Гістограма -->
+            <section id="population">
+                <h2>Демографія: Старіння та Міграція</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700">Польща, як і більшість країн Європи, переживає процес "старіння нації". Однак, на відміну від Італії, її піраміда дещо молодша. Ситуацію на ринку праці та в демографії суттєво коригує масова імміграція, в першу чергу з України.</p>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <div class="relative w-full h-72 md:h-80">
+                            <canvas id="ageStructureChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- === НОВІ СЕКЦІЇ === -->
+
+            <!-- НОВА СЕКЦІЯ: Економічне диво Польщі (з графіком) -->
+            <section id="gdp-dynamics">
+                <h2>Економічне диво Польщі</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">Польща — приклад успішної посткомуністичної трансформації. Після "шокової терапії" на початку 1990-х та вступу до ЄС у 2004 році, країна уникла рецесій та стабільно зростала, ставши "економічним тигром" Європи.</p>
+
+                        <!-- Графік динаміки ВВП -->
+                        <div class="relative w-full h-[350px] md:h-[450px] bg-gray-50 p-4 rounded-lg">
+                            <canvas id="gdpPerCapitaChart"></canvas>
+                        </div>
+
+                        <table class="table-auto text-base mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Ключові етапи</th>
+                                    <th>Характеристика</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold">"Шокова терапія" (1990)</td>
+                                    <td>План Бальцеровича: швидкий перехід до ринкової економіки, лібералізація цін, приватизація.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Вступ до ЄС (2004)</td>
+                                    <td>Доступ до Єдиного ринку, масштабні інвестиції з фондів ЄС, модернізація інфраструктури.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Сучасність</td>
+                                    <td>Диверсифікована економіка, інтегрована у німецькі промислові ланцюги.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- НОВА СЕКЦІЯ: Історичний контекст (замість етнічної мапи) -->
+            <section id="historical-context">
+                <h2>Історичний контекст</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">Розуміння сучасної Польщі неможливе без усвідомлення її історичної ролі між Сходом та Заходом. Країна тривалий час була об'єктом поділів, що пояснює її моноетнічність та особливе ставлення до суверенітету.</p>
+
+                        <!-- Плейсхолдер для мапи -->
+                        <div class="relative w-full h-[350px] md:h-[450px] bg-gray-200 rounded-lg overflow-hidden">
+                            <img src="poland_history.jpg"
+                                 alt="Історична мапа Польщі"
+                                 class="w-full h-full object-contain cursor-pointer modal-trigger"
+                                 title="Натисніть, щоб збільшити">
+                        </div>
+
+                        <!-- Перемикач GIF-анімації -->
+                        <div class="gif-toggle" data-toggle="poland-gif">
+                            <span>Дві Польщі</span>
+                        </div>
+                        <!-- Блок з GIF, який розкривається -->
+                        <div id="poland-gif-container" class="gif-container">
+                            <img src="two_polands.gif"
+                                 alt="Дві Польщі"
+                                 class="w-full h-auto object-contain rounded-lg mt-2 cursor-pointer modal-trigger"
+                                 title="Натисніть, щоб збільшити">
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- НОВА СЕКЦІЯ: Вплив українських мігрантів -->
+            <section id="migrants-impact">
+                <h2>Вплив українських мігрантів на економіку</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">Українська міграція (особливо після 2014 та 2022 років) має колосальний вплив на економіку та демографію Польщі, вирішуючи ключові проблеми ринку праці.</p>
+
+                        <table class="table-auto text-base">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/3">Сфера впливу</th>
+                                    <th>Деталі</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold">Ринок праці</td>
+                                    <td>Заповнення дефіциту робочих рук у секторах будівництва, логістики, промисловості та послуг.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Внесок у ВВП</td>
+                                    <td>За різними оцінками, українські трудові мігранти генерують від 1% до 2.5% річного зростання ВВП Польщі.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Демографія</td>
+                                    <td>Притік молодшого населення суттєво сповільнює процес "старіння нації" у Польщі.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Підприємництво</td>
+                                    <td>Після 2022 року українці відкрили в Польщі десятки тисяч ФОП (JDG) та компаній, створюючи нові робочі місця.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Соціальна система</td>
+                                    <td>Працюючі українці сплачують значні внески до ZUS (система соціального страхування), підтримуючи її стабільність.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- НОВА СЕКЦІЯ: Відносини з Україною -->
+            <section id="relations">
+                <h2>Відносини з Україною: Складне сусідство</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">Відносини між Польщею та Україною є стратегічним партнерством, яке, однак, періодично ускладнюється через економічні суперечки та різне трактування спільної трагічної історії.</p>
+
+                        <!-- Кнопки-перемикачі -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <button class="tab-btn active" data-tab="politics">Політичний союз (після 2022)</button>
+                            <button class="tab-btn" data-tab="economy">Економіка та кордон</button>
+                            <button class="tab-btn" data-tab="history">Історична пам'ять</button>
+                        </div>
+
+                        <!-- Контент для вкладок -->
+                        <div class="relative w-full mt-4">
+                            <!-- Вкладка 1: Політика -->
+                            <div class="tab-content active" data-tab-content="politics">
+                                <h4><b>Стратегічний адвокат</b></h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li>Один з найбільших військових та гуманітарних донорів України.</li>
+                                    <li>Ключовий логістичний хаб для постачання західної допомоги.</li>
+                                    <li>Головний лобіст надання Україні статусу кандидата в ЄС у 2022 році.</li>
+                                    <li>Надала прихисток мільйонам українських біженців, інтегрувавши їх у соціальну систему.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Вкладка 2: Економіка -->
+                            <div class="tab-content" data-tab-content="economy">
+                                <h4><b>Партнерство та конкуренція</b></h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li>Один з найбільших торговельних партнерів України в ЄС.</li>
+                                    <li>Проблема зернової кризи: Блокування кордону польськими фермерами та перевізниками через конкуренцію з українською агропродукцією на ринку ЄС.</li>
+                                    <li>Польський бізнес активно інвестує у Західну Україну.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Вкладка 3: Історія -->
+                            <div class="tab-content" data-tab-content="history">
+                                <h4><b>Війна пам'яті</b></h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li><b>Волинська трагедія (1943-44):</b> Найбільш болюча тема. У Польщі кваліфікується як "геноцид" (ludobójstwo), в Україні – як частина ширшого конфлікту з обопільними жертвами.</li>
+                                    <li><b>Питання ОУН/УПА:</b> Різне ставлення до постатей Степана Бандери та Романа Шухевича.</li>
+                                    <li><b>Війна пам'ятників:</b> Періодичні конфлікти через руйнування або встановлення пам'ятних знаків.</li>
+                                    <li><b>Висновок:</b> Стратегічне партнерство сьогодення існує паралельно з глибокими історичними травмами.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- СЕКЦІЯ: ЦІКАВІ ФАКТИ -->
+            <section id="facts">
+                <h2>Цікаві факти</h2>
+
+                <div class="card">
+                    <div class="p-6">
+                        <ul class="list-none space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🇵🇱</span>
+                                <div><b>Історія:</b> Польща була тричі розділена між Росією, Пруссією та Австрією (1772, 1793, 1795) і зникала з мапи світу на 123 роки.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">⚛️</span>
+                                <div><b>Наука:</b> Польща є батьківщиною Миколая Коперника (астроном) та Марії Склодовської-Кюрі (єдина жінка-лауреат Нобелівської премії у двох різних науках).</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🎮</span>
+                                <div><b>Ігрова індустрія:</b> Польща — світовий лідер з розробки відеоігор. Студія CD Projekt RED створила культові ігри "Відьмак" (The Witcher) та "Cyberpunk 2077".</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🏰</span>
+                                <div><b>UNESCO:</b> В Польщі 17 об'єктів Світової спадщини ЮНЕСКО, включаючи історичні центри Кракова та Варшави, соляну копальню "Величка" та Біловезьку пущу.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- Кінець основної сітки -->
+
+    </main>
+
+    <!-- === ФУТЕР (ГЛОСАРІЙ) === -->
+    <footer class="mt-12 py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-white mb-6" style="background: none; border: none; padding-left: 0;">Глосарій: Ключові терміни</h2>
+            <div class="space-y-2">
+
+                <details class="glossary-item">
+                    <summary>Воєводство (Województwo)</summary>
+                    <div>
+                        <p>Основна одиниця адміністративно-територіального поділу Польщі. Аналог української області. Всього в Польщі 16 воєводств.</p>
+                    </div>
+                </details>
+
+                <details class="glossary-item">
+                    <summary>"Шокова терапія" (План Бальцеровича)</summary>
+                    <div>
+                        <p>Пакет радикальних економічних реформ, проведених у Польщі на початку 1990-х років. Передбачав швидку лібералізацію цін та приватизацію, що дозволило перейти від планової до ринкової економіки.</p>
+                    </div>
+                </details>
+
+                <details class="glossary-item">
+                    <summary>Солідарність (Solidarność)</summary>
+                    <div>
+                        <p>Незалежна профспілка, заснована Лєхом Валенсою. "Солідарність" була рушійною силою, що призвела до падіння комуністичного режиму в Польщі у 1989 році.</p>
+                    </div>
+                </details>
+
+                <details class="glossary-item">
+                    <summary>BPO (Business Process Outsourcing)</summary>
+                    <div>
+                        <p>Аутсорсинг бізнес-процесів. Передача компанією частини своїх завдань (напр., бухгалтерія, HR, IT-підтримка) сторонній компанії. Польща є одним з найбільших центрів BPO в Європі.</p>
+                    </div>
+                </details>
+
+                <details class="glossary-item">
+                    <summary>GUS (Główny Urząd Statystyczny)</summary>
+                    <div>
+                        <p>Головне статистичне управління Польщі. Державний орган, аналог українського Держстату, проводить переписи населення.</p>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- === МОДАЛЬНЕ ВІКНО (LIGHTBOX) === -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+
+    <!-- === СКРИПТИ === -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            // --- ГЛОБАЛЬНА КОНФІГУРАЦІЯ CHART.JS ---
+            Chart.register(ChartDataLabels);
+            Chart.defaults.plugins.datalabels.color = '#ffffff';
+            Chart.defaults.plugins.datalabels.font = { weight: 'bold', size: 14 };
+            Chart.defaults.plugins.legend.position = 'bottom';
+            Chart.defaults.plugins.legend.labels.font = { size: 14, family: "'Inter', sans-serif" };
+            Chart.defaults.plugins.legend.labels.color = '#374151';
+            Chart.defaults.responsive = true;
+            Chart.defaults.maintainAspectRatio = false;
+
+            // --- 1. Структура ВВП (Польща) ---
+            const gdpCtx = document.getElementById('gdpSectorChart');
+            if (gdpCtx) {
+                new Chart(gdpCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Третинний (Послуги)', 'Вторинний (Промисловість)', 'Первинний (С/Г)'],
+                        datasets: [{
+                            label: 'Частка у ВВП, %',
+                            data: [58, 39, 3], // ДАНІ ДЛЯ ПОЛЬЩІ
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.8)',  // Blue (Services)
+                                'rgba(220, 20, 60, 0.8)', // Red (Industry)
+                                'rgba(107, 114, 128, 0.7)' // Gray (Agriculture)
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 3,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            datalabels: {
+                                formatter: (value) => value + '%'
+                            },
+                            legend: {
+                                labels: {
+                                    font: { size: 13 }
+                                }
+                            },
+                            title: { display: false }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            // --- 2. Вікова Гістограма (Польща) ---
+            const ageCtx = document.getElementById('ageStructureChart');
+            if (ageCtx) {
+                new Chart(ageCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Вікова структура населення Польщі (%)'],
+                        datasets: [
+                            {
+                                label: '0-14 років',
+                                data: [15.4],
+                                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            },
+                            {
+                                label: '15-64 роки',
+                                data: [64.8],
+                                backgroundColor: 'rgba(107, 114, 128, 0.7)',
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            },
+                            {
+                                label: '65+ років',
+                                data: [19.8],
+                                backgroundColor: 'rgba(220, 20, 60, 0.7)',
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                stacked: true,
+                                max: 100,
+                                ticks: {
+                                    callback: (value) => value + '%'
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                display: false
+                            }
+                        },
+                        plugins: {
+                            datalabels: {
+                                formatter: (value) => value.toFixed(1) + '%'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- 3. Динаміка ВВП на душу населення (Польща) ---
+            const gdpPerCapitaCtx = document.getElementById('gdpPerCapitaChart');
+            if (gdpPerCapitaCtx) {
+                new Chart(gdpPerCapitaCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1990', '1995', '2000', '2004 (вступ в ЄС)', '2010', '2015', '2020', '2024'],
+                        datasets: [{
+                            label: 'ВВП на душу населення, $',
+                            data: [1731, 3033, 4585, 6263, 12530, 12662, 15735, 19800],
+                            backgroundColor: 'rgba(220, 20, 60, 0.8)', // Польський червоний
+                            borderColor: 'rgba(220, 20, 60, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value / 1000 + 'k';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            datalabels: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Динаміка ВВП на душу населення (номінал, $)',
+                                font: { size: 16 }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- 4. Логіка для Модального Вікна (Lightbox) ---
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const closeBtn = document.getElementById("modalClose");
+
+            document.querySelectorAll('.modal-trigger').forEach(trigger => {
+                trigger.onclick = function() {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            });
+
+            const closeModal = () => {
+                modal.style.display = "none";
+            }
+
+            closeBtn.onclick = closeModal;
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' || event.key === 'Esc') {
+                    closeModal();
+                }
+            });
+
+            // --- 5. Логіка для Перемикача Табів (Відносини з Україною) ---
+            const tabContainerRelations = document.querySelector('#relations');
+            if (tabContainerRelations) {
+                const tabButtons = tabContainerRelations.querySelectorAll('.tab-btn');
+                const tabContents = tabContainerRelations.querySelectorAll('.tab-content');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabId = button.dataset.tab;
+
+                        // 1. Знімаємо 'active' з усіх
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabContents.forEach(content => content.classList.remove('active'));
+
+                        // 2. Додаємо 'active' натиснутій кнопці
+                        button.classList.add('active');
+
+                        // 3. Додаємо 'active' потрібному контенту
+                        const activeContent = tabContainerRelations.querySelector(`.tab-content[data-tab-content="${tabId}"]`);
+
+                        if(activeContent) {
+                            activeContent.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            // --- 6. Логіка для Розкриття GIF ---
+            const gifToggleButton = document.querySelector('.gif-toggle');
+            const gifContainer = document.getElementById('poland-gif-container');
+
+            if (gifToggleButton && gifContainer) {
+                gifToggleButton.addEventListener('click', () => {
+                    gifContainer.classList.toggle('open');
+
+                    const span = gifToggleButton.querySelector('span');
+                    if (gifContainer.classList.contains('open')) {
+                        span.textContent = 'Згорнути анімацію...';
+                    } else {
+                        span.textContent = 'Показати анімацію: Зміна кордонів (1918 - 1945)';
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
