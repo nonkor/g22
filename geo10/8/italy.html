@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія: Італія</title>
+
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Підключення Chart.js та плагіну для відображення даних -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <!-- Підключення шрифту Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Вбудовані стилі -->
+    <style>
+        /* 1. БАЗОВІ ЗМІННІ ТА СТИЛІ */
+        :root {
+            --font-main: 'Inter', sans-serif;
+            --color-italy-green: #008C45; /* Зелений з прапору */
+            --color-italy-red: #CD212A; /* Червоний з прапору */
+            --color-dark: #1f2937; /* Tailwind gray-800 */
+            --color-light: #f3f4f6; /* Tailwind gray-100 */
+            --card-bg: #ffffff;
+            --body-bg: #f9fafb; /* Tailwind gray-50 */
+            --border-radius: 0.75rem; /* 12px */
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--body-bg);
+            color: var(--color-dark);
+            /* Збільшуємо базовий шрифт */
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* 2. СТИЛІЗАЦІЯ КОМПОНЕНТІВ */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden; /* Щоб межі коректно заокруглювались */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            letter-spacing: -0.02em; /* Трохи щільніше для заголовків */
+        }
+
+        h2 {
+            font-size: 1.5rem; /* 24px */
+            line-height: 2rem;
+            color: var(--color-dark);
+            border-left: 4px solid var(--color-italy-green);
+            padding-left: 0.75rem;
+            margin-bottom: 1.25rem;
+            /* Градієнт для ФОНУ */
+            background: linear-gradient(90deg, rgba(0, 140, 69, 0.08), transparent);
+        }
+
+        h3 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700; /* Змінено з 600 на 700 */
+            color: var(--color-dark);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        h4 {
+            font-size: 1rem; /* 16px */
+            font-weight: 600;
+            color: var(--color-italy-green); /* Акцентний колір для підзаголовків */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        /* Стилізація для таблиць */
+        .table-auto th, .table-auto td {
+            border: 1px solid var(--color-light);
+            padding: 0.75rem 1rem; /* 12px 16px */
+            vertical-align: top;
+        }
+
+        .table-auto th {
+            background-color: #f9fafb; /* body-bg */
+            font-weight: 600;
+            text-align: left;
+        }
+
+        /* Стилізація вкладених таблиць (для секторів) */
+        .nested-table {
+            font-size: 0.9em; /* Трохи менший шрифт */
+            width: 100%;
+        }
+        .nested-table td {
+            border: none;
+            padding: 0.3rem 0.5rem;
+            vertical-align: middle;
+        }
+        .nested-table td:first-child {
+            font-weight: 500;
+            width: 120px; /* Фіксована ширина для назв галузей */
+            color: var(--color-dark);
+        }
+        .nested-table tr:not(:last-child) td {
+            border-bottom: 1px dashed #e5e7eb; /* Світла пунктирна лінія */
+        }
+
+
+        /* 3. СТИЛІЗАЦІЯ МОДАЛЬНОГО ВІКНА (LIGHTBOX) */
+        .modal {
+            display: none; /* Сховано за замовчуванням */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.85); /* Затемнення фону */
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1000px; /* Максимальна ширина картинки */
+            height: 90%;
+            max-height: 800px;
+            position: relative;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Зберігає пропорції, "вписує" */
+            display: block;
+            margin: auto;
+            background-color: #ffffff; /* Додаємо білий фон */
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -10px;
+            right: 0px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0 12px;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        /* 4. СТИЛІЗАЦІЯ ГЛОСАРІЮ У ФУТЕРІ */
+        footer {
+            background-color: var(--color-dark);
+            color: #d1d5db; /* gray-300 */
+        }
+        .glossary-item summary {
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 1rem 0;
+            border-bottom: 1px solid #4b5563; /* gray-600 */
+            list-style: none; /* Прибирає маркер */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .glossary-item summary::-webkit-details-marker {
+            display: none; /* Прибирає маркер в Chrome/Safari */
+        }
+        .glossary-item summary::after {
+            content: '+'; /* Знак плюса */
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.2s ease-in-out;
+        }
+        .glossary-item[open] summary::after {
+            transform: rotate(45deg); /* Повертає в "х" */
+        }
+        .glossary-item div {
+            padding: 1rem 0;
+            border-bottom: 1px solid #4b5563; /* gray-600 */
+        }
+
+        /* 5. КЛАСИ ДЛЯ ІНТЕРАКТИВУ (ДУАЛЬНІСТЬ) */
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+            background-color: var(--color-light);
+            color: #374151; /* gray-700 */
+        }
+        .tab-btn.active {
+            background-color: var(--color-italy-green);
+            color: white;
+            border-color: var(--color-italy-green);
+        }
+        .tab-btn:not(.active):hover {
+            background-color: #e5e7eb; /* gray-200 */
+        }
+        .tab-content {
+            display: none; /* Приховано за замовчуванням */
+        }
+        .tab-content.active {
+            display: block; /* Показано при активації */
+        }
+
+    </style>
+
+</head>
+<body class="antialiased">
+
+    <!-- === ШАПКА === -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Логотип/Назва -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="w-8 h-8 mr-2 text-3xl">🇮🇹</span>
+                    <h1 class="text-xl font-bold text-gray-800">
+                        Країни Європи: <span style="color: var(--color-italy-green);">Італія</span>
+                    </h1>
+                </div>
+                <!-- Навігація (можна додати) -->
+                <nav class="hidden sm:flex sm:space-x-8">
+                    <a href="#overview" class="font-medium text-gray-500 hover:text-gray-900">Огляд</a>
+                    <a href="#economy" class="font-medium text-gray-500 hover:text-gray-900">Економіка</a>
+                    <a href="#relations" class="font-medium text-gray-500 hover:text-gray-900">Відносини</a>
+                    <a href="#secrets" class="font-medium text-gray-500 hover:text-gray-900">Особливості</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- === ОСНОВНИЙ КОНТЕНТ === -->
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Блок з мапою (без заголовку, на всю ширину) -->
+        <section id="overview" class="mb-8">
+            <div class="card w-full">
+                <!-- Контейнер для мапи з фіксованими пропорціями -->
+                <div class="w-full h-[300px] md:h-[400px] lg:h-[500px] bg-gray-200">
+                    <img src="Italian_regions_provinces.svg"
+                         alt="Мапа Італії"
+                         class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity modal-trigger"
+                         title="Натисніть, щоб збільшити">
+                </div>
+
+                <div class="p-6">
+                    <!-- "Візитівка" у вигляді таблиці -->
+                    <table class="table-auto text-base mt-4">
+                        <tbody>
+                            <tr>
+                                <th>Столиця</th>
+                                <td>Рим</td>
+                                <th>Форма правління</th>
+                                <td>Парламентська республіка</td>
+                            </tr>
+                            <tr>
+                                <th>Площа</th>
+                                <td>301 340 км²</td>
+                                <th>Населення</th>
+                                <td>~58.9 млн (2024)</td>
+                            </tr>
+                            <tr>
+                                <th>ВВП (ном.)</th>
+                                <td>~2.28 трлн $ (2024)</td>
+                                <th>ВВП на душу</th>
+                                <td>~38 600 $ (2024)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Сітка для карток: 1 колонка за замовчуванням, 2 на великих екранах -->
+        <div class="grid grid-cols-1 gap-6 lg:gap-8">
+
+            <!-- === СЕКЦІЯ: ЕКОНОМІКА === -->
+            <section id="economy">
+                <h2>Економіка: Сектори та Структура</h2>
+
+                <!-- Картка: Сектори Економіки + Діаграма ВВП -->
+                <div class="card">
+                    <!-- Таблиця з інтегрованою діаграмою -->
+                        <table class="table-auto text-base w-full">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/3">Структура ВВП (за секторами)</th>
+                                    <th class="w-1/4">Сектор</th>
+                                    <th class="w-2/5">Ключові галузі та спеціалізація</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Рядок Первинного сектору -->
+                                <tr>
+                                    <!-- Діаграма, що об'єднує 3 рядки -->
+                                    <td rowspan="3" class="align-middle text-center p-4">
+                                        <div class="relative w-full h-64 md:h-80 mx-auto">
+                                            <canvas id="gdpSectorChart"></canvas>
+                                        </div>
+                                    </td>
+
+                                    <!-- Первинний -->
+                                    <td class="font-semibold" style="color: var(--color-italy-red);">
+                                        Первинний<br>(~2% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Виноградарство:</td>
+                                                <td>Один зі світових лідерів з виробництва вина (К'янті, Просекко).</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Оливкові олії:</td>
+                                                <td>Найвища якість, значний експортний потенціал.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Цитрусові:</td>
+                                                <td>Переважно на Півдні (Сицилія).</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- Рядок Вторинного сектору -->
+                                <tr>
+                                    <!-- Вторинний -->
+                                    <td class="font-semibold" style="color: #6b7280;">
+                                        Вторинний<br>(~25% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Машинобудування:</td>
+                                                <td>Автомобілі (Fiat, Ferrari), промислове обладнання.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Металургія:</td>
+                                                <td>Високоякісна сталь (Північ).</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Хімія:</td>
+                                                <td>Нафтохімія, фармацевтика.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Легка пром-сть:</td>
+                                                <td>"Made in Italy" – світовий центр моди (Armani, Prada).</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- Рядок Третинного сектору -->
+                                <tr>
+                                    <!-- Третинний -->
+                                    <td class="font-semibold" style="color: var(--color-italy-green);">
+                                        Третинний<br>(~73% ВВП)
+                                    </td>
+                                    <td>
+                                        <table class="nested-table">
+                                            <tr>
+                                                <td>Туризм:</td>
+                                                <td>Ключова галузь. 5-та за відвідуваністю країна світу.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Транспорт:</td>
+                                                <td>Розвинена мережа портів, швидкісних залізниць.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Фінанси та IT:</td>
+                                                <td>Банківська справа (Мілан), дизайн, R&D.</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </section>
+
+            <!-- Картка: Вікова Гістограма -->
+            <section id="population">
+                <h2>Демографія: Старіння Нації</h2>
+                <div class="card">
+                    <div class="px-6 pb-6">
+                        <div class="relative w-full h-72 md:h-80">
+                            <canvas id="ageStructureChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Картка: Дуальність економіки -->
+            <section id="duality">
+                <h2>Дуальність економічного розвитку</h2>
+                <div class="card">
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">Найбільша структурна проблема Італії — глибокий розрив у розвитку між багатим, індустріалізованим Північним регіоном та біднішим, аграрним Півднем (Меццоджорно).</p>
+
+                        <!-- Кнопки-перемикачі -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <button class="tab-btn active" data-tab="gdp">ВВП на душу</button>
+                            <button class="tab-btn" data-tab="labor">Безробіття</button>
+                            <button class="tab-btn" data-tab="fiscal">Фіскальний баланс</button>
+                        </div>
+
+                        <!-- Контейнер для зображень -->
+                        <div class="relative w-full h-[350px] md:h-[450px] bg-gray-200 rounded-lg overflow-hidden">
+                            <!-- Зображення 1: ВВП -->
+                            <img src="gdp.jpg"
+                                 alt="ВВП на душу населення"
+                                 class="tab-content active w-full h-full object-contain cursor-pointer modal-trigger"
+                                 title="Натисніть, щоб збільшити">
+
+                            <!-- Зображення 2: Безробіття -->
+                            <img src="labor.jpg"
+                                 alt="Рівень безробіття"
+                                 class="tab-content w-full h-full object-contain cursor-pointer modal-trigger"
+                                 title="Натисніть, щоб збільшити">
+
+                            <!-- Зображення 3: Фін. баланс -->
+                            <img src="fiscal.jpg"
+                                 alt="Фіскальний баланс"
+                                 class="tab-content w-full h-full object-contain cursor-pointer modal-trigger"
+                                 title="Натисніть, щоб збільшити">
+                        </div>
+
+                        <!-- Додаткова таблиця з поясненням -->
+                        <div class="overflow-x-auto mt-4">
+                            <table class="table-auto text-base w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Характеристика</th>
+                                        <th style="color: var(--color-italy-green);">ПІВНІЧ (Паданія)</th>
+                                        <th style="color: var(--color-italy-red);">ПІВДЕНЬ (Меццоджорно)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Локація</strong></td>
+                                        <td>Долина річки По, "Промисловий трикутник" (Мілан-Турин-Генуя).</td>
+                                        <td>На південь від Риму, о-ви Сицилія та Сардинія.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ВВП на душу</strong></td>
+                                        <td>На рівні Німеччини чи Франції.</td>
+                                        <td>Порівнянний з країнами Східної Європи.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Економіка</strong></td>
+                                        <td>Високотехнологічна промисловість, R&D, фінанси, мода.</td>
+                                        <td>Туризм, сільське господарство, висока залежність від дотацій.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Проблеми</strong></td>
+                                        <td>Висока вартість життя, забруднення.</td>
+                                        <td>Високе безробіття (особливо молоді), "відтік мізків", вплив орг. злочинності.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- === СЕКЦІЯ: ТРИ "СЕКРЕТИ" ЕКОНОМІКИ === -->
+            <section id="secrets">
+                <h2>Особливості італійської економіки</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Картка: Сімейний капіталізм -->
+                    <div class="card">
+                        <div class="p-6">
+                            <h3><b>Сімейний капіталізм</b></h3>
+                            <p class="text-gray-700 mb-4">На відміну від США чи Німеччини, "хребтом" економіки Італії є малі та середні сімейні підприємства, що роблять ставку на якість.</p>
+
+                            <table class="table-auto text-base">
+                                <thead>
+                                    <tr><th colspan="2">Навіть гіганти — сімейні</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-semibold">Fiat (Stellantis)</td>
+                                        <td>Контролюється сім'єю Аньєллі.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Ferrero (Nutella)</td>
+                                        <td>Належить родині Ферреро.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Armani, Prada</td>
+                                        <td>Засновані та керовані засновниками/сім'ями.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table-auto text-base mt-4">
+                                <thead>
+                                    <tr><th class="w-1/2">Плюси</th><th class="w-1/2">Мінуси</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>✅ Гнучкість та швидкість рішень.</td>
+                                        <td>❌ Недовіра до інвесторів, страх втратити контроль.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>✅ Якість (репутація сім'ї).</td>
+                                        <td>❌ Проблема наступності (передачі бізнесу).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>✅ Планування на покоління.</td>
+                                        <td>❌ Важко конкурувати у R&D з глобальними гігантами.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Картка: Тіньовий сектор -->
+                    <div class="card border-t-4" style="border-top-color: var(--color-italy-red);">
+                        <div class="p-6">
+                            <h3><b>Тіньовий сектор та Мафія</b></h3>
+                            <p class="text-gray-700 mb-4">Значна частина економіки (10-12% ВВП) існує "в тіні" через високі податки та бюрократію. Окремою проблемою є організована злочинність.</p>
+
+                            <table class="table-auto text-base">
+                                <thead>
+                                    <tr><th colspan="2">Вплив організованої злочинності</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-semibold w-1/3">'Ndrangheta (Калабрія)</td>
+                                        <td>Найпотужніша організація, контролює наркотрафік в Європі.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Camorra (Неаполь)</td>
+                                        <td>Контролює місцеві ринки, утилізацію сміття.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Cosa Nostra (Сицилія)</td>
+                                        <td>Найбільш "відома", але втратила вплив.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="mt-4 mb-2" style="color: var(--color-italy-red);">Вплив на легальну економіку:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700">
+                                <li><b>Відмивання грошей:</b> Інвестиції "брудних" грошей в ресторани, готелі, будівництво (особливо на Півночі).</li>
+                                <li><b>Викривлення конкуренції:</b> Мафіозні компанії демпінгують, вбиваючи чесний бізнес.</li>
+                                <li><b>Гальмо для Півдня:</b> Залякування інвесторів, вимагання грошей (pizzo), контроль над цілими секторами.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- === СЕКЦІЯ: ВІДНОСИНИ З УКРАЇНОЮ === -->
+            <section id="relations">
+                <h2>Відносини з Україною</h2>
+
+                <!-- Картка: Відносини з Україною -->
+                <div class="card">
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Колонка Економіки -->
+                            <div>
+                                <h4 class="mb-2">Економічні зв'язки</h4>
+                                <table class="table-auto text-base">
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-semibold">Експорт з України</td>
+                                            <td>Метали (сталь), зернові, соняшникова олія.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Імпорт в Україну</td>
+                                            <td>Обладнання, транспортні засоби, одяг/взуття, фармацевтика.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Діаспора</td>
+                                            <td>Одна з найбільших українських громад в Європі (переважно сектор догляду).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Колонка Допомоги -->
+                            <div>
+                                <h4 class="mb-2">Підтримка після 2022</h4>
+                                <table class="table-auto text-base">
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-semibold">Військова</td>
+                                            <td>Надання артилерійських систем (гаубиці FH70), ППО (SAMP/T), бронетехніки.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Гуманітарна</td>
+                                            <td>Прихисток для десятків тисяч біженців, фінансова допомога, медичне обладнання.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Політична</td>
+                                            <td>Повна підтримка санкцій ЄС проти РФ, підтримка статусу кандидата в ЄС для України.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- === СЕКЦІЯ: ЦІКАВІ ФАКТИ === -->
+            <section id="facts">
+                <h2>Цікаві факти</h2>
+
+                <!-- Картка: Цікаві факти -->
+                <div class="card">
+                    <div class="p-6">
+                        <ul class="list-none space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🍕</span>
+                                <div><b>Гастрономія:</b> Італія є батьківщиною піци (Неаполь), пасти, еспресо та пармезану. Італійська кухня захищена ЮНЕСКО.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🏛️</span>
+                                <div><b>Спадщина ЮНЕСКО:</b> Італія утримує світову першість за кількістю об'єктів Світової спадщини ЮНЕСКО.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🌋</span>
+                                <div><b>Вулкани:</b> В Італії знаходяться три діючі вулкани Європи: Етна (найвищий), Везувій та Стромболі.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🇻🇦</span>
+                                <div><b>Анклави:</b> На території Італії знаходяться дві незалежні держави-анклави: Ватикан (у Римі) та Сан-Марино.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">🍝</span>
+                                <div><b>Споживання пасти:</b> Середньостатистичний італієць з'їдає понад 23 кг макаронних виробів на рік.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- Кінець основної сітки -->
+
+    </main>
+
+    <!-- === ФУТЕР (ГЛОСАРІЙ) === -->
+    <footer class="mt-12 py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-white mb-6" style="background: none; border: none; padding-left: 0;">Глосарій: Ключові терміни</h2>
+            <div class="space-y-2">
+
+                <!-- Елемент глосарію 1 -->
+                <details class="glossary-item">
+                    <summary>Економічний дуалізм</summary>
+                    <div>
+                        <p>Глибокий розрив у рівнях економічного розвитку, доходів та соціального забезпечення між різними регіонами однієї країни. В Італії це класичний поділ на багату, індустріальну "Північ" та бідніший, аграрний "Південь" (Меццоджорно).</p>
+                    </div>
+                </details>
+
+                <!-- Елемент глосарію 2 -->
+                <details class="glossary-item">
+                    <summary>Меццоджорно (Mezzogiorno)</summary>
+                    <div>
+                        <p>Історична та географічна назва південних регіонів Італії (буквально "полудень"). Цей термін часто використовується для опису регіонів, що економічно відстають (Південь Італії та острови Сицилія і Сардинія).</p>
+                    </div>
+                </details>
+
+                <!-- Елемент глосарію 3 -->
+                <details class="glossary-item">
+                    <summary>Анклав</summary>
+                    <div>
+                        <p>Держава або частина держави, повністю оточена територією іншої держави. На території Італії знаходяться два анклави: Ватикан (у межах Риму) та Республіка Сан-Марино.</p>
+                    </div>
+                </details>
+
+                <!-- Елемент глосарію 4 -->
+                <details class="glossary-item">
+                    <summary>Третинний сектор</summary>
+                    <div>
+                        <p>Сектор економіки, що включає надання послуг. В Італії це домінуючий сектор (понад 70% ВВП), який спирається на туризм, фінанси, транспорт та торгівлю.</p>
+                    </div>
+                </details>
+
+                <!-- Елемент глосарію 5 -->
+                <details class="glossary-item">
+                    <summary>"Старіння нації"</summary>
+                    <div>
+                        <p>Демографічний процес, при якому частка людей похилого віку (65+) у населенні значно зростає, в той час як частка дітей (0-14) зменшується. Це призводить до зростання навантаження на пенсійну та медичну системи. Італія є одним зі світових "лідерів" за цим показником.</p>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- === МОДАЛЬНЕ ВІКНО (LIGHTBOX) === -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage">
+        </div>
+    </div>
+
+
+    <!-- === СКРИПТИ === -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            // --- ГЛОБАЛЬНА КОНФІГУРАЦІЯ CHART.JS ---
+            Chart.register(ChartDataLabels); // Реєструємо плагін
+            Chart.defaults.plugins.datalabels.color = '#ffffff'; // Колір тексту на діаграмі
+            Chart.defaults.plugins.datalabels.font = { weight: 'bold', size: 14 };
+            Chart.defaults.plugins.legend.position = 'bottom';
+            Chart.defaults.plugins.legend.labels.font = { size: 14, family: "'Inter', sans-serif" };
+            Chart.defaults.plugins.legend.labels.color = '#374151'; // gray-700
+            Chart.defaults.responsive = true;
+            Chart.defaults.maintainAspectRatio = false;
+
+            // --- 1. Структура ВВП (в таблиці) ---
+            const gdpCtx = document.getElementById('gdpSectorChart');
+            if (gdpCtx) {
+                new Chart(gdpCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Третинний (Послуги)', 'Вторинний (Промисловість)', 'Первинний (С/Г)'],
+                        datasets: [{
+                            label: 'Частка у ВВП, %',
+                            data: [73, 25, 2],
+                            backgroundColor: [
+                                'rgba(0, 140, 69, 0.8)',  // Green
+                                'rgba(107, 114, 128, 0.7)', // Gray
+                                'rgba(205, 33, 42, 0.8)' // Red
+                            ],
+                            borderColor: '#ffffff', // Біла обводка
+                            borderWidth: 3,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            datalabels: {
+                                // Форматуємо лейбл
+                                formatter: (value, context) => {
+                                    return value + '%';
+                                }
+                            },
+                            legend: {
+                                labels: {
+                                    font: { size: 13 }
+                                }
+                            },
+                            title: { display: false }
+                        },
+                        cutout: '60%' // "Бублик"
+                    }
+                });
+            }
+
+            // --- 2. Структура Зайнятості (Видалено за вашим запитом) ---
+            // Код для 'employmentSectorChart' видалено
+
+            // --- 3. Вікова Гістограма ---
+            const ageCtx = document.getElementById('ageStructureChart');
+            if (ageCtx) {
+                new Chart(ageCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Вікова структура населення Італії (%)'],
+                        datasets: [
+                            {
+                                label: '0-14 років',
+                                data: [12.5],
+                                backgroundColor: 'rgba(0, 140, 69, 0.7)', // Green
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            },
+                            {
+                                label: '15-64 роки',
+                                data: [63.5],
+                                backgroundColor: 'rgba(107, 114, 128, 0.7)', // Gray
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            },
+                            {
+                                label: '65+ років',
+                                data: [24.0],
+                                backgroundColor: 'rgba(205, 33, 42, 0.7)', // Red
+                                barPercentage: 1.0,
+                                categoryPercentage: 0.7
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y', // Робить гістограму горизонтальною
+                        scales: {
+                            x: {
+                                stacked: true, // Складає бари
+                                max: 100, // Максимум 100%
+                                ticks: {
+                                    callback: (value) => value + '%' // Додає %
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                display: false // Ховаємо ярлик "Вікова структура..."
+                            }
+                        },
+                        plugins: {
+                            datalabels: {
+                                formatter: (value) => value + '%' // Показує % на барі
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom' // Легенда знизу
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- 4. Логіка для Модального Вікна (Lightbox) ---
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const closeBtn = document.getElementById("modalClose");
+
+            document.querySelectorAll('.modal-trigger').forEach(trigger => {
+                trigger.onclick = function() {
+                    modal.style.display = "block";
+                    modalImg.src = this.src; // Використовуємо src натиснутої картинки
+                }
+            });
+
+            // Закриття модального вікна
+            const closeModal = () => {
+                modal.style.display = "none";
+            }
+
+            closeBtn.onclick = closeModal; // Клік на "хрестик"
+            modal.onclick = function(event) {
+                // Закриття по кліку на темний фон (але не на саму картинку)
+                if (event.target === modal) {
+                    closeModal();
+                }
+            }
+
+            // Закриття на 'Escape'
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' || event.key === 'Esc') {
+                    closeModal();
+                }
+            });
+
+            // --- 5. Логіка для Перемикача Табів (Дуальність) ---
+            const tabContainer = document.querySelector('#duality');
+            if (tabContainer) {
+                const tabButtons = tabContainer.querySelectorAll('.tab-btn');
+                const tabContents = tabContainer.querySelectorAll('.tab-content');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tabId = button.dataset.tab;
+
+                        // 1. Знімаємо 'active' з усіх кнопок та картинок
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        tabContents.forEach(content => content.classList.remove('active'));
+
+                        // 2. Додаємо 'active' натиснутій кнопці
+                        button.classList.add('active');
+
+                        // 3. Додаємо 'active' потрібній картинці
+                        if (tabId === 'gdp') {
+                            tabContents[0].classList.add('active');
+                        } else if (tabId === 'labor') {
+                            tabContents[1].classList.add('active');
+                        } else if (tabId === 'fiscal') {
+                            tabContents[2].classList.add('active');
+                        }
+                    });
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
