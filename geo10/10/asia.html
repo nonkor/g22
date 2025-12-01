@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Азія: комплексний огляд</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #c0392b;
+            --secondary: #2980b9;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --border: #dcdde1;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 40px 20px;
+            border-bottom: 3px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 10px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        /* MAIN IMAGE */
+        .main-image-container {
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            display: block;
+        }
+
+        .main-image:hover { opacity: 0.9; }
+        .caption { padding: 10px 20px; font-size: 0.9rem; color: #666; background: #f8f9fa; border-top: 1px solid var(--border); }
+
+        /* TYPOGRAPHY */
+        h2 {
+            color: var(--primary);
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* GRID SYSTEM */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* INFOGRAPHICS: POPULATION PYRAMID */
+        .pyramid-container { display: flex; flex-direction: column; gap: 5px; margin-top: 20px; font-size: 0.85rem; }
+        .pyramid-row { display: flex; align-items: center; height: 20px; }
+        .py-label { width: 40px; text-align: right; margin-right: 10px; color: #7f8c8d; font-size: 0.8rem; }
+        .py-bar-container { flex-grow: 1; background: #eee; height: 100%; position: relative; border-radius: 3px; overflow: hidden; }
+        .py-bar { height: 100%; background: var(--accent); transition: width 1s; }
+        .py-value { margin-left: 10px; font-weight: bold; font-size: 0.8rem; color: #555; }
+
+        /* INFOGRAPHICS: URBANIZATION BARS */
+        .urban-chart {
+            display: flex; justify-content: space-around; align-items: flex-end;
+            height: 200px; margin-top: 30px; border-bottom: 2px solid #bdc3c7; padding-bottom: 10px;
+        }
+        .urban-col {
+            width: 18%; background: var(--secondary); display: flex; flex-direction: column;
+            justify-content: flex-end; align-items: center; color: white; font-weight: bold;
+            border-radius: 5px 5px 0 0; position: relative; transition: height 1s;
+        }
+        .urban-col span { margin-bottom: 10px; }
+        .urban-label { position: absolute; bottom: -45px; color: var(--text); font-size: 0.85rem; text-align: center; width: 140%; line-height: 1.2; }
+
+        /* INFOGRAPHICS: EXPORT STRUCTURE */
+        .export-row { margin-bottom: 25px; }
+        .export-title { font-weight: bold; margin-bottom: 5px; display: block; }
+        .stacked-bar { display: flex; height: 30px; border-radius: 5px; overflow: hidden; width: 100%; }
+        .sb-segment { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: bold; }
+
+        /* INFOGRAPHICS: PIE CHART */
+        .chart-flex { display: flex; align-items: center; gap: 30px; }
+        .pie-chart {
+            width: 140px; height: 140px; border-radius: 50%;
+            background: conic-gradient(var(--accent) 0% 60%, #ecf0f1 60% 100%);
+            position: relative;
+        }
+        .pie-chart::after {
+            content: "60%"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; width: 90px; height: 90px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1.4rem; color: var(--primary);
+        }
+
+        /* INFOGRAPHICS: FLYING GEESE MODEL */
+        .geese-model {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            height: 180px; padding-bottom: 20px; border-bottom: 2px solid #ddd; position: relative; margin-top: 30px;
+        }
+        .goose {
+            width: 22%; background: linear-gradient(to top, var(--secondary), #85c1e9);
+            border-radius: 8px 8px 0 0; display: flex; flex-direction: column;
+            justify-content: flex-end; align-items: center; padding-bottom: 10px;
+            color: white; font-weight: bold; text-align: center; position: relative;
+        }
+        .goose span { font-size: 0.8rem; font-weight: normal; display: block; margin-top: 5px; opacity: 0.9; }
+        .arrow-curve {
+            position: absolute; top: 20px; left: 15%; width: 70%; height: 50px;
+            border-top: 3px dashed var(--accent); border-radius: 50%; opacity: 0.5;
+        }
+        .arrow-text { text-align: center; margin-top: 10px; font-style: italic; color: #7f8c8d; font-size: 0.9rem; }
+
+        /* INFOGRAPHICS: RELIGION STRIP */
+        .religion-strip { display: flex; height: 35px; border-radius: 4px; overflow: hidden; margin: 15px 0; }
+        .rel-block { display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; font-weight: bold; }
+
+        /* LEGEND */
+        .legend { list-style: none; padding: 0; margin-top: 15px; }
+        .legend li { display: flex; align-items: center; margin-bottom: 6px; font-size: 0.9rem; color: #555; }
+        .dot { width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; display: inline-block; }
+
+        /* GLOSSARY */
+        details { margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; background: white; }
+        summary { padding: 15px; cursor: pointer; font-weight: 600; color: var(--primary); outline: none; position: relative; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: "+"; position: absolute; right: 20px; font-size: 1.2rem; color: var(--secondary); }
+        details[open] summary::after { content: "−"; }
+        details[open] summary { border-bottom: 1px solid #eee; }
+        .details-content { padding: 20px; color: #444; font-size: 0.95rem; }
+
+        /* LIGHTBOX */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 95%; max-height: 90vh; border: 2px solid white; }
+        .close-btn { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .chart-flex { flex-direction: column; text-align: center; }
+            .urban-label { width: 100%; bottom: -55px; }
+            .urban-chart { margin-bottom: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Азія: географічний портрет</h1>
+        <p>10 клас | Комплексний аналіз соціально-економічного розвитку</p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="main-image-container">
+        <img src="Map_of_Asia.svg" alt="Карта Азії" class="main-image" onclick="openLightbox(this)">
+        <div class="caption">Місце для політичної карти регіону. Натисніть на зображення, щоб збільшити.</div>
+    </div>
+
+    <h2>Населення та демографічні процеси</h2>
+    <div class="grid-2">
+        <div class="card">
+            <h3>Частка населення</h3>
+            <div class="chart-flex">
+                <div class="pie-chart"></div>
+                <div>
+                    <p>Азія концентрує <strong>60%</strong> населення Землі. Це головний демографічний центр планети.</p>
+                    <ul class="legend">
+                        <li><span class="dot" style="background: var(--accent);"></span>Азія (4.7 млрд)</li>
+                        <li><span class="dot" style="background: #ecf0f1;"></span>Решта світу (3.3 млрд)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Вікова структура (Афганістан)</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 15px;">Приклад країни з "молодим" населенням (2-й тип відтворення). Широка основа піраміди.</p>
+
+            <div class="pyramid-container">
+                <div class="pyramid-row">
+                    <span class="py-label">0-14</span>
+                    <div class="py-bar-container"><div class="py-bar" style="width: 85%;"></div></div>
+                    <span class="py-value">41%</span>
+                </div>
+                <div class="pyramid-row">
+                    <span class="py-label">15-64</span>
+                    <div class="py-bar-container"><div class="py-bar" style="width: 55%;"></div></div>
+                    <span class="py-value">55%</span>
+                </div>
+                <div class="pyramid-row">
+                    <span class="py-label">65+</span>
+                    <div class="py-bar-container"><div class="py-bar" style="width: 8%;"></div></div>
+                    <span class="py-value">4%</span>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 10px;">* Для порівняння: у Японії частка дітей становить лише 12%.</p>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Релігійний склад</h3>
+            <p>Строкатість релігійного складу — ключова риса регіону.</p>
+            <div class="religion-strip">
+                <div class="rel-block" style="width: 25%; background: #27ae60;">Іслам</div>
+                <div class="rel-block" style="width: 22%; background: #e67e22;">Індуїзм</div>
+                <div class="rel-block" style="width: 15%; background: #f1c40f; color: #333;">Буддизм</div>
+                <div class="rel-block" style="width: 38%; background: #95a5a6;">Інші</div>
+            </div>
+            <ul class="legend">
+                <li><span class="dot" style="background: #27ae60;"></span>Іслам (Західна, Центральна, Пд-Сх Азія)</li>
+                <li><span class="dot" style="background: #e67e22;"></span>Індуїзм (Індія, Непал)</li>
+                <li><span class="dot" style="background: #f1c40f;"></span>Буддизм (Східна Азія)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Рівень урбанізації</h3>
+            <div class="urban-chart">
+                <div class="urban-col" style="height: 100%; background: #2c3e50;">
+                    <span>100%</span>
+                    <div class="urban-label">Сінгапур<br>(місто)</div>
+                </div>
+                <div class="urban-col" style="height: 92%; background: #34495e;">
+                    <span>92%</span>
+                    <div class="urban-label">Японія<br>(високий)</div>
+                </div>
+                <div class="urban-col" style="height: 65%; background: #7f8c8d;">
+                    <span>65%</span>
+                    <div class="urban-label">Китай<br>(середній)</div>
+                </div>
+                <div class="urban-col" style="height: 21%; background: #bdc3c7; color: #333;">
+                    <span>21%</span>
+                    <div class="urban-label">Непал<br>(низький)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Економічні моделі розвитку</h2>
+    <div class="grid-2">
+        <div class="card">
+            <h3>Модель "летючих гусей"</h3>
+            <p>Теорія пояснює, як індустріалізація передається від лідера до країн-наздоганяючих. Виробництва переносяться туди, де дешевша робоча сила.</p>
+            <div class="arrow-text">↓ Передача технологій та капіталу ↓</div>
+
+            <div class="geese-model">
+                <div class="goose" style="height: 100%; background: var(--primary);">
+                    Японія
+                    <span>1960-80-ті<br>Авто, електроніка</span>
+                </div>
+                <div class="goose" style="height: 80%; background: var(--secondary);">
+                    "Тигри"
+                    <span>1980-90-ті<br>Корея, Тайвань</span>
+                </div>
+                <div class="goose" style="height: 60%; background: var(--success);">
+                    АСЕАН
+                    <span>1990-00-ні<br>Малайзія, Таїланд</span>
+                </div>
+                <div class="goose" style="height: 40%; background: var(--warning); color: #333;">
+                    В'єтнам
+                    <span>Сьогодення<br>Текстиль</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Товарна структура експорту</h3>
+            <p>Порівняння спеціалізації різних субрегіонів.</p>
+
+            <div class="export-row" style="margin-top: 20px;">
+                <span class="export-title">Західна Азія (Саудівська Аравія)</span>
+                <div class="stacked-bar">
+                    <div class="sb-segment" style="width: 85%; background: #2c3e50;">85% Нафта та газ</div>
+                    <div class="sb-segment" style="width: 15%; background: #bdc3c7;">Інше</div>
+                </div>
+            </div>
+
+            <div class="export-row">
+                <span class="export-title">Східна Азія (Південна Корея)</span>
+                <div class="stacked-bar">
+                    <div class="sb-segment" style="width: 60%; background: #2980b9;">Високі технології</div>
+                    <div class="sb-segment" style="width: 40%; background: #bdc3c7;">Інше</div>
+                </div>
+            </div>
+
+            <div class="export-row">
+                <span class="export-title">Південна Азія (Бангладеш)</span>
+                <div class="stacked-bar">
+                    <div class="sb-segment" style="width: 80%; background: #f39c12;">Текстиль та одяг</div>
+                    <div class="sb-segment" style="width: 20%; background: #bdc3c7;">Інше</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Структура ВВП (контрасти розвитку)</h2>
+    <div class="card" style="margin-bottom: 40px;">
+        <ul class="legend" style="margin-bottom: 15px; display: flex; gap: 15px;">
+            <li><span class="dot" style="background: #27ae60;"></span>Сільське госп.</li>
+            <li><span class="dot" style="background: #f39c12;"></span>Промисловість</li>
+            <li><span class="dot" style="background: #2980b9;"></span>Послуги</li>
+        </ul>
+
+        <div class="export-row">
+            <span class="export-title">Японія (постіндустріальна країна)</span>
+            <div class="stacked-bar">
+                <div class="sb-segment" style="width: 1%; background: #27ae60;">1%</div>
+                <div class="sb-segment" style="width: 29%; background: #f39c12;">29%</div>
+                <div class="sb-segment" style="width: 70%; background: #2980b9;">70%</div>
+            </div>
+        </div>
+
+        <div class="export-row">
+            <span class="export-title">Китай (індустріальна країна)</span>
+            <div class="stacked-bar">
+                <div class="sb-segment" style="width: 7%; background: #27ae60;">7%</div>
+                <div class="sb-segment" style="width: 40%; background: #f39c12;">40%</div>
+                <div class="sb-segment" style="width: 53%; background: #2980b9;">53%</div>
+            </div>
+        </div>
+
+         <div class="export-row">
+            <span class="export-title">Камбоджа/Непал (аграрна країна)</span>
+            <div class="stacked-bar">
+                <div class="sb-segment" style="width: 30%; background: #27ae60;">30%</div>
+                <div class="sb-segment" style="width: 25%; background: #f39c12;">25%</div>
+                <div class="sb-segment" style="width: 45%; background: #2980b9;">45%</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Глосарій термінів</h2>
+    <div style="margin-bottom: 60px;">
+        <details>
+            <summary>Нові індустріальні країни (НІК)</summary>
+            <div class="details-content">
+                Група країн, що здійснили якісний стрибок в економіці за останні десятиліття (наприклад: Сінгапур, Тайвань, Республіка Корея). Характеризуються експортоорієнтованою моделлю.
+            </div>
+        </details>
+        <details>
+            <summary>Модель "летючих гусей"</summary>
+            <div class="details-content">
+                Економічна модель, запропонована японськими економістами. Вона описує, як одна країна-лідер (Японія) веде за собою інші країни регіону, передаючи їм застарілі технології та виробництва в міру власного розвитку.
+            </div>
+        </details>
+        <details>
+            <summary>Чаеболь / Дзайбацу</summary>
+            <div class="details-content">
+                Потужні фінансово-промислові групи, що контролюють значну частину економіки.
+                <br><strong>Чаеболь (Корея):</strong> Samsung, LG, Hyundai.
+                <br><strong>Кейрецу/Дзайбацу (Японія):</strong> Mitsubishi, Toyota.
+            </div>
+        </details>
+        <details>
+            <summary>Ісламський банкінг</summary>
+            <div class="details-content">
+                Спосіб ведення банківської справи, який узгоджується з релігійними правилами ісламу. Основна заборона — отримання відсотків (лихварство). Банк ділить ризики та прибутки з клієнтом.
+            </div>
+        </details>
+        <details>
+            <summary>Демографічний дивіденд</summary>
+            <div class="details-content">
+                Період у розвитку країни, коли частка працездатного населення є максимальною, а кількість утриманців (дітей та літніх людей) — мінімальною. Це створює умови для швидкого економічного зростання (зараз це спостерігається в Індії та В'єтнамі).
+            </div>
+        </details>
+        <details>
+            <summary>Зелена революція</summary>
+            <div class="details-content">
+                Комплекс змін у сільському господарстві (нові сорти, іригація, хімізація), що дозволив країнам Азії подолати масовий голод у XX столітті.
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="Full size image">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(element) {
+        lightbox.classList.add('active');
+        lightboxImg.src = element.src;
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
+
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+</script>
+
+</body>
+</html>

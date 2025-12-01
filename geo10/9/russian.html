@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Російська Федерація</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+    <style>
+        :root {
+            --primary-color: #0d2c4e; /* Темно-синій */
+            --secondary-color: #2a5a8a; /* Середньо-синій */
+            --accent-color-primary: #FF5733; /* Помаранчевий */
+            --accent-color-secondary: #008000; /* Зелений */
+            --bg-color: #f7f9fc;
+            --card-bg-color: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .slide {
+            min-height: 70vh; /* Зменшення мінімальної висоти */
+            padding: 20px 20px; /* Зменшення вертикального відступу */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 300px;
+            height: 250px;
+            margin: 10px auto; /* Зменшено відступи */
+        }
+
+        .glossary-item summary {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .glossary-item p {
+            padding: 15px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #eef2f6;
+        }
+
+        .full-screen-map {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none; /* Приховано за замовчуванням */
+            z-index: 1000;
+            padding: 20px;
+        }
+        .full-screen-map.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-iframe {
+            width: 90%;
+            height: 90%;
+            border: none;
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="p-0 m-0">
+
+<div class="slide bg-white shadow-lg">
+    <h1 class="text-4xl font-bold mb-3 text-center text-red-700">Російська Федерація</h1>
+    <h2 class="text-2xl font-semibold mb-6 text-center text-gray-700">Аналіз географічного положення та розвитку</h2>
+
+    <div class="p-6 bg-gray-100 rounded-lg shadow-md flex flex-col items-center justify-center w-full max-w-4xl mb-6">
+      <img src="Russian_Regions-EN.svg" alt="Карта Азії" class="main-image" onclick="openLightbox(this)">
+    </div>
+    <div class="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
+        <div class="p-6 bg-gray-100 rounded-lg shadow-xl">
+            <h3 class="text-xl font-bold mb-4 text-primary-color">Основні відомості</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Офіційна назва:</strong> Російська Федерація (Росія)</li>
+                <li><strong>Площа:</strong> 17 075 тис. км² (Найбільша країна світу)</li>
+                <li><strong>Населення (2024 р.):</strong> 140,8 млн осіб</li>
+                <li><strong>Столиця:</strong> Москва</li>
+                <li><strong>Тип країни:</strong> Індустріально-аграрна, країна з перехідною економікою</li>
+                <li><strong>Форма правління/устрою:</strong> Президентсько-парламентська республіка, федеративна держава</li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-gray-100 rounded-lg shadow-xl flex flex-col items-center">
+            <h3 class="text-xl font-bold mb-4 text-primary-color">Інфографіка: Порівняння площі</h3>
+            <div class="chart-container" style="height: 250px;">
+                <canvas id="areaComparisonChart"></canvas>
+            </div>
+            <p class="text-sm text-gray-500 mt-2 text-center">Росія значно переважає другу за площею країну світу (Канаду - 9,985 тис. км²).</p>
+        </div>
+    </div>
+</div>
+
+<div id="fullScreenMapModal" class="full-screen-map">
+    <span class="close-btn" id="closeMapBtn">&times;</span>
+    <iframe class="map-iframe" src="https://www.openstreetmap.org" title="Базова карта"></iframe>
+</div>
+
+<div class="slide bg-white shadow-lg">
+    <h2 class="text-3xl font-bold mb-8 text-primary-color">Політична структура та економіко-географічне положення</h2>
+
+    <div class="grid md:grid-cols-1 gap-6 w-full max-w-6xl">
+        <div class="p-6 bg-card-bg-color rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-secondary-color">Особливості ЕГП</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Величезні розміри</strong> створюють неоднозначність ЕГП: вигідне у європейській частині та на півдні Далекого Сходу, невигідне у внутрішніх малозаселених районах.</li>
+                <li><strong>Геополітичний статус:</strong> Ядерна держава, постійний член Ради Безпеки ООН.</li>
+                <li><strong>Сусіди:</strong> Велика кількість, проте лише Норвегія та Фінляндія належать до високорозвинених країн.</li>
+                <li><strong>Природні умови:</strong> Освоєння ускладнене значною заболоченістю та поширенням <strong>багаторічної мерзлоти</strong> на більшій частині території.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slide bg-white shadow-lg">
+    <h2 class="text-3xl font-bold mb-8 text-primary-color">Економіка: Структура та вплив санкцій</h2>
+
+    <div class="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
+        <div class="p-6 bg-gray-100 rounded-lg shadow-xl flex flex-col items-center">
+            <h3 class="text-xl font-bold mb-4 text-secondary-color">Інфографіка: Структура ВВП (2023 р.)</h3>
+            <div class="chart-container" style="height: 350px; max-width: 350px;">
+                <canvas id="gdpPieChart"></canvas>
+            </div>
+        </div>
+
+        <div class="p-6 bg-gray-100 rounded-lg shadow-xl">
+            <h3 class="text-xl font-bold mb-4 text-secondary-color">Ключові економічні проблеми</h3>
+            <ul class="list-disc list-inside space-y-3 text-lg">
+                <li><strong>Домінування видобувної промисловості</strong> (нафта, газ) над обробною, що свідчить про "сировинний" характер експорту.</li>
+                <li><strong>Втрата конкурентоспроможності</strong> продукції побутового призначення через технічну відсталість.</li>
+                <li><strong>Вплив міжнародних санкцій:</strong>
+                    <ul class="list-circle list-inside ml-5">
+                        <li>Спад у наукоємних виробництвах.</li>
+                        <li>Обмеження у сферах фінансів, енергетики, технологій.</li>
+                        <li>Переорієнтація на ринки Азії та Африки.</li>
+                        <li>Проблеми з банківським сектором та залученням іноземного капіталу.</li>
+                    </ul>
+                </li>
+                <li><strong>Мілітаризація економіки</strong> та низький рівень технологічних інновацій у ВПК.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slide bg-white shadow-lg">
+    <h2 class="text-3xl font-bold mb-4 text-primary-color">Демографія, етнічний та релігійний склад</h2>
+
+    <div class="grid md:grid-cols-2 gap-6 w-full max-w-6xl">
+        <div class="p-6 bg-card-bg-color rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-secondary-color">Демографічна ситуація та розселення</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Складна ситуація:</strong> Кількість населення поступово скорочується.</li>
+                <li><strong>Старіння населення:</strong> Збільшення частки людей старшого віку.</li>
+                <li><strong>Середня густота населення:</strong> Дуже низька — 8,4 особи/км².</li>
+                <li><strong>Головна смуга розселення:</strong> Основна частина жителів зосереджена у Європейській частині.</li>
+                <li><strong>Урбанізація:</strong> Близько 3/4 населення проживає в містах.</li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-card-bg-color rounded-lg shadow-md flex flex-col items-center">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col items-center">
+                    <h3 class="text-lg font-semibold mb-2 text-secondary-color">Етнічний склад (оцінка)</h3>
+                    <div class="chart-container">
+                        <canvas id="ethnicPieChart"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <h3 class="text-lg font-semibold mb-2 text-secondary-color">Релігійний склад (оцінка)</h3>
+                    <div class="chart-container">
+                        <canvas id="religionPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mt-2 text-center col-span-2">Етнічні та релігійні дані відображають приблизні частки на основі останніх переписів та опитувань.</p>
+        </div>
+    </div>
+</div>
+
+<div class="slide bg-white shadow-lg">
+    <h2 class="text-3xl font-bold mb-8 text-red-700">Українсько-російські відносини: Історичний та сучасний контекст</h2>
+
+    <div class="grid md:grid-cols-3 gap-6 w-full max-w-6xl">
+        <div class="p-6 bg-card-bg-color rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-secondary-color">Економічні зв'язки (до 2014 р.)</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Торгівля:</strong> Значні обсяги торгівлі, Росія була одним із головних торговельних партнерів України.</li>
+                <li><strong>Енергетика:</strong> Залежність України від російського газу та важливість української ГТС для транзиту газу до Європи.</li>
+                <li><strong>Співпраця:</strong> Спільні виробничі ланцюжки, особливо в авіаційній та оборонній промисловості.</li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-card-bg-color rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-secondary-color">Культурні та гуманітарні аспекти</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Спільна історія:</strong> Століттями спільне проживання в межах однієї держави (Російська імперія, СРСР).</li>
+                <li><strong>Мова та культура:</strong> Значний вплив російської мови та культури, велика українська діаспора в Росії.</li>
+                <li><strong>Релігія:</strong> Історична підпорядкованість частини церков Московському патріархату.</li>
+            </ul>
+        </div>
+
+        <div class="p-6 bg-red-100 border-l-4 border-red-500 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-4 text-red-700">Військова агресія та наслідки</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg">
+                <li><strong>Початок конфлікту (2014):</strong> Анексія Криму та розпалювання збройного конфлікту на Донбасі.</li>
+                <li><strong>Повномасштабне вторгнення (Лютий 2022 р.):</strong> Росія розпочала широкомасштабну війну проти України.</li>
+                <li><strong>Наслідки:</strong>
+                    <ul class="list-circle list-inside ml-5">
+                        <li>Повний розрив економічних та політичних зв'язків.</li>
+                        <li>Масштабні людські жертви та руйнування в Україні.</li>
+                        <li>Посилення міжнародних санкцій проти РФ.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slide bg-gray-100 shadow-lg">
+    <h2 class="text-3xl font-bold mb-8 text-primary-color">Глосарій</h2>
+
+    <div class="w-full max-w-4xl space-y-3">
+        <details class="glossary-item">
+            <summary>Індустріально-аграрна країна</summary>
+            <p>Країна, в економіці якої значну роль відіграють як промисловість (особливо видобувна), так і сільське господарство, при цьому сфера послуг займає найбільшу частку у структурі ВВП. Росія належить до цієї категорії, але з переважанням сировинного сектору.</p>
+        </details>
+
+        <details class="glossary-item">
+            <summary>Федеративна держава</summary>
+            <p>Складна форма державного устрою, за якої адміністративно-територіальні одиниці (суб'єкти федерації) мають певну політичну та економічну самостійність. Російська Федерація складається з різних суб'єктів (республік, країв, областей).</p>
+        </details>
+
+        <details class="glossary-item">
+            <summary>Головна смуга розселення</summary>
+            <p>Територія Росії, де зосереджена переважна більшість населення, найбільші міста, промислові потужності та розвинена транспортна мережа. Простягається трикутником, вершинами якого є Санкт-Петербург, Іркутськ та Астрахань.</p>
+        </details>
+
+        <details class="glossary-item">
+            <summary>Мілітаризація економіки</summary>
+            <p>Посилення ролі військово-промислового комплексу та збільшення частки військових витрат у структурі ВВП, а також орієнтація значної частини промисловості на виробництво військової продукції та її експорт.</p>
+        </details>
+    </div>
+</div>
+
+
+<script>
+    // 1. Скрипт для Порівняння Площ (Слайд 1)
+    const areaCtx = document.getElementById('areaComparisonChart').getContext('2d');
+    new Chart(areaCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Росія', 'Канада'],
+            datasets: [{
+                label: 'Площа, тис. км²',
+                data: [17075, 9985],
+                backgroundColor: ['#2a5a8a', '#9ca3af'],
+                borderColor: ['#0d2c4e', '#6b7280'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    formatter: (value) => `${value} тис. км²`
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Площа, тис. км²' }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // 2. Скрипт для Структури ВВП (Слайд 3)
+    const gdpCtx = document.getElementById('gdpPieChart').getContext('2d');
+    new Chart(gdpCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Сфера Послуг (61%)', 'Промисловість (34%)', 'Сільське господарство (5%)'],
+            datasets: [{
+                data: [61, 34, 5],
+                backgroundColor: ['#0d2c4e', '#FF5733', '#008000'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'right' },
+                title: { display: true, text: 'Структура ВВП Росії' },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        return ctx.chart.data.labels[ctx.dataIndex];
+                    },
+                    color: '#fff',
+                    textAlign: 'center',
+                    font: { weight: 'bold' }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // 3. Скрипт для Етнічного Складу (Слайд 4) - ОНОВЛЕНО З ДЕТАЛЯМИ
+    const ethnicCtx = document.getElementById('ethnicPieChart').getContext('2d');
+    new Chart(ethnicCtx, {
+        type: 'doughnut',
+        data: {
+            // Дані є приблизними (на основі переписів), відображають тенденції
+            labels: ['Росіяни (81%)', 'Татари (4%)', 'Українці (1.5%)', 'Башкири (1%)', 'Чеченці (1%)', 'Інші (11.5%)'],
+            datasets: [{
+                data: [81, 4, 1.5, 1, 1, 11.5],
+                backgroundColor: ['#2a5a8a', '#FF5733', '#9ca3af', '#FCD34D', '#10B981', '#EF4444'],
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                title: { display: false },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        const label = ctx.chart.data.labels[ctx.dataIndex].split(' (')[0];
+                        // Показувати лише більші частки
+                        if (value >= 1.5) {
+                            return label;
+                        }
+                        return '';
+                    },
+                    color: '#fff',
+                    textAlign: 'center',
+                    font: { weight: 'bold', size: 12 }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // 4. Скрипт для Релігійного Складу (Слайд 4)
+    const religionCtx = document.getElementById('religionPieChart').getContext('2d');
+    new Chart(religionCtx, {
+        type: 'doughnut',
+        data: {
+            // Дані є приблизними, відображають тенденції
+            labels: ['Православ’я (75%)', 'Іслам (10%)', 'Інші/Невіруючі (15%)'],
+            datasets: [{
+                data: [75, 10, 15],
+                backgroundColor: ['#0d2c4e', '#008000', '#FF5733'],
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                title: { display: false },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        return ctx.chart.data.labels[ctx.dataIndex].split(' ')[0];
+                    },
+                    color: '#fff',
+                    textAlign: 'center',
+                    font: { weight: 'bold', size: 12 }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+    // 5. Скрипт для Повноекранної Карти (Слайд 1)
+    document.addEventListener('DOMContentLoaded', () => {
+        const openMapBtn = document.getElementById('openMapBtn');
+        const closeMapBtn = document.getElementById('closeMapBtn');
+        const mapModal = document.getElementById('fullScreenMapModal');
+
+        const openModal = () => {
+            mapModal.classList.add('active');
+        };
+
+        const closeModal = () => {
+            mapModal.classList.remove('active');
+        };
+
+        openMapBtn.addEventListener('click', openModal);
+        closeMapBtn.addEventListener('click', closeModal);
+        mapModal.addEventListener('click', (e) => {
+            if (e.target === mapModal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mapModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

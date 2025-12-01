@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія 10 клас: Японія та Китай (§21-24)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+    <style>
+        :root {
+            --japan-red: #BC002D; /* Колір прапора Японії */
+            --china-red: #DE2910; /* Колір прапора Китаю */
+            --china-gold: #FFDE00;
+            --japan-accent: #ffb7b2;
+            --dark-text: #1a1a1a;
+            --light-bg: #fffbfb;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark-text);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Noto Serif JP', serif; /* Стилізований шрифт */
+        }
+
+        /* Ефект "Скляна картка" */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Навігаційні кнопки */
+        .nav-btn {
+            transition: all 0.3s;
+        }
+        .nav-btn.japan-active {
+            background-color: var(--japan-red);
+            color: white;
+            border-color: var(--japan-red);
+        }
+        .nav-btn.china-active {
+            background-color: var(--china-red);
+            color: var(--china-gold);
+            border-color: var(--china-red);
+        }
+
+        /* Анімації */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b p-4">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <span class="text-xl font-bold flex items-center gap-2">
+                🌏 Східна Азія <span class="text-xs font-normal text-gray-500 border-l pl-2 border-gray-300">§21-24</span>
+            </span>
+            <div class="space-x-2 mt-2 md:mt-0">
+                <button onclick="scrollToSection('japan')" id="btn-japan" class="nav-btn px-5 py-2 rounded-full border border-gray-300 font-bold hover:bg-red-50">🇯🇵 Японія</button>
+                <button onclick="scrollToSection('china')" id="btn-china" class="nav-btn px-5 py-2 rounded-full border border-gray-300 font-bold hover:bg-red-50">🇨🇳 Китай</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-center py-16 bg-gradient-to-r from-gray-100 to-white">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gray-800 tracking-tight">Два Гіганти Азії</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Порівняльна характеристика двох лідерів регіону: острівна постіндустріальна <strong>Японія</strong> та континентальна індустріальна могутність <strong>Китаю</strong>.
+        </p>
+    </header>
+
+    <div class="container mx-auto p-4 md:p-8 space-y-16">
+
+        <section id="japan" class="scroll-mt-28 fade-in-up">
+            <div class="border-l-8 border-[#BC002D] pl-6 mb-8">
+                <h2 class="text-4xl font-bold text-gray-800">🇯🇵 Японія</h2>
+                <p class="text-lg text-gray-500 italic">"Країна, де сходить сонце"</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div class="glass-card rounded-2xl p-6 lg:col-span-1">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2">📌 Візитна картка</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between">
+                            <span class="text-gray-600">Площа:</span>
+                            <span class="font-bold">377 тис. км² (острівна)</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-600">Столиця:</span>
+                            <span class="font-bold">Токіо (найбільша агломерація світу)</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-600">Державний устрій:</span>
+                            <span class="font-bold">Конституційна монархія (Імперія)</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-gray-600">Ресурси:</span>
+                            <span class="font-bold text-red-600">Майже відсутні (імпортозалежна)</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-6 bg-red-50 p-4 rounded-xl text-center">
+                        <div class="text-3xl">👴👵</div>
+                        <div class="font-bold text-gray-800 mt-2">"Найстаріша нація"</div>
+                        <p class="text-xs text-gray-600">Середня тривалість життя > 84 роки. Від’ємний приріст населення.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 lg:col-span-2 flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2">Економічне диво: Модель розвитку</h3>
+                    <p class="text-sm text-gray-500 mb-6">Японія зробила ставку на освіту, науку та високі технології, не маючи власних копалин.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="h-64 w-full">
+                            <canvas id="japanIndustryChart"></canvas>
+                        </div>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center text-lg">🚗</div>
+                                <div><strong>Автомобілебудування:</strong> Toyota, Honda, Nissan (Топ-3 у світі).</div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center text-lg">🤖</div>
+                                <div><strong>Робототехніка:</strong> 50% світового ринку промислових роботів.</div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center text-lg">🎮</div>
+                                <div><strong>Електроніка:</strong> Sony, Panasonic, Canon.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="china" class="scroll-mt-28 fade-in-up">
+            <div class="border-l-8 border-[#DE2910] pl-6 mb-8 mt-12">
+                <h2 class="text-4xl font-bold text-gray-800">🇨🇳 Китай</h2>
+                <p class="text-lg text-gray-500 italic">"Піднебесна імперія", "Світова фабрика"</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-[#DE2910]">
+                    <div class="text-gray-500 text-sm uppercase">ВВП (ППС)</div>
+                    <div class="stat-value text-[#DE2910]">№1</div>
+                    <div class="text-xs text-gray-400">в світі (обігнав США)</div>
+                </div>
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-[#DE2910]">
+                    <div class="text-gray-500 text-sm uppercase">Населення</div>
+                    <div class="stat-value text-[#DE2910]">1.4 млрд</div>
+                    <div class="text-xs text-gray-400">політика "одна родина - дві дитини"</div>
+                </div>
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-[#DE2910]">
+                    <div class="text-gray-500 text-sm uppercase">Промисловість</div>
+                    <div class="stat-value text-[#DE2910]">50%</div>
+                    <div class="text-xs text-gray-400">світового вугілля та сталі</div>
+                </div>
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-[#FFDE00]">
+                    <div class="text-gray-500 text-sm uppercase">Експорт</div>
+                    <div class="stat-value text-[#bfa500]">№1</div>
+                    <div class="text-xs text-gray-400">найбільший експортер світу</div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <div class="flex flex-col md:flex-row gap-10">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-bold mb-4 text-[#DE2910]">Контрасти розвитку</h3>
+                        <p class="mb-4">Китай поділяється на дві економічні зони. Це явище описується уявною лінією <strong>Хейхе — Тенчун</strong>:</p>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mb-4">
+                            <h4 class="font-bold text-gray-800">Схід ("Лицьова сторона")</h4>
+                            <p class="text-sm">94% населення. Приморські райони, вільні економічні зони (ВЕЗ), мегаполіси (Шанхай, Пекін, Гонконг).</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-gray-800">Захід ("Тильна сторона")</h4>
+                            <p class="text-sm">6% населення. Гори, пустелі, аграрні райони, видобуток корисних копалин.</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-center font-bold mb-4">Структура економіки Китаю (зміна за 30 років)</h3>
+                        <div class="h-64">
+                            <canvas id="chinaGdpChangeChart"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-gray-500 mt-2">Китай перетворився з аграрної країни на індустріально-постіндустріального гіганта.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="fade-in-up">
+            <h2 class="text-3xl font-bold text-center mb-8">🇯🇵 VS 🇨🇳: Швидке порівняння</h2>
+            <div class="overflow-x-auto rounded-xl shadow-lg">
+                <table class="w-full text-left bg-white border-collapse">
+                    <thead>
+                        <tr class="bg-gray-800 text-white">
+                            <th class="p-4">Критерій</th>
+                            <th class="p-4 border-r border-gray-600 w-1/3">Японія</th>
+                            <th class="p-4 w-1/3">Китай</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-bold text-gray-700">Географічне положення</td>
+                            <td class="p-4 border-r text-sm">Острівна країна, ізольована.</td>
+                            <td class="p-4 text-sm">Величезна континентальна країна з виходом до морів.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-bold text-gray-700">Мінеральні ресурси</td>
+                            <td class="p-4 border-r text-sm">Бідні (імпортує 99% нафти, руди).</td>
+                            <td class="p-4 text-sm">Надзвичайно багаті (лідер по вугіллю, рідкоземельним металам).</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-bold text-gray-700">Сільське господарство</td>
+                            <td class="p-4 border-r text-sm">Високотехнологічне, мале за площею. Імпорт продуктів.</td>
+                            <td class="p-4 text-sm">Найбільший виробник рису, пшениці, свинини. Забезпечує себе сам.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-bold text-gray-700">Експорт</td>
+                            <td class="p-4 border-r text-sm">Автомобілі, електроніка, складні верстати.</td>
+                            <td class="p-4 text-sm">Від іграшок до електроніки та сонячних панелей ("Фабрика світу").</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-400 text-sm py-10">
+            <p>Матеріали для уроку географії (10 клас). §21-24.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. JAPAN INDUSTRY CHART (Doughnut)
+        const ctxJapan = document.getElementById('japanIndustryChart').getContext('2d');
+        new Chart(ctxJapan, {
+            type: 'doughnut',
+            data: {
+                labels: ['Сфера послуг', 'Промисловість', 'Сільське госп.'],
+                datasets: [{
+                    data: [70, 29, 1], // Орієнтовна структура ВВП Японії
+                    backgroundColor: ['#BC002D', '#4b5563', '#9ca3af'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' },
+                    title: { display: true, text: 'Структура ВВП Японії (Постіндустріальна)' },
+                    datalabels: {
+                        color: '#fff',
+                        font: { weight: 'bold' },
+                        formatter: (value) => value + '%'
+                    }
+                }
+            }
+        });
+
+        // 2. CHINA GDP CHANGE (Bar Chart)
+        const ctxChina = document.getElementById('chinaGdpChangeChart').getContext('2d');
+        new Chart(ctxChina, {
+            type: 'bar',
+            data: {
+                labels: ['Сільське госп.', 'Промисловість', 'Послуги'],
+                datasets: [
+                    {
+                        label: '1990 рік',
+                        data: [27, 41, 32],
+                        backgroundColor: '#e5e7eb'
+                    },
+                    {
+                        label: '2024 рік',
+                        data: [7, 39, 54], // Зростання сфери послуг, падіння частки агро
+                        backgroundColor: '#DE2910'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 80 }
+                }
+            }
+        });
+
+        // Scroll Logic with active state
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+
+            // Reset buttons
+            document.getElementById('btn-japan').classList.remove('japan-active');
+            document.getElementById('btn-china').classList.remove('china-active');
+
+            // Set active
+            if (id === 'japan') {
+                document.getElementById('btn-japan').classList.add('japan-active');
+            } else {
+                document.getElementById('btn-china').classList.add('china-active');
+            }
+        }
+
+        // Activate first button by default visually
+        document.getElementById('btn-japan').classList.add('japan-active');
+    </script>
+</body>
+</html>
