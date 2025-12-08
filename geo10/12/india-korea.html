@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Індія та Південна Корея: Порівняльна характеристика</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-color);
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стилізація списків */
+        .info-list li {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        /* Акордеон */
+        .term-header { cursor: pointer; }
+        .term-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .active .term-icon { transform: rotate(180deg); }
+        .active .term-content { max-height: 300px; }
+
+        .flag-icon { font-size: 2.5rem; margin-right: 0.75rem; }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <header class="text-center mb-16">
+        <div class="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-wider text-indigo-500 uppercase bg-white border border-indigo-100 rounded-full shadow-sm">
+            Географія 10 клас
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-slate-800">
+            Моделі економічного розвитку Азії
+        </h1>
+        <p class="text-lg text-slate-500 max-w-3xl mx-auto">
+            Порівняння двох гігантів: <span class="text-orange-600 font-bold">Індії</span> (потужний внутрішній ринок та ІТ) та <span class="text-blue-700 font-bold">Південної Кореї</span> (експортоорієнтована високотехнологічна економіка).
+        </p>
+    </header>
+
+    <section class="mb-24">
+        <div class="flex items-center mb-6 border-b-2 border-orange-200 pb-4">
+            <span class="text-6xl mr-4">🇮🇳</span>
+            <div>
+                <h2 class="text-4xl font-bold text-slate-800">Індія</h2>
+                <p class="text-orange-600 font-semibold uppercase tracking-widest text-sm">Офіс світу • Аграрно-індустріальний гігант</p>
+            </div>
+        </div>
+
+        <div class="w-full h-72 bg-orange-50 rounded-xl border-2 border-dashed border-orange-300 flex items-center justify-center mb-8 relative overflow-hidden group">
+            <div class="text-center">
+                <i class="fa-solid fa-map-location-dot text-4xl text-orange-400 mb-2"></i>
+                <p class="text-orange-800 font-bold">Економічні центри Індії</p>
+                <span class="text-xs text-orange-500">Мумбаї (фінанси), Бангалор (ІТ), Делі (політика), Колката (промисловість)</span>
+            </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-6 border-t-4 border-orange-500">
+                    <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-passport text-orange-500 mr-2"></i> Візитівка</h3>
+                    <ul class="info-list text-sm text-gray-600">
+                        <li><span>Столиця</span> <span class="font-bold text-slate-800">Нью-Делі</span></li>
+                        <li><span>Площа</span> <span class="font-bold text-slate-800">3.3 млн км²</span></li>
+                        <li><span>Устрій</span> <span class="font-bold text-slate-800">Федеративна респ.</span></li>
+                        <li><span>ВВП (ПКС)</span> <span class="font-bold text-green-600">3-тє місце у світі</span></li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 border-t-4 border-orange-500">
+                    <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-users text-orange-500 mr-2"></i> Демографія</h3>
+                    <div class="mb-3">
+                        <span class="text-3xl font-extrabold text-slate-800">1.42 млрд</span>
+                        <span class="block text-xs font-bold text-green-600 uppercase">Найбільша у світі</span>
+                    </div>
+                    <ul class="text-sm space-y-1 text-gray-600">
+                        <li>• <b>Молодість:</b> сер. вік 27 років.</li>
+                        <li>• <b>Урбанізація:</b> 35% (низька, але росте).</li>
+                        <li>• <b>Релігія:</b> 80% індуїзм, 14% іслам.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card p-6 border-t-4 border-green-600 bg-green-50/50">
+                <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-industry text-green-600 mr-2"></i> Економічна спеціалізація</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-green-700 mb-2"><i class="fa-solid fa-seedling mr-1"></i> Сільське господарство</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            "Зелена революція" забезпечила країну їжею. Світовий лідер з вирощування чаю, спецій, рису, цукрової тростини. Найбільше поголів'я худоби.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-orange-600 mb-2"><i class="fa-solid fa-laptop-code mr-1"></i> Сфера послуг (ІТ)</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Індія — світовий лідер аутсорсингу. Бангалор називають "Індійською Кремнієвою долиною". Експорт ПЗ — головна стаття доходів.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-slate-700 mb-2"><i class="fa-solid fa-hammer mr-1"></i> Промисловість</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Металургія (TATA Steel), фармацевтика ("Аптека світу"), текстильна галузь. Космічна програма (ISRO).
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-pink-600 mb-2"><i class="fa-solid fa-film mr-1"></i> Боллівуд</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Кіноіндустрія Мумбаї випускає понад 1000 фільмів на рік, формуючи культурний вплив у регіоні.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card p-5 md:col-span-1">
+                <h4 class="text-center font-bold text-sm text-gray-500 mb-4 uppercase">Структура зайнятості</h4>
+                <div class="h-48 relative"><canvas id="indiaEmpChart"></canvas></div>
+                <p class="text-center text-xs text-gray-400 mt-3">Майже половина працює в агросекторі</p>
+            </div>
+            <div class="card p-5 md:col-span-2 flex flex-col justify-center items-center bg-orange-100">
+                <div class="text-center max-w-lg">
+                    <h4 class="font-bold text-orange-900 text-lg mb-2">Контрасти розвитку</h4>
+                    <p class="text-sm text-orange-800 mb-4">Індія реалізує проект <b>"Коридор Делі — Мумбаї"</b> — створення високотехнологічної індустріальної зони довжиною 1500 км для перетворення країни на світову фабрику.</p>
+                    <div class="flex justify-center gap-4 text-xs font-bold text-orange-700">
+                        <span class="bg-white px-3 py-1 rounded shadow">АЕС та Космос</span>
+                        <span class="bg-white px-3 py-1 rounded shadow">Нетрі та злидні</span>
+                        <span class="bg-white px-3 py-1 rounded shadow">Штучний інтелект</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-24">
+        <div class="flex items-center mb-6 border-b-2 border-blue-200 pb-4">
+            <span class="text-6xl mr-4">🇰🇷</span>
+            <div>
+                <h2 class="text-4xl font-bold text-slate-800">Південна Корея</h2>
+                <p class="text-blue-600 font-semibold uppercase tracking-widest text-sm">Азійський тигр • Інноваційний хаб</p>
+            </div>
+        </div>
+
+        <div class="w-full h-72 bg-blue-50 rounded-xl border-2 border-dashed border-blue-300 flex items-center justify-center mb-8 relative overflow-hidden group">
+            <div class="text-center">
+                <i class="fa-solid fa-map-location-dot text-4xl text-blue-400 mb-2"></i>
+                <p class="text-blue-800 font-bold">Господарство Республіки Корея</p>
+                <span class="text-xs text-blue-500">Головна вісь розвитку: Сеул — Пусан</span>
+            </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-6 border-t-4 border-blue-800">
+                    <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-passport text-blue-800 mr-2"></i> Візитівка</h3>
+                    <ul class="info-list text-sm text-gray-600">
+                        <li><span>Столиця</span> <span class="font-bold text-slate-800">Сеул</span></li>
+                        <li><span>Площа</span> <span class="font-bold text-slate-800">100 тис. км²</span></li>
+                        <li><span>Устрій</span> <span class="font-bold text-slate-800">Прес. республіка</span></li>
+                        <li><span>Статус</span> <span class="font-bold text-blue-600">Розвинена країна</span></li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 border-t-4 border-blue-800">
+                    <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-users text-blue-800 mr-2"></i> Демографія</h3>
+                    <div class="mb-3">
+                        <span class="text-3xl font-extrabold text-slate-800">51.7 млн</span>
+                        <span class="block text-xs font-bold text-red-500 uppercase">Криза старіння</span>
+                    </div>
+                    <ul class="text-sm space-y-1 text-gray-600">
+                        <li>• <b>Тривалість життя:</b> 83 роки.</li>
+                        <li>• <b>Урбанізація:</b> 81.5% (дуже висока).</li>
+                        <li>• <b>Нація:</b> Мононаціональна (98%).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card p-6 border-t-4 border-purple-600 bg-blue-50/50">
+                <h3 class="font-bold text-lg mb-4 text-slate-800 flex items-center"><i class="fa-solid fa-industry text-purple-600 mr-2"></i> Економічна спеціалізація</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-blue-900 mb-2"><i class="fa-solid fa-building mr-1"></i> Чеболі</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Основа економіки — гігантські конгломерати (Samsung, Hyundai, LG), що контролюють ланцюжки від виробництва до збуту.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-indigo-600 mb-2"><i class="fa-solid fa-microchip mr-1"></i> Хай-тек</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Світовий лідер у виробництві напівпровідників, смартфонів, дисплеїв. Один з найвищих рівнів роботизації у світі.
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-teal-700 mb-2"><i class="fa-solid fa-ship mr-1"></i> Важка промисловість</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Суднобудування (№1-2 у світі, газовози), автомобілебудування (входить у топ-5 світових виробників).
+                        </p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="font-bold text-purple-600 mb-2"><i class="fa-solid fa-music mr-1"></i> "М'яка сила"</div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            "Корейська хвиля" (Hallyu): K-Pop, дорами, косметика та їжа стали важливою статтею експорту та іміджу.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card p-5 md:col-span-1">
+                <h4 class="text-center font-bold text-sm text-gray-500 mb-4 uppercase">Структура зайнятості</h4>
+                <div class="h-48 relative"><canvas id="koreaEmpChart"></canvas></div>
+                <p class="text-center text-xs text-gray-400 mt-3">Постіндустріальне суспільство (послуги > 70%)</p>
+            </div>
+            <div class="card p-5 md:col-span-2 flex flex-col justify-center items-center bg-blue-100">
+                <div class="text-center max-w-lg">
+                    <h4 class="font-bold text-blue-900 text-lg mb-2">Секрет успіху</h4>
+                    <p class="text-sm text-blue-800 mb-4">Корея зробила ставку на <b>експортоорієнтовану модель</b> та <b>культ освіти</b>. Країна витрачає рекордний відсоток ВВП на науку (R&D).</p>
+                    <div class="flex justify-center gap-4 text-xs font-bold text-blue-700">
+                        <span class="bg-white px-3 py-1 rounded shadow">Інновації</span>
+                        <span class="bg-white px-3 py-1 rounded shadow">Дисципліна</span>
+                        <span class="bg-white px-3 py-1 rounded shadow">Державна підтримка</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-12 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+        <div class="bg-slate-800 text-white p-4 text-center">
+            <h3 class="text-xl font-bold">Словник термінів</h3>
+            <p class="text-xs text-slate-400">Натисніть на термін, щоб дізнатися більше</p>
+        </div>
+
+        <div class="divide-y divide-gray-100">
+            <div class="term-item">
+                <div class="term-header p-4 flex justify-between items-center hover:bg-slate-50 transition" onclick="toggleTerm(this)">
+                    <span class="font-bold text-slate-700">Зелена революція</span>
+                    <i class="fa-solid fa-chevron-down term-icon text-gray-400"></i>
+                </div>
+                <div class="term-content bg-slate-50">
+                    <div class="p-4 text-sm text-gray-600">
+                        Комплекс змін у сільському господарстві Індії (впровадження нових сортів, іригація, добрива), що врятував країну від голоду і перетворив на експортера зерна.
+                    </div>
+                </div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-header p-4 flex justify-between items-center hover:bg-slate-50 transition" onclick="toggleTerm(this)">
+                    <span class="font-bold text-slate-700">Чеболі</span>
+                    <i class="fa-solid fa-chevron-down term-icon text-gray-400"></i>
+                </div>
+                <div class="term-content bg-slate-50">
+                    <div class="p-4 text-sm text-gray-600">
+                        Південнокорейська форма фінансово-промислових груп (Samsung, LG, Hyundai). Вони належать впливовим родинам і тісно співпрацюють з урядом.
+                    </div>
+                </div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-header p-4 flex justify-between items-center hover:bg-slate-50 transition" onclick="toggleTerm(this)">
+                    <span class="font-bold text-slate-700">Азійські тигри</span>
+                    <i class="fa-solid fa-chevron-down term-icon text-gray-400"></i>
+                </div>
+                <div class="term-content bg-slate-50">
+                    <div class="p-4 text-sm text-gray-600">
+                        Образна назва нових індустріальних країн (Південна Корея, Сінгапур, Гонконг, Тайвань), що здійснили стрімкий економічний ривок у другій половині XX ст.
+                    </div>
+                </div>
+            </div>
+
+            <div class="term-item">
+                <div class="term-header p-4 flex justify-between items-center hover:bg-slate-50 transition" onclick="toggleTerm(this)">
+                    <span class="font-bold text-slate-700">IT-аутсорсинг</span>
+                    <i class="fa-solid fa-chevron-down term-icon text-gray-400"></i>
+                </div>
+                <div class="term-content bg-slate-50">
+                    <div class="p-4 text-sm text-gray-600">
+                        Передача компанією певних функцій (наприклад, написання коду або підтримка клієнтів) зовнішнім виконавцям. Індія є світовим центром таких послуг завдяки англомовному населенню та низьким витратам.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Акордеон
+        function toggleTerm(el) {
+            el.parentElement.classList.toggle('active');
+        }
+
+        // Графіки
+        Chart.defaults.font.family = "'Manrope', sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        // Дані для графіків
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } },
+                datalabels: { color: '#fff', font: { weight: 'bold' }, formatter: (v) => v > 5 ? v + '%' : '' }
+            },
+            cutout: '60%'
+        };
+
+        // Індія
+        new Chart(document.getElementById('indiaEmpChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Сільське госп.', 'Промисловість', 'Послуги'],
+                datasets: [{
+                    data: [47, 22, 31],
+                    backgroundColor: ['#22c55e', '#f97316', '#334155'],
+                    borderWidth: 0
+                }]
+            },
+            options: commonOptions,
+            plugins: [ChartDataLabels]
+        });
+
+        // Корея
+        new Chart(document.getElementById('koreaEmpChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Сільське госп.', 'Промисловість', 'Послуги'],
+                datasets: [{
+                    data: [5, 25, 70],
+                    backgroundColor: ['#22c55e', '#ef4444', '#1e40af'],
+                    borderWidth: 0
+                }]
+            },
+            options: commonOptions,
+            plugins: [ChartDataLabels]
+        });
+    </script>
+</body>
+</html>
