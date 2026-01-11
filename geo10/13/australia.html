@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Австралія: Економіко-географічний нарис</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); padding: 1.5rem; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
+        .modal img { max-width: 95%; max-height: 95%; border-radius: 4px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .glossary-term { font-weight: 600; color: #2563eb; }
+        .map-placeholder { aspect-ratio: 21/9; object-fit: cover; width: 100%; height: 100%; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto space-y-8">
+        <div class="relative group cursor-zoom-in overflow-hidden rounded-xl bg-slate-200 aspect-[21/9] flex items-center justify-center border border-slate-300" onclick="openMap()">
+            <img src="au-01.webp" alt="Map of Australia" class="map-placeholder">
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity flex items-center justify-center">
+                <span class="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity">натисніть, щоб розгорнути</span>
+            </div>
+        </div>
+
+        <section class="card grid md:grid-cols-3 gap-8 border-l-8 border-blue-600">
+            <div class="md:col-span-2">
+                <h1 class="text-3xl font-bold mb-4 tracking-tight">Австралійський Союз</h1>
+                <p class="text-slate-600 leading-relaxed mb-4">
+                    Єдина держава у світі, що займає цілий континент. Австралія належить до країн переселенського типу з високим рівнем економічного розвитку. Завдяки унікальному поєднанню потужного аграрного сектору та передових технологій, країна входить до десятки лідерів за індексом людського розвитку (ІЛР).
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="p-3 bg-slate-50 rounded"><strong>Столиця:</strong> Канберра</div>
+                    <div class="p-3 bg-slate-50 rounded"><strong>ВВП на душу:</strong> ~69,360 $</div>
+                    <div class="p-3 bg-slate-50 rounded"><strong>Площа:</strong> 7,7 млн км²</div>
+                    <div class="p-3 bg-slate-50 rounded"><strong>Урбанізація:</strong> 86%</div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center justify-center space-y-4 border-l pl-8 border-slate-100">
+                <div class="w-32 h-20 bg-blue-900 rounded shadow-inner flex items-center justify-center text-white text-xs"><img src="Flag_of_Australia.svg.png" alt="Flag of Australia"></img></div>
+                <div class="text-center">
+                    <span class="text-4xl font-bold text-blue-600">27.2</span>
+                    <p class="text-slate-500 text-xs uppercase tracking-widest">млн населення</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-6">Структура ВВП за секторами (%)</h3>
+                <div class="h-64">
+                    <canvas id="gdpChart"></canvas>
+                </div>
+                <p class="mt-4 text-xs text-slate-400 italic">Сфера послуг формує понад 60% економіки, проте гірничовидобувна галузь залишається ключовою для експорту.</p>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-6">Віковий склад населення</h3>
+                <div class="h-64">
+                    <canvas id="ageChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-6">Етнічне походження (топ-5)</h3>
+                <div class="h-64">
+                    <canvas id="ethnicChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-6">Релігійні переконання</h3>
+                <div class="h-64">
+                    <canvas id="religionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <section class="card bg-slate-900 text-white">
+            <h3 class="text-xl font-semibold mb-6 text-blue-400">Економічний профіль: цікаві факти</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <div class="text-2xl font-bold">#1</div>
+                    <p class="text-slate-400 text-sm">Світовий експортер залізної руди, вугілля та зрідженого природного газу.</p>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-2xl font-bold">30 років</div>
+                    <p class="text-slate-400 text-sm">Тривалість періоду безперервного економічного зростання до 2020 року (рекорд серед розвинених країн).</p>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-2xl font-bold">79%</div>
+                    <p class="text-slate-400 text-sm">Частка доданої вартості в сільському господарстві, яку створює саме малий бізнес.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="border-t pt-8">
+            <h3 class="text-lg font-semibold mb-4 text-slate-700 underline decoration-blue-500 underline-offset-8">Глосарій термінів</h3>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-4 text-sm leading-relaxed">
+                <p><span class="glossary-term">Аборигени</span> — корінне населення Австралії, яке складає близько 3% населення країни.</p>
+                <p><span class="glossary-term">Вівчарство</span> — традиційна галузь тваринництва; Австралія є світовим лідером за настригом вовни.</p>
+                <p><span class="glossary-term">Країна переселенського типу</span> — держава, сучасна нація якої сформувалася переважно за рахунок мігрантів.</p>
+                <p><span class="glossary-term">Мегаполіс</span> — велика міська агломерація (наприклад, Сідней, де проживає понад 5 млн осіб).</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="mapModal" class="modal" onclick="closeMap()">
+        <img src="au-01.webp" alt="Map of Australia Large">
+    </div>
+
+    <script>
+        // Модальне вікно
+        function openMap() { document.getElementById('mapModal').style.display = 'flex'; }
+        function closeMap() { document.getElementById('mapModal').style.display = 'none'; }
+        window.onkeydown = function(e) { if (e.keyCode == 27) closeMap(); };
+
+        // Діаграми
+        const config = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+        };
+
+        // ВВП
+        new Chart(document.getElementById('gdpChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Послуги', 'Будівництво', 'Гірнича пром.', 'Обробна пром.', 'Сільське госп.'],
+                datasets: [{
+                    data: [62.7, 7.4, 5.8, 5.8, 2.8],
+                    backgroundColor: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe']
+                }]
+            },
+            options: config
+        });
+
+        // Вік
+        new Chart(document.getElementById('ageChart'), {
+            type: 'bar',
+            data: {
+                labels: ['0-14', '15-64', '65+'],
+                datasets: [{
+                    label: '% населення',
+                    data: [18, 66, 16],
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: { ...config, indexAxis: 'y' }
+        });
+
+        // Етноси
+        new Chart(document.getElementById('ethnicChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Англійці', 'Австралійці', 'Ірландці', 'Шотландці', 'Китайці'],
+                datasets: [{
+                    data: [33, 29.9, 9.5, 8.6, 5.5],
+                    backgroundColor: ['#1e3a8a', '#1d4ed8', '#2563eb', '#3b82f6', '#60a5fa']
+                }]
+            },
+            options: config
+        });
+
+        // Релігія
+        new Chart(document.getElementById('religionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Християнство', 'Без релігії', 'Іслам', 'Індуїзм', 'Буддизм'],
+                datasets: [{
+                    label: '%',
+                    data: [43.9, 38.9, 3.2, 2.7, 2.4],
+                    backgroundColor: '#2563eb'
+                }]
+            },
+            options: config
+        });
+    </script>
+</body>
+</html>
