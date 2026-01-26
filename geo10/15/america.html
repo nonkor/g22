@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія 10 клас: Регіон Америка (Параграфи 31-34)</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 1);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .chart-container { position: relative; height: 320px; width: 100%; }
+
+        /* Модальне вікно для мапи */
+        #mapModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        #mapModal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <header class="bg-white border-b border-slate-200 py-10 mb-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+                <div>
+                    <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Географія 10 клас</span>
+                    <h1 class="text-4xl font-extrabold text-slate-900 mt-2">Макрорегіон Америка</h1>
+                    <p class="text-slate-500 mt-2">Комплексна характеристика: від Канади до Вогняної Землі</p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="text-sm font-semibold text-slate-400 uppercase tracking-tighter">Параграфи</div>
+                    <div class="text-2xl font-bold text-slate-800">31 • 32 • 33 • 34</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-20">
+
+        <section class="mb-12">
+            <div class="relative group cursor-zoom-in overflow-hidden rounded-[2rem] shadow-2xl bg-slate-800 h-[450px]" onclick="openMap()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Americas_%28orthographic_projection%29.svg/1200px-Americas_%28orthographic_projection%29.svg.png"
+                     alt="Мапа Америки"
+                     class="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-110">
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <span class="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm">01</span>
+                Загальні відомості про регіон
+            </h2>
+            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm bg-white">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="p-5 font-semibold text-slate-600 uppercase text-xs tracking-wider">Параметр</th>
+                            <th class="p-5 font-semibold text-slate-900">Дані</th>
+                            <th class="p-5 font-semibold text-slate-600 uppercase text-xs tracking-wider">Ключові країни</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-5 font-medium">Площа території</td>
+                            <td class="p-5">42,5 млн км² (близько 30% суходолу)</td>
+                            <td class="p-5 text-slate-500">Канада, США, Бразилія</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-medium">Населення</td>
+                            <td class="p-5">Понад 1 млрд осіб</td>
+                            <td class="p-5 text-slate-500">США, Бразилія, Мексика</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-medium">Субрегіони (ООН)</td>
+                            <td class="p-5">Північна, Центральна, Південна Америка, Карибський басейн</td>
+                            <td class="p-5 text-slate-500">35 держав та 23 залежні території</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-medium">Типи економік</td>
+                            <td class="p-5">Високорозвинені (G7), НІК, "Багаті острови", Найменш розвинені</td>
+                            <td class="p-5 text-slate-500">США, Канада; Бразилія, Мексика; Гаїті</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm">02</span>
+                Демографічна та економічна інфографіка
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card">
+                    <h3 class="font-bold text-lg mb-6 text-slate-800">Структура ВВП за секторами (%)</h3>
+                    <div class="chart-container">
+                        <canvas id="gdpChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-xs text-slate-400 italic">* США/Канада мають понад 75% у третинному секторі.</p>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="font-bold text-lg mb-6 text-slate-800">Релігійний склад регіону</h3>
+                    <div class="chart-container">
+                        <canvas id="religionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="font-bold text-lg mb-6 text-slate-800">Етнічний склад (Латинська Америка)</h3>
+                    <div class="chart-container">
+                        <canvas id="ethnoChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3 class="font-bold text-lg mb-6 text-slate-800">Вікова структура населення (тип)</h3>
+                    <div class="chart-container">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-3xl text-white shadow-lg">
+                <h4 class="text-xl font-bold mb-3">Інтеграційні процеси</h4>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    Ключовими об'єднаннями є **НАФТА** (США, Канада, Мексика) та **МЕРКОСУР** (Бразилія, Аргентина, Парагвай, Уругвай, Венесуела). Вони забезпечують вільну торгівлю та спільний ринок.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <h4 class="text-xl font-bold mb-3 text-slate-900">Природні ресурси</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Регіон багатий на нафту (Венесуела, США, Мексика), залізну руду (Бразилія) та кольорові метали ("Рудний пояс" Анд та Кордильєр). Амазонія має найбільші у світі запаси лісу та прісної води.
+                </p>
+            </div>
+            <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100">
+                <h4 class="text-xl font-bold mb-3 text-indigo-900">Расовий склад</h4>
+                <p class="text-indigo-800 text-sm leading-relaxed">
+                    Америка — результат змішування рас. Формуються метиси (європеоїдна + монголоїдна), мулати (європеоїдна + негроїдна) та самбо (негроїдна + монголоїдна).
+                </p>
+            </div>
+        </section>
+
+        <footer class="bg-slate-900 rounded-[2.5rem] p-10 text-white overflow-hidden relative">
+            <div class="relative z-10">
+                <h4 class="text-blue-400 font-bold uppercase tracking-widest text-xs mb-6">Словник ключових термінів</h4>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">Метиси</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">НАФТА</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">МЕРКОСУР</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">Урбанізація</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">Колонізація</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">Субтропіки</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">ЕГП</span>
+                    <span class="bg-slate-800 border border-slate-700 px-4 py-2 rounded-xl text-sm hover:border-blue-500 transition-colors">Латинська Америка</span>
+                </div>
+                <div class="mt-12 pt-8 border-t border-slate-800 flex justify-between items-center text-slate-500 text-xs">
+                    <p>&copy; 2024 Навчальні матеріали з географії</p>
+                    <p>Підручник Г. Д. Довгань</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <div id="mapModal" onclick="closeMap()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Americas_%28orthographic_projection%29.svg/1200px-Americas_%28orthographic_projection%29.svg.png" alt="Мапа Америки на весь екран">
+    </div>
+
+    <script>
+        // Modal logic
+        function openMap() { document.getElementById('mapModal').style.display = 'flex'; }
+        function closeMap() { document.getElementById('mapModal').style.display = 'none'; }
+        window.addEventListener('keydown', (e) => { if (e.key === "Escape") closeMap(); });
+
+        // Charts configuration
+        const ctxGdp = document.getElementById('gdpChart').getContext('2d');
+        new Chart(ctxGdp, {
+            type: 'bar',
+            data: {
+                labels: ['Сільське госп.', 'Промисловість', 'Послуги'],
+                datasets: [
+                    { label: 'Північна Америка', data: [2, 20, 78], backgroundColor: '#2563eb' },
+                    { label: 'Латинська Америка', data: [10, 30, 60], backgroundColor: '#10b981' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        const ctxRel = document.getElementById('religionChart').getContext('2d');
+        new Chart(ctxRel, {
+            type: 'doughnut',
+            data: {
+                labels: ['Католицизм', 'Протестантизм', 'Атеїзм/Інші'],
+                datasets: [{
+                    data: [65, 20, 15],
+                    backgroundColor: ['#6366f1', '#f59e0b', '#94a3b8'],
+                    borderWidth: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
+        });
+
+        const ctxEth = document.getElementById('ethnoChart').getContext('2d');
+        new Chart(ctxEth, {
+            type: 'pie',
+            data: {
+                labels: ['Метиси', 'Білі (європейці)', 'Мулати', 'Корінні', 'Інші'],
+                datasets: [{
+                    data: [40, 30, 15, 10, 5],
+                    backgroundColor: ['#f43f5e', '#3b82f6', '#8b5cf6', '#10b981', '#f97316']
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const ctxAge = document.getElementById('ageChart').getContext('2d');
+        new Chart(ctxAge, {
+            type: 'line',
+            data: {
+                labels: ['0-14 р.', '15-64 р.', '65+ р.'],
+                datasets: [
+                    { label: 'США (старіння)', data: [18, 65, 17], borderColor: '#3b82f6', tension: 0.4, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' },
+                    { label: 'Мексика (молода)', data: [26, 66, 8], borderColor: '#f43f5e', tension: 0.4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>
