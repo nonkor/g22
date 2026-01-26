@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія 10 клас: Острівні країни Океанії</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f0f9ff; color: #1e293b; }
+        .gradient-bg { background: linear-gradient(135deg, #075985 0%, #0ea5e9 100%); }
+        .card { background: white; border-radius: 1rem; shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); padding: 1.5rem; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+
+        /* Modal for Map */
+        #mapModal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        #mapModal img { max-width: 95%; max-height: 95%; border-radius: 8px; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
+
+        .table-custom { width: 100%; border-collapse: collapse; }
+        .table-custom th { background-color: #0ea5e9; color: white; padding: 12px; text-align: left; }
+        .table-custom td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        .table-custom tr:nth-child(even) { background-color: #f8fafc; }
+
+        .glossary-item dt { font-weight: 700; color: #0369a1; }
+        .glossary-item dd { margin-bottom: 1rem; color: #475569; }
+    </style>
+</head>
+<body class="pb-10">
+
+    <header class="gradient-bg text-white py-12 px-4 text-center mb-8 shadow-lg">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Острівні країни Океанії</h1>
+        <p class="text-xl opacity-90">Параграф 30. Економіко-географічна характеристика</p>
+    </header>
+
+    <div class="container mx-auto px-4">
+
+        <section class="mb-12">
+            <div class="card overflow-hidden cursor-zoom-in" onclick="openMap()">
+                <div class="flex flex-col items-center">
+                    <img src="oceania.webp"
+                         alt="Мапа Океанії" class="rounded-lg shadow-md w-full max-h-[500px] object-contain">
+                    <p class="mt-4 text-sm text-gray-500 font-semibold uppercase tracking-widest">Натисніть, щоб розгорнути мапу</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 gap-8 mb-12">
+            <div class="card">
+                <h2 class="text-2xl font-bold mb-6 text-sky-800 border-l-4 border-sky-500 pl-4">Таблиця 1. Субрегіони Океанії</h2>
+                <div class="overflow-x-auto">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Субрегіон</th>
+                                <th>Особливості природи</th>
+                                <th>Ключові країни</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Меланезія</b></td>
+                                <td>Материкові та вулканічні острови, багаті на руди.</td>
+                                <td>Папуа-Нова Гвінея, Фіджі, Соломонові о-ви, Вануату.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Мікронезія</b></td>
+                                <td>Дрібні коралові атоли та вулканічні острови.</td>
+                                <td>Кірибаті, Палау, Маршаллові о-ви, Науру.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Полінезія</b></td>
+                                <td>Величезні відстані, переважно вулканічні острови.</td>
+                                <td>Самоа, Тонга, Тувалу, Острови Кука.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-2xl font-bold mb-6 text-sky-800 border-l-4 border-sky-500 pl-4">Таблиця 2. Спеціалізація господарства</h2>
+                <div class="overflow-x-auto">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Країна</th>
+                                <th>Основні галузі</th>
+                                <th>Експортні товари</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Папуа-Нова Гвінея</td>
+                                <td>Гірнича пром-сть, с/г</td>
+                                <td>Золото, мідь, нафта, пальмова олія, кава</td>
+                            </tr>
+                            <tr>
+                                <td>Фіджі</td>
+                                <td>Туризм, цукрова пром-сть</td>
+                                <td>Цукор, текстиль, золото, мінеральна вода</td>
+                            </tr>
+                            <tr>
+                                <td>Науру</td>
+                                <td>Видобуток фосфоритів</td>
+                                <td>Фосфорити (ресурси майже вичерпані)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+
+            <div class="card">
+                <h3 class="font-bold mb-4 text-center">Вікова структура (усереднена)</h3>
+                <canvas id="ageChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="font-bold mb-4 text-center">Релігійний склад</h3>
+                <canvas id="religionChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="font-bold mb-4 text-center">Етнічний склад (Меланезія)</h3>
+                <canvas id="ethnicChart"></canvas>
+            </div>
+
+            <div class="card lg:col-span-2">
+                <h3 class="font-bold mb-4 text-center">Порівняння ВВП (номінал, млрд $)</h3>
+                <canvas id="gdpChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h3 class="font-bold mb-4 text-center">Структура експорту/імпорту</h3>
+                <canvas id="tradeChart"></canvas>
+            </div>
+
+        </section>
+
+        <footer class="mt-20 border-t pt-10">
+            <h2 class="text-2xl font-bold mb-6 text-sky-900">Глосарій термінів</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 glossary-item">
+                <dt>Атол</dt>
+                <dd>Кораловий острів, що має форму суцільного або розірваного кільця, яке оточує лагуну.</dd>
+
+                <dt>Економічна зона (ВЕЗ)</dt>
+                <dd>Морський район, що прилягає до територіальних вод, де країна має виключні права на ресурси.</dd>
+
+                <dt>Трастові фонди</dt>
+                <dd>Фінансові фонди (наприклад, у Науру або Кірибаті), створені для накопичення прибутків від ресурсів для майбутніх поколінь.</dd>
+
+                <dt>Країни "Податкові гавані"</dt>
+                <dd>Держави Океанії з ліберальним податковим законодавством, що залучають іноземний капітал (офшори).</dd>
+
+                <dt>Океанія</dt>
+                <dd>Найбільше у світі скупчення островів у центральній і південно-західній частинах Тихого океану.</dd>
+
+                <dt>Меланезійці</dt>
+                <dd>Корінне населення островів Меланезії, що належить до австралоїдної раси.</dd>
+            </dl>
+            <div class="text-center mt-10 text-gray-400 text-sm">
+                &copy; 2024 Урок Географії. Острівні країни Океанії.
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="mapModal" onclick="closeMap()">
+        <img id="modalImg" src="" alt="Full view map">
+    </div>
+
+    <script>
+        // --- Modal Logic ---
+        function openMap() {
+            const modal = document.getElementById('mapModal');
+            const img = document.querySelector('section img');
+            document.getElementById('modalImg').src = img.src;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMap() {
+            document.getElementById('mapModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeMap();
+        });
+
+        // --- Charts Logic ---
+        const commonOptions = { responsive: true, plugins: { legend: { position: 'bottom' } } };
+
+        // 1. Age Chart
+        new Chart(document.getElementById('ageChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['0-14 років', '15-64 роки', '65+ років'],
+                datasets: [{
+                    data: [35, 60, 5],
+                    backgroundColor: ['#0ea5e9', '#0284c7', '#0369a1']
+                }]
+            },
+            options: commonOptions
+        });
+
+        // 2. Religion Chart
+        new Chart(document.getElementById('religionChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Протестанти', 'Католики', 'Традиційні', 'Інші'],
+                datasets: [{
+                    data: [55, 30, 10, 5],
+                    backgroundColor: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0']
+                }]
+            },
+            options: commonOptions
+        });
+
+        // 3. Ethnicity Chart
+        new Chart(document.getElementById('ethnicChart'), {
+            type: 'polarArea',
+            data: {
+                labels: ['Корінні', 'Азіати', 'Європейці', 'Мішані'],
+                datasets: [{
+                    data: [75, 12, 8, 5],
+                    backgroundColor: ['rgba(245, 158, 11, 0.7)', 'rgba(251, 191, 36, 0.7)', 'rgba(252, 211, 77, 0.7)', 'rgba(253, 230, 138, 0.7)']
+                }]
+            }
+        });
+
+        // 4. GDP Chart
+        new Chart(document.getElementById('gdpChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Папуа-Нова Гвінея', 'Фіджі', 'Соломонові о-ви', 'Вануату', 'Самоа'],
+                datasets: [{
+                    label: 'ВВП (млрд $)',
+                    data: [31.6, 5.2, 1.6, 1.1, 0.8],
+                    backgroundColor: '#0ea5e9'
+                }]
+            },
+            options: { ...commonOptions, indexAxis: 'y' }
+        });
+
+        // 5. Trade Structure
+        new Chart(document.getElementById('tradeChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Мінерали', 'Сільське госп.', 'Риба', 'Туризм', 'Послуги'],
+                datasets: [{
+                    label: 'Експорт (%)',
+                    data: [40, 30, 15, 10, 5],
+                    borderColor: '#f43f5e',
+                    backgroundColor: 'rgba(244, 63, 94, 0.2)'
+                }, {
+                    label: 'Імпорт (%)',
+                    data: [10, 20, 5, 25, 40],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)'
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
