@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>США: Аналітичний огляд</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .glass-card { background: white; border-radius: 1rem; border: 1px solid #e2e8f0; padding: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .chart-container { position: relative; height: 280px; width: 100%; }
+
+        /* Modal Engine */
+        #imgModal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out;
+        }
+        #imgModal img { max-width: 95%; max-height: 90%; border-radius: 4px; }
+
+        .zoomable { cursor: zoom-in; transition: opacity 0.2s; }
+        .zoomable:hover { opacity: 0.9; }
+
+        /* Megalopolis Tabs */
+        .tab-btn.active { background-color: #0f172a; color: white; border-color: #0f172a; }
+        .mega-content { display: none; }
+        .mega-content.active { display: grid; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Innovation Hub Tech Style */
+        .tech-grid { background: #0a0a0a; border: 4px solid #0f172a; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="py-10 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-baseline border-b-4 border-slate-900 pb-4">
+            <h1 class="text-5xl font-black uppercase tracking-tighter italic">United States of America</h1>
+            <p class="text-slate-500 font-bold uppercase text-xs tracking-[0.3em]">Параграфи 35–36 • Економіка та суспільство</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 space-y-12 pb-24">
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:col-span-2 relative group cursor-zoom-in bg-slate-100 rounded-2xl overflow-hidden border-2 border-slate-200">
+                <img src="Map_of_USA_with_state_and_territory_names_2.png"
+                     class="w-full h-[480px] object-contain p-6" alt="USA Map"
+                     onclick="showImg(this.src)"
+                >
+                <div class="absolute bottom-4 right-4 bg-white/80 backdrop-blur px-3 py-1 text-[10px] font-black uppercase tracking-widest border border-slate-200">Натисніть для збільшення</div>
+            </div>
+
+            <div class="glass-card border-2 border-slate-900 bg-slate-50">
+                <h3 class="font-black text-xl uppercase mb-6 tracking-tight border-b-2 border-slate-200 pb-2">Статистичний профіль</h3>
+                <table class="w-full text-sm mb-6">
+                    <tr class="border-b"><td class="py-3 text-slate-500 uppercase text-[10px] font-bold">ВВП (Номінал):</td><td class="text-right font-black text-lg text-blue-700">$27.9 трлн</td></tr>
+                    <tr class="border-b"><td class="py-3 text-slate-500 uppercase text-[10px] font-bold">Населення:</td><td class="text-right font-bold font-black uppercase tracking-tighter">335.8 млн</td></tr>
+                    <tr class="border-b"><td class="py-3 text-slate-500 uppercase text-[10px] font-bold">Площа:</td><td class="text-right font-bold">9.8 млн км²</td></tr>
+                    <tr class="border-b"><td class="py-3 text-slate-500 uppercase text-[10px] font-bold">ВВП на душу:</td><td class="text-right font-bold">$83,060</td></tr>
+                    <tr><td class="py-3 text-slate-500 uppercase text-[10px] font-bold">Урбанізація:</td><td class="text-right font-bold">83.3%</td></tr>
+                </table>
+                <div class="p-4 bg-white border-2 border-slate-900 rounded-lg">
+                    <h4 class="text-[10px] font-black uppercase mb-2">Тренд зростання ВВП</h4>
+                    <div class="h-[80px]"><canvas id="miniGdpChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <div class="glass-card flex flex-col justify-between border-2 border-slate-900 bg-[#0a2144] text-white">
+        <div>
+            <h2 class="text-2xl font-black uppercase mb-6 tracking-tighter italic border-b border-white/20 pb-2">Політична система</h2>
+            <p class="leading-relaxed text-slate-300 mb-6 text-sm">США є однією з перших демократій світу. Ключовий принцип — розподіл влади та «стримування і противаги». Вибори Президента відбуваються через двоступеневу систему «колегії виборщиків».</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 bg-white/10 border border-white/20 rounded-xl text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/DemocraticLogo.svg" class="h-12 mx-auto mb-2 object-contain invert">
+                <p class="text-[9px] font-black uppercase text-blue-400">Демократи</p>
+            </div>
+            <div class="p-4 bg-white/10 border border-white/20 rounded-xl text-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/1200px-Republicanlogo.svg.png" class="h-12 mx-auto mb-2 object-contain">
+                <p class="text-[9px] font-black uppercase text-red-400">Республіканці</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-card flex flex-col justify-between border-2 border-slate-900 bg-white text-slate-900">
+        <div>
+            <h2 class="text-2xl font-black uppercase mb-6 tracking-tighter italic border-b border-slate-900 pb-2">Країна мігрантів</h2>
+            <p class="leading-relaxed text-slate-600 mb-6 text-sm italic">
+                США — це «
+                <span class="text-blue-600 underline cursor-pointer hover:text-blue-800 transition-colors" onclick="showImg('historical_migration_waves.webp')">
+                    нація націй
+                </span>
+                ».Вся історія хвиль міграції показує, як кожна група приносила свій капітал та культуру, формуючи сучасну потужність держави.
+            </p>
+        </div>
+        <div class="flex flex-col items-center group cursor-zoom-in">
+            <img src="A_Nation_of_Immigrants.jpg"
+                 class="h-32 shadow-xl mb-4 transition-all group-hover:scale-105 group-hover:-rotate-2"
+                 onclick="showImg(this.src)">
+            <h4 class="text-[9px] font-black uppercase tracking-widest text-slate-800">J.F. Kennedy</h4>
+            <p class="text-[8px] font-bold text-slate-400 uppercase">«A Nation of Immigrants»</p>
+        </div>
+    </div>
+
+    <div class="glass-card flex flex-col justify-between border-2 border-slate-900 bg-[#bd3d44] text-white">
+        <div>
+            <h2 class="text-2xl font-black uppercase mb-6 tracking-tighter italic border-b border-white/20 pb-2">Геополітика</h2>
+            <p class="leading-relaxed text-red-50 mb-6 text-sm italic">Концепція «світового поліцейського» та доктрина Монро. США утримують понад 800 баз у 70 країнах світу для захисту глобальної торгівлі та демократичних цінностей.</p>
+        </div>
+        <div class="relative rounded-lg overflow-hidden h-32 zoomable border border-white/20">
+            <img src="Uncle_Sam_Straddles_the_Americas_Cartoon.jpg"
+                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all"
+                 onclick="showImg(this.src)">
+            <span class="absolute bottom-2 left-2 bg-black/80 text-[8px] font-bold px-2 py-1 uppercase">Доктрина Монро</span>
+        </div>
+    </div>
+
+</section>
+
+        <section class="space-y-8">
+            <h2 class="text-3xl font-black uppercase italic tracking-tighter">Система розселення: Мегалополіси</h2>
+            <div class="glass-card p-0 overflow-hidden border-2 border-slate-900">
+                <div class="flex border-b-2 border-slate-900 overflow-x-auto">
+                    <button class="tab-btn active flex-1 py-4 font-black uppercase text-[10px] tracking-widest border-r-2 border-slate-900 transition-all" data-target="all-mega">Усі регіони</button>
+                    <button class="tab-btn flex-1 py-4 font-black uppercase text-[10px] tracking-widest border-r-2 border-slate-900 transition-all" data-target="boswash">Bos-Wash</button>
+                    <button class="tab-btn flex-1 py-4 font-black uppercase text-[10px] tracking-widest border-r-2 border-slate-900 transition-all" data-target="chipitts">Чипіттс</button>
+                    <button class="tab-btn flex-1 py-4 font-black uppercase text-[10px] tracking-widest transition-all" data-target="sansan">Сан-Сан</button>
+                </div>
+
+                <div class="p-10">
+                    <div id="all-mega" class="mega-content active md:grid-cols-2 gap-12 items-center">
+                        <img src="Emerging_US_megaregions_with_cities_labeled.png"
+                            class="rounded border-2 border-slate-100 zoomable shadow-xl w-full"
+                            onclick="showImg(this.src)">
+                        <div class="space-y-4">
+                            <h4 class="text-3xl font-black italic">Урбаністичний каркас</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">Понад 83% населення США проживає в містах. Мегалополіси утворюють основні осі розселення, де густота населення в десятки разів перевищує середню по країні.</p>
+                            <div class="grid grid-cols-1 gap-2 mt-4 text-[10px] font-bold uppercase">
+                                <div class="flex items-center gap-2 text-blue-700"><span class="w-3 h-3 bg-blue-700"></span> Bos-Wash: Політичне ядро</div>
+                                <div class="flex items-center gap-2 text-red-700"><span class="w-3 h-3 bg-red-700"></span> Чипіттс: Промислове ядро</div>
+                                <div class="flex items-center gap-2 text-green-700"><span class="w-3 h-3 bg-green-700"></span> Сан-Сан: Технологічне ядро</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="boswash" class="mega-content md:grid-cols-2 gap-12 items-center">
+                        <img src="boswash.jpg" class="rounded border-2 border-slate-100 zoomable shadow-xl" onclick="showImg(this.src)">
+                        <div class="space-y-4">
+                            <h4 class="text-3xl font-black italic">Приатлантичний</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed uppercase font-bold tracking-tighter italic">Нью-Йорк • Вашингтон • Філадельфія</p>
+                            <p class="text-slate-600 text-sm">Головний фінансовий та урядовий коридор світу. Понад 50 млн мешканців.</p>
+                        </div>
+                    </div>
+
+                    <div id="chipitts" class="mega-content md:grid-cols-2 gap-12 items-center">
+                        <img src="great_lake.jpg" class="rounded border-2 border-slate-100 zoomable shadow-xl" onclick="showImg(this.src)">
+                        <div class="space-y-4">
+                            <h4 class="text-3xl font-black italic">Приозерний</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed uppercase font-bold tracking-tighter italic">Чикаго • Детройт • Піттсбург</p>
+                            <p class="text-slate-600 text-sm">Традиційне індустріальне ядро (металургія, автопром) США навколо Великих озер.</p>
+                        </div>
+                    </div>
+
+                    <div id="sansan" class="mega-content md:grid-cols-2 gap-12 items-center">
+                        <img src="sansan.jpg" class="rounded border-2 border-slate-100 zoomable shadow-xl" onclick="showImg(this.src)">
+                        <div class="space-y-4">
+                            <h4 class="text-3xl font-black italic">Каліфорнійський</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed uppercase font-bold tracking-tighter italic">Лос-Анджелес • Сан-Франциско</p>
+                            <p class="text-slate-600 text-sm">Світовий центр High-Tech та аерокосмічної індустрії. Найдинамічніший мегалополіс.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-8">
+            <h2 class="text-3xl font-black uppercase italic tracking-tighter">Демографічна мозаїка</h2>
+
+            <div class="glass-card">
+                <div class="flex flex-col lg:flex-row items-stretch justify-between gap-8">
+
+                    <div class="flex-1 px-4">
+                        <h4 class="text-[10px] font-black uppercase mb-6 text-center tracking-widest text-slate-400 italic font-bold">Етнічний склад</h4>
+                        <div class="chart-container h-[280px]">
+                            <canvas id="ethnoChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="hidden lg:block w-px bg-slate-200 self-stretch my-4"></div>
+                    <div class="block lg:hidden h-px bg-slate-100 w-full"></div>
+
+                    <div class="flex-1 px-4">
+                        <h4 class="text-[10px] font-black uppercase mb-6 text-center tracking-widest text-slate-400 italic font-bold">Вікова структура</h4>
+                        <div class="chart-container h-[280px]">
+                            <canvas id="ageChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="hidden lg:block w-px bg-slate-200 self-stretch my-4"></div>
+                    <div class="block lg:hidden h-px bg-slate-100 w-full"></div>
+
+                    <div class="flex-1 px-4">
+                        <h4 class="text-[10px] font-black uppercase mb-6 text-center tracking-widest text-slate-400 italic font-bold">Релігія</h4>
+                        <div class="chart-container h-[280px]">
+                            <canvas id="religChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-8">
+            <h2 class="text-3xl font-black uppercase italic tracking-tighter">Центр інновацій</h2>
+
+            <div class="tech-grid rounded-[2rem] p-12 text-white shadow-2xl relative overflow-hidden border-4 border-slate-900">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div class="flex flex-col">
+                        <div class="flex flex-wrap gap-6 mb-10">
+                            <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:border-blue-500/50 hover:bg-blue-500/5 transition-all duration-500 cursor-pointer group" onclick="showImg('https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-10 invert group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                            </div>
+                            <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:border-blue-400/50 hover:bg-blue-400/5 transition-all duration-500 cursor-pointer group" onclick="showImg('https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-6 invert group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                            </div>
+                            <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:border-blue-600/50 hover:bg-blue-600/5 transition-all duration-500 cursor-pointer group" onclick="showImg('https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Meta_Platforms_inc_logo.svg/1200px-Meta_Platforms_inc_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="h-6 invert group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                            </div>
+                            <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center grayscale hover:grayscale-0 hover:border-red-600/50 hover:bg-red-600/5 transition-all duration-500 cursor-pointer group" onclick="showImg('https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors_logo.svg')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png" class="h-10 invert group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                            </div>
+                        </div>
+
+                        <p class="text-slate-400 text-lg leading-relaxed italic">
+                            «Кремнієва долина» — це унікальна синергія топових університетів (Stanford, Berkeley) та необмеженого венчурного капіталу. Тут формується технологічний порядок денний всього світу.
+                        </p>
+                    </div>
+
+                    <div class="space-y-10 border-l-2 border-white/10 pl-12 self-center">
+                        <div class="group">
+                            <h4 class="text-blue-500 font-black uppercase text-xs tracking-[0.2em] mb-2 italic">Технологічна перевага</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">ВВП Каліфорнії випереджає більшість розвинених країн світу, роблячи штат де-факто п'ятою економікою планети.</p>
+                        </div>
+                        <div class="group">
+                            <h4 class="text-blue-500 font-black uppercase text-xs tracking-[0.2em] mb-2 italic">Науковий капітал</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">США стабільно утримують лідерство за кількістю патентів, високотехнологічним експортом та концентрацією Нобелівських лауреатів.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <footer class="mt-32 pt-16 border-t-4 border-slate-900">
+        <h4 class="text-xs font-black uppercase tracking-[0.4em] text-slate-300 mb-12 text-center italic">Глосарій / Glossary</h4>
+        <div class="max-w-4xl mx-auto space-y-4">
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>Постіндустріальне суспільство</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Тип суспільства, в структурі економіки якого переважає сфера послуг, наука та освіта. Інформація та знання стають головним ресурсом виробництва.</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>Субурбанізація</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Процес інтенсивного зростання передмість навколо великих міст. В США це призвело до масового будівництва приватних будинків та розширення меж агломерацій.</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>Світове місто (Global City)</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Місто, що вважається важливим стратегічним вузлом у світовій економічній системі (наприклад, Нью-Йорк — фінансова столиця світу).</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>Сільськогосподарські пояси (Belts)</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Райони вузької спеціалізації сільського господарства в США, що сформувалися під впливом природних умов (наприклад, Пшеничний пояс, Кукурудзяний пояс, Молочний пояс).</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>ТНК (Транснаціональні корпорації)</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Великі компанії, що мають виробничі потужності в багатьох країнах світу, але штаб-квартиру — в США (Apple, Microsoft, Walmart). США є батьківщиною більшості найбільших ТНК.</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>«Іржавий пояс» (Rust Belt)</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Старопромисловий регіон на Північному Сході та Середньому Заході США, де раніше домінувала важка промисловість, а зараз відбувається реструктуризація економіки.</p>
+            </details>
+
+            <details class="group bg-white border-2 border-slate-100 rounded-xl p-6 transition-all">
+                <summary class="font-black cursor-pointer flex justify-between uppercase text-[10px] tracking-widest">
+                    <span>Джентрифікація</span>
+                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                </summary>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed italic">Реконструкція занедбаних міських кварталів (зазвичай у центрі) та перетворення їх на престижні житлові або ділові зони, що супроводжується зміною соціального складу мешканців.</p>
+            </details>
+
+        </div>
+        <p class="text-center mt-24 text-[10px] font-black text-slate-200 uppercase tracking-[0.5em]">Geography Studies / US Sector / 2026</p>
+    </footer>
+
+    </main>
+
+    <div id="imgModal" onclick="this.style.display='none'">
+        <img id="modalContent" src="" alt="Fullscreen">
+    </div>
+
+<script>
+    // 1. Налаштування модального вікна для зображень
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('modalContent');
+
+    function showImg(src) {
+        if (modal && modalImg) {
+            modal.style.display = 'flex';
+            modalImg.src = src;
+        }
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") modal.style.display = 'none';
+    });
+
+    // 2. Логіка перемикання мегалополісів (Tabs)
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.mega-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            const target = document.getElementById(btn.dataset.target);
+            if (target) target.classList.add('active');
+        });
+    });
+
+    // 3. Кольорова палітра для графіків
+    const palette = ['#0f172a', '#334155', '#475569', '#94a3b8', '#cbd5e1'];
+
+    // --- ГРАФІК 1: Тренд ВВП (Mini GDP Chart у статистиці) ---
+    const ctxMini = document.getElementById('miniGdpChart');
+    if (ctxMini) {
+        new Chart(ctxMini, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    data: [21, 23, 25, 27, 28.5],
+                    borderColor: '#0f172a',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { display: false },
+                    x: { grid: { display: false }, ticks: { font: { size: 8 } } }
+                }
+            }
+        });
+    }
+
+
+    // 1. Етнічний склад (Pie) - Нова професійна палітра
+    new Chart(document.getElementById('ethnoChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Білі (Non-Hispanic)', 'Латиноамериканці', 'Афроамериканці', 'Азіати', 'Дві та більше рас'],
+            datasets: [{
+                data: [59, 19, 13, 6, 3],
+                // Використовуємо насичену палітру: Slate, Rose, Indigo, Amber, Emerald
+                backgroundColor: ['#475569', '#f43f5e', '#6366f1', '#f59e0b', '#10b981'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 10, font: { size: 9, weight: '700' }, usePointStyle: true, padding: 15 }
+                }
+            }
+        }
+    });
+
+    // 2. Релігія (Doughnut) - Детальна структура
+    new Chart(document.getElementById('religChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Протестанти', 'Католики', 'Мормони', 'Юдеї', 'Мусульмани', 'Атеїсти/Агностики', 'Інші'],
+            datasets: [{
+                data: [43, 20, 2, 2, 1, 28, 4],
+                // Палітра для деномінацій
+                backgroundColor: [
+                    '#2563eb', // Протестанти (Blue)
+                    '#dc2626', // Католики (Red)
+                    '#0ea5e9', // Мормони (Sky)
+                    '#facc15', // Юдеї (Yellow)
+                    '#059669', // Мусульмани (Green)
+                    '#94a3b8', // Атеїсти (Slate)
+                    '#8b5cf6'  // Інші (Violet)
+                ],
+                borderWidth: 3,
+                borderColor: '#ffffff',
+                hoverOffset: 15
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%', // Робимо кільце тонким для відмінності від Pie
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 8, font: { size: 8, weight: '700' }, usePointStyle: true, padding: 10 }
+                }
+            }
+        }
+    });
+
+    // Вікова структура (Bar) - залишаємо без змін або підправляємо кольори
+    new Chart(document.getElementById('ageChart'), {
+        type: 'bar',
+        data: {
+            labels: ['0-14 р.', '15-64 р.', '65+ р.'],
+            datasets: [{
+                data: [18, 65, 17],
+                backgroundColor: ['#10b981', '#3b82f6', '#f97316'],
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { display: false },
+                x: { grid: { display: false }, ticks: { font: { weight: '700', size: 10 } } }
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>
