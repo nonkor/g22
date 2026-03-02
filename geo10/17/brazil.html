@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Географія 10 клас: Бразилія (Розширений огляд)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0fdf4; color: #164e63; scroll-behavior: smooth; }
+        .glass-card { background: white; border-radius: 1.25rem; padding: 1.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid #bbf7d0; transition: transform 0.3s ease; }
+        .glass-card:hover { transform: translateY(-4px); }
+
+        /* Modal Engine */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; cursor: zoom-out; backdrop-filter: blur(5px); }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 0.75rem; border: 4px solid white; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .zoom-img { cursor: zoom-in; transition: opacity 0.3s; }
+        .zoom-img:hover { opacity: 0.9; }
+
+        .fact-badge { background: #dcfce7; color: #166534; padding: 0.5rem 1rem; border-radius: 2rem; font-weight: 600; font-size: 0.875rem; display: inline-block; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <header class="max-w-7xl mx-auto mb-12 text-center">
+        <h1 class="text-5xl md:text-6xl font-black text-green-800 uppercase tracking-tighter mb-2">Бразилія</h1>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div class="lg:col-span-2 glass-card flex flex-col border-t-8 border-yellow-400">
+            <h2 class="text-2xl font-black mb-6 flex items-center">Географічне положення</h2>
+            <div class="bg-slate-100 w-full h-[450px] rounded-xl flex items-center justify-center overflow-hidden relative group">
+                <img src="map-of-brazil.gif"
+                     alt="Фізична мапа Бразилії"
+                     class="zoom-img object-cover w-full h-full"
+                     onclick="openModal(this.src)">
+                <div class="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded text-xs font-bold text-slate-500 uppercase">Натисніть для збільшення</div>
+            </div>
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center border-t pt-6">
+                <div><p class="text-xs uppercase text-slate-400">Площа</p><p class="font-bold">8,5 млн км²</p></div>
+                <div><p class="text-xs uppercase text-slate-400">Берег</p><p class="font-bold">7,5 тис. км</p></div>
+                <div><p class="text-xs uppercase text-slate-400">Лісистість</p><p class="font-bold">~60%</p></div>
+                <div><p class="text-xs uppercase text-slate-400">Столиця</p><p class="font-bold text-green-700">Бразиліа</p></div>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="glass-card bg-green-800 text-white">
+                <h2 class="text-xl font-bold mb-6 border-b border-green-700 pb-3">Демографія 2024</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-end border-b border-green-700 pb-2">
+                        <span class="text-green-200">Населення:</span>
+                        <span class="text-2xl font-black">220,1 млн</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-green-700 pb-2">
+                        <span class="text-green-200">Приріст:</span>
+                        <span class="text-xl font-bold">0,62 %</span>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <span class="text-green-200">Сер. вік:</span>
+                        <span class="text-xl font-bold">33 роки</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="text-lg font-bold mb-4 text-slate-700 uppercase tracking-wide">Вікова структура населення</h2>
+                <div class="h-64">
+                    <canvas id="ageDetailedChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="text-lg font-bold mb-4 text-slate-700 uppercase tracking-wide">Сектори економіки (ВВП)</h2>
+            <div class="h-64">
+                <canvas id="gdpChart"></canvas>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="text-lg font-bold mb-4 text-slate-700 uppercase tracking-wide">Етнічний склад</h2>
+            <div class="h-64">
+                <canvas id="ethnoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="glass-card bg-yellow-50">
+            <h2 class="text-lg font-bold mb-6 text-yellow-800 flex items-center">
+                <span class="mr-2">💡</span> Чи знаєте ви?
+            </h2>
+            <ul class="space-y-4 text-sm leading-relaxed">
+                <li class="flex items-start">
+                    <span class="text-yellow-600 mr-2">✦</span>
+                    <span><strong>Японська громада:</strong> У Бразилії проживає понад 2 млн етнічних японців — це найбільша діаспора цієї країни за межами Японії.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-yellow-600 mr-2">✦</span>
+                    <span><strong>Біопаливо:</strong> Понад 90% нових легкових автомобілів у Бразилії мають двигуни <i>Flex-Fuel</i>, що працюють на етанолі з цукрової тростини.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-yellow-600 mr-2">✦</span>
+                    <span><strong>Футбольний рекорд:</strong> Бразилія — єдина збірна світу, яка брала участь у кожному фінальному турнірі ЧС з футболу.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="lg:col-span-3 glass-card">
+            <h2 class="text-3xl font-black mb-8 text-green-900 border-b-4 border-green-100 pb-4">Економічний профіль (Нова індустріальна країна)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="space-y-4">
+                    <div class="fact-badge">Промисловість</div>
+                    <p class="text-gray-600 leading-relaxed">
+                        Бразилія входить у трійку найбільших виробників літаків у світі завдяки компанії <strong>Embraer</strong>. Також країна є світовим лідером за запасами залізної руди та бокситів.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <div class="fact-badge">Агросектор</div>
+                    <p class="text-gray-600 leading-relaxed">
+                        Країна №1 у світі за виробництвом <strong>кави</strong> (вже понад 150 років!), цукрової тростини та апельсинів. Друге місце за експортом сої та м'яса яловичини.
+                    </p>
+                </div>
+                <div class="space-y-4">
+                    <div class="fact-badge">Енергетика</div>
+                    <p class="text-gray-600 leading-relaxed">
+                        Понад 80% електроенергії виробляється на ГЕС (найбільша — «Ітайпу» на кордоні з Парагваєм). Країна активно розвиває офшорний видобуток нафти.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-16 mb-12 p-10 bg-slate-900 text-white rounded-[2rem] shadow-2xl relative overflow-hidden">
+        <div class="relative z-10">
+            <h2 class="text-3xl font-black mb-8 text-green-400">Ключові терміни уроку</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group">
+                    <dt class="font-black text-xl text-green-400 mb-2 group-hover:text-yellow-400 transition">Сельва</dt>
+                    <dd class="text-slate-400 text-sm">Вологі екваторіальні ліси басейну річки Амазонка, "легені планети".</dd>
+                </div>
+                <div class="group">
+                    <dt class="font-black text-xl text-green-400 mb-2 group-hover:text-yellow-400 transition">Фавели</dt>
+                    <dd class="text-slate-400 text-sm">Райони нетрів у містах, що виникли внаслідок стихійної урбанізації та соціальної нерівності.</dd>
+                </div>
+                <div class="group">
+                    <dt class="font-black text-xl text-green-400 mb-2 group-hover:text-yellow-400 transition">МЕРКОСУР</dt>
+                    <dd class="text-slate-400 text-sm">Південний спільний ринок, найбільше торговельно-економічне об'єднання в Латинській Америці.</dd>
+                </div>
+                <div class="group">
+                    <dt class="font-black text-xl text-green-400 mb-2 group-hover:text-yellow-400 transition">Латифундії</dt>
+                    <dd class="text-slate-400 text-sm">Великі землеволодіння, характерні для сільського господарства Бразилії з колоніальних часів.</dd>
+                </div>
+                <div class="group">
+                    <dt class="font-black text-xl text-green-400 mb-2 group-hover:text-yellow-400 transition">БРІКС (BRICS)</dt>
+                    <dd class="text-slate-400 text-sm">Група провідних країн (Бразилія, Індія, Китай та ін.), що мають великі темпи економічного розвитку.</dd>
+                </div>
+            </div>
+        </div>
+        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
+    </footer>
+
+    <div id="imgModal" class="modal" onclick="closeModal()">
+        <img id="modalContent" src="" alt="Full view">
+    </div>
+
+    <script>
+        // GDP Chart
+        const gdpCtx = document.getElementById('gdpChart').getContext('2d');
+        new Chart(gdpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Послуги', 'Промисловість', 'Сільське господарство'],
+                datasets: [{
+                    data: [72.7, 20.7, 6.6],
+                    backgroundColor: ['#15803d', '#facc15', '#164e63'],
+                    borderWidth: 5,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // Ethno Chart
+        const ethnoCtx = document.getElementById('ethnoChart').getContext('2d');
+        new Chart(ethnoCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Білі (48%)', 'Мішані раси (43%)', 'Чорношкірі (7.6%)', 'Інші (1.4%)'],
+                datasets: [{
+                    data: [48, 43, 7.6, 1.4],
+                    backgroundColor: ['#f1f5f9', '#d97706', '#0f172a', '#ef4444']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        // Age Detailed Chart (Bar Chart with more categories)
+        const ageCtx = document.getElementById('ageDetailedChart').getContext('2d');
+        new Chart(ageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0-14', '15-24', '25-44', '45-54', '55-64', '65+'],
+                datasets: [{
+                    label: '% населення',
+                    data: [21, 15, 31, 13, 10, 10],
+                    backgroundColor: [
+                        '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534', '#064e3b'
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { display: false } },
+                    x: { grid: { display: false } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Modal Functions
+        function openModal(src) {
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalContent');
+            modal.style.display = 'flex';
+            modalImg.src = src;
+        }
+        function closeModal() {
+            document.getElementById('imgModal').style.display = 'none';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+    </script>
+</body>
+</html>
