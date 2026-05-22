@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Африка — урок географії, 10 клас</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --surface-2: #1c2030;
+    --border: #252b3b;
+    --accent: #c8a96e;
+    --accent-2: #e07b4a;
+    --accent-3: #5eb88a;
+    --text: #e8e4da;
+    --text-muted: #7a8099;
+    --text-dim: #4a5068;
+    --north: #5b88c8;
+    --west: #c85b7a;
+    --east: #5bc8a0;
+    --south: #c8a85b;
+    --central: #a05bc8;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,15,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .site-header .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .site-header nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .site-header nav a {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .site-header nav a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero::before {
+    content: 'AFRICA';
+    position: absolute;
+    top: 2rem;
+    right: -1rem;
+    font-family: var(--font-display);
+    font-size: 10rem;
+    font-weight: 900;
+    color: rgba(200,169,110,0.04);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+  .hero-meta span { color: var(--text-muted); }
+
+  /* ─── SECTION ─── */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-header .section-accent {
+    color: var(--accent);
+  }
+
+  /* ─── MAP SWITCHER ─── */
+  .map-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  .map-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .map-tab {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .map-tab:hover { color: var(--text); }
+  .map-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .map-frame {
+    display: none;
+    position: relative;
+  }
+  .map-frame.active { display: block; }
+  .map-placeholder {
+    width: 100%;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--surface-2);
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .map-placeholder:hover { background: #1f2438; }
+  .map-placeholder .map-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.4;
+  }
+  .map-placeholder .map-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+  .map-placeholder .map-link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .map-placeholder .map-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-inner {
+    position: relative;
+    max-width: 98vw;
+    max-height: 96vh;
+    width: 1200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .modal-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-link {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .modal-body-img {
+    width: 100%;
+    height: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+  }
+  .modal-body-img .big-link {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 0.75rem 2rem;
+    transition: all 0.2s;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  .modal-body-img .big-link:hover { background: var(--accent); color: var(--bg); }
+  .modal-map-desc {
+    font-family: var(--font-body);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .modal-map-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ─── KEY FACTS ─── */
+  .key-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .key-fact {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+  .key-fact .kf-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .key-fact .kf-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+  }
+  .key-fact .kf-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── CHARTS ─── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 800px) { .charts-grid { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 2px;
+  }
+  .chart-card.wide { grid-column: 1 / -1; }
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.3rem;
+  }
+  .chart-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .chart-wrap {
+    position: relative;
+    height: 300px;
+  }
+  .chart-wrap.tall { height: 420px; }
+  .chart-wrap.short { height: 220px; }
+
+  /* ─── TABLE ─── */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    border-radius: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  thead tr {
+    background: var(--surface-2);
+    border-bottom: 2px solid var(--border);
+  }
+  th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .td-country {
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .td-flag { font-size: 1.2rem; padding-right: 0.4rem; }
+  .td-region {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .r-north { background: rgba(91,136,200,0.15); color: var(--north); }
+  .r-west { background: rgba(200,91,122,0.15); color: var(--west); }
+  .r-east { background: rgba(91,200,160,0.15); color: var(--east); }
+  .r-south { background: rgba(200,168,91,0.15); color: var(--south); }
+  .r-central { background: rgba(160,91,200,0.15); color: var(--central); }
+  .bar-cell { min-width: 120px; }
+  .bar-mini {
+    height: 6px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+  .num-hi { color: var(--accent-3); }
+  .num-lo { color: var(--accent-2); }
+
+  /* ─── REGIONAL PROFILES ─── */
+  .regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .region-card {
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .region-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .rc-north::before { background: var(--north); }
+  .rc-west::before { background: var(--west); }
+  .rc-east::before { background: var(--east); }
+  .rc-south::before { background: var(--south); }
+  .rc-central::before { background: var(--central); }
+  .region-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .region-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+  }
+  .region-stat:last-child { border-bottom: none; }
+  .rs-label { color: var(--text-dim); font-family: var(--font-mono); font-size: 0.68rem; }
+  .rs-value { color: var(--text); font-weight: 500; }
+
+  /* ─── CLIMATE ZONES ─── */
+  .climate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) { .climate-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .climate-grid { grid-template-columns: 1fr; } }
+  .climate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+  }
+  .climate-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+  .climate-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .climate-where {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+  .climate-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ─── LANGUAGE ─── */
+  .language-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) { .language-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .language-grid { grid-template-columns: 1fr; } }
+  .lang-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+  }
+  .lang-family {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .lang-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .lang-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── SORTABLE TABLE ─── */
+  th.sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  th.sortable:hover { color: var(--accent); }
+  th.sortable.sort-asc .sort-icon { color: var(--accent); }
+  th.sortable.sort-asc .sort-icon::after { content: ' ↑'; }
+  th.sortable.sort-desc .sort-icon { color: var(--accent); }
+  th.sortable.sort-desc .sort-icon::after { content: ' ↓'; }
+  .sort-icon { font-size: 0.6rem; opacity: 0.4; margin-left: 0.2rem; }
+  th.sortable.sort-asc .sort-icon,
+  th.sortable.sort-desc .sort-icon { opacity: 1; }
+  .world-avg-row td { border-top: 2px solid var(--border); font-style: italic; }
+
+  /* ─── GLOBAL COMPARE ─── */
+  .compare-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .compare-highlight td { background: rgba(200,169,110,0.06); }
+
+  /* ─── SOURCES ─── */
+  .sources {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .sources-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+  .sources p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .sources a { color: var(--text-dim); }
+
+  /* ─── ETHNICITY BARS ─── */
+  .ethnic-bars { margin-bottom: 2rem; }
+  .ethnic-country {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .ec-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+  }
+  .ec-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .ec-total {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+  }
+  .ec-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+  }
+  .ec-bar-label { width: 120px; color: var(--text-muted); flex-shrink: 0; }
+  .ec-bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .ec-bar-fill {
+    height: 100%;
+    border-radius: 1px;
+  }
+  .ec-pct { width: 36px; text-align: right; color: var(--text-dim); font-family: var(--font-mono); font-size: 0.68rem; }
+  .ec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem;
+    background: rgba(200,169,110,0.05);
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--text); }
+
+  /* ─── ANIMATE ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.5s ease forwards; }
+
+  /* ─── CLIMATE SPECS ─── */
+  .climate-specs {
+    list-style: none;
+    margin-top: 0.6rem;
+  }
+  .climate-specs li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.28rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 0.5rem;
+  }
+  .climate-specs li:last-child { border-bottom: none; }
+  .cs-k {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .cs-v {
+    font-size: 0.76rem;
+    color: var(--text);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  /* ─── REGION HISTORY ─── */
+  .region-hist {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(200,169,110,0.04);
+    border-left: 2px solid var(--accent);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .rh-title {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .rh-title::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+  .region-hist strong { color: var(--text); font-weight: 500; }
+
+  /* ─── BORDERS SECTION ─── */
+  .borders-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 800px) { .borders-intro { grid-template-columns: 1fr; } }
+  .border-facts-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .border-fact {
+    background: var(--surface);
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .border-fact .bf-value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-2);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .border-fact .bf-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+  .border-fact .bf-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .split-cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 900px) { .split-cases { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .split-cases { grid-template-columns: 1fr; } }
+  .split-case {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-2);
+    padding: 1rem 1.25rem;
+  }
+  .split-case .sc-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .split-case .sc-people {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .split-case .sc-desc {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  body.projector .split-case .sc-desc { font-size: 0.88rem; }
+
+  .border-map-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 800px) { .border-map-grid { grid-template-columns: 1fr; } }
+  .border-map-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .border-map-label {
+    padding: 0.6rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .border-map-label a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.62rem;
+  }
+  .border-map-placeholder {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    background: var(--surface-2);
+  }
+  .border-map-placeholder:hover { background: #1f2438; }
+  .border-map-placeholder .bm-title { font-family: var(--font-display); font-size: 0.95rem; color: var(--text-muted); }
+  .border-map-placeholder .bm-desc { font-size: 0.72rem; color: var(--text-dim); text-align: center; max-width: 240px; line-height: 1.5; }
+  .border-map-placeholder .bm-link { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent); }
+
+  /* ─── PRINT ─── */
+  @media print {
+    .site-header, .modal-overlay { display: none !important; }
+    body { background: white; color: black; }
+    .chart-card, .region-card, .climate-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="label">Географія · 10 клас</div>
+  <nav>
+    <a href="#maps">Карти</a>
+    <a href="#overview">Огляд</a>
+    <a href="#economy">Економіка</a>
+    <a href="#demography">Демографія</a>
+    <a href="#ethnicity">Етнічність</a>
+    <a href="#borders">Кордони</a>
+    <a href="#climate">Клімат</a>
+    <a href="#languages">Мови</a>
+    <a href="#global">Глобальне порівняння</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Навчальний матеріал · 2024–2025</div>
+  <h1>Африка: <em>контрасти</em><br>одного континенту</h1>
+  <div class="hero-meta">
+    <div>Країн: <span>54</span></div>
+    <div>Населення: <span>~1,5 млрд осіб</span></div>
+    <div>Площа: <span>30,37 млн км²</span></div>
+    <div>Частка світового ВВП: <span>3,1%</span></div>
+    <div>Джерела: <span>IMF 2024 · World Bank 2024 · UNDP HDR 2025</span></div>
+  </div>
+</div>
+
+<!-- MAP BLOCK -->
+<section id="maps" style="padding-top:0">
+  <div class="section-header">
+    <span class="section-num">00</span>
+    <h2>Картографічний матеріал <span class="section-accent">— оберіть тип карти</span></h2>
+  </div>
+  <div class="map-block">
+    <div class="map-tabs">
+      <button class="map-tab active" onclick="switchMap('political')">Політична</button>
+      <button class="map-tab" onclick="switchMap('physical')">Фізична</button>
+      <button class="map-tab" onclick="switchMap('ethnic')">Етнонаціональна</button>
+      <button class="map-tab" onclick="switchMap('climate')">Кліматична</button>
+      <button class="map-tab" onclick="switchMap('gdp')">ВВП на душу населення</button>
+    </div>
+
+    <div id="map-political" class="map-frame active">
+      <a class="map-placeholder" onclick="openModal('political')" href="javascript:void(0)">
+        <svg class="map-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="40" height="32" rx="2" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <path d="M16 8v32M28 8v32M4 20h40M4 28h40" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+          <circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+        <div class="map-title">Політична карта Африки</div>
+        <div class="map-link">↗ Відкрити повну карту (Nations Online)</div>
+        <div class="map-hint">Клікніть, щоб відкрити на повний екран · Esc — закрити</div>
+      </a>
+    </div>
+    <div id="map-physical" class="map-frame">
+      <a class="map-placeholder" onclick="openModal('physical')" href="javascript:void(0)">
+        <svg class="map-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 36 Q14 20 20 24 Q26 28 30 16 Q34 8 40 12" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.6"/>
+          <path d="M4 32 Q10 28 16 32 Q22 36 28 28 Q34 20 40 24" stroke="currentColor" stroke-width="1" fill="none" opacity="0.3"/>
+        </svg>
+        <div class="map-title">Фізична карта Африки</div>
+        <div class="map-link">↗ Відкрити повну карту (Geology.com)</div>
+        <div class="map-hint">Клікніть, щоб відкрити на повний екран · Esc — закрити</div>
+      </a>
+    </div>
+    <div id="map-ethnic" class="map-frame">
+      <a class="map-placeholder" onclick="openModal('ethnic')" href="javascript:void(0)">
+        <svg class="map-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="20" r="8" stroke="#5b88c8" stroke-width="1.5" fill="rgba(91,136,200,0.2)"/>
+          <circle cx="32" cy="24" r="7" stroke="#c85b7a" stroke-width="1.5" fill="rgba(200,91,122,0.2)"/>
+          <circle cx="22" cy="32" r="6" stroke="#5bc8a0" stroke-width="1.5" fill="rgba(91,200,160,0.2)"/>
+        </svg>
+        <div class="map-title">Етнонаціональна карта Африки</div>
+        <div class="map-link">↗ Відкрити повну карту (Muturzikin Ethnologue)</div>
+        <div class="map-hint">Клікніть, щоб відкрити на повний екран · Esc — закрити</div>
+      </a>
+    </div>
+    <div id="map-climate" class="map-frame">
+      <a class="map-placeholder" onclick="openModal('climate')" href="javascript:void(0)">
+        <svg class="map-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="16" r="8" stroke="#c8a96e" stroke-width="1.5" fill="rgba(200,169,110,0.2)"/>
+          <path d="M12 32 Q24 40 36 32" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <circle cx="24" cy="16" r="3" fill="#c8a96e" opacity="0.8"/>
+        </svg>
+        <div class="map-title">Кліматична карта Африки</div>
+        <div class="map-link">↗ Відкрити повну карту (World Koppen Climate)</div>
+        <div class="map-hint">Клікніть, щоб відкрити на повний екран · Esc — закрити</div>
+      </a>
+    </div>
+    <div id="map-gdp" class="map-frame">
+      <a class="map-placeholder" onclick="openModal('gdp')" href="javascript:void(0)">
+        <svg class="map-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="28" width="8" height="14" rx="1" fill="rgba(91,200,160,0.4)" stroke="#5bc8a0" stroke-width="1"/>
+          <rect x="18" y="20" width="8" height="22" rx="1" fill="rgba(200,169,110,0.4)" stroke="#c8a96e" stroke-width="1"/>
+          <rect x="30" y="12" width="8" height="30" rx="1" fill="rgba(91,136,200,0.4)" stroke="#5b88c8" stroke-width="1"/>
+          <path d="M4 44h40" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+        </svg>
+        <div class="map-title">Карта ВВП на душу населення</div>
+        <div class="map-link">↗ Відкрити повну карту (World Bank Data)</div>
+        <div class="map-hint">Клікніть, щоб відкрити на повний екран · Esc — закрити</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Карта</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-link">
+      <div class="modal-body-img" id="modal-body">
+        <div class="modal-map-title" id="modal-map-title"></div>
+        <div class="modal-map-desc" id="modal-map-desc"></div>
+        <a id="modal-ext-link" href="#" target="_blank" class="big-link">Відкрити у браузері ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Загальний <span class="section-accent">огляд регіонів</span></h2>
+  </div>
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">30,37</div>
+      <div class="kf-label">млн км² — площа</div>
+      <div class="kf-sub">2-й за площею континент (20,4% суші)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~1,5</div>
+      <div class="kf-label">млрд осіб</div>
+      <div class="kf-sub">~18,7% населення Землі (2024)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">54</div>
+      <div class="kf-label">держави</div>
+      <div class="kf-sub">Найбільше країн серед континентів</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">2 000+</div>
+      <div class="kf-label">мов і діалектів</div>
+      <div class="kf-sub">~1/3 усіх мов людства</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">$2 955</div>
+      <div class="kf-label">ВВП на душу (середнє)</div>
+      <div class="kf-sub">Для порівняння: світ ~$13 840</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">3,1%</div>
+      <div class="kf-label">від світового ВВП</div>
+      <div class="kf-sub">Стагнація 20+ років</div>
+    </div>
+  </div>
+
+  <div class="regions-grid">
+    <div class="region-card rc-north">
+      <div class="region-name">Північна Африка</div>
+      <div class="region-stat"><span class="rs-label">Країни</span><span class="rs-value">7 (Єгипет, Алжир, Марокко, Туніс, Лівія, Судан, Мавританія)</span></div>
+      <div class="region-stat"><span class="rs-label">Середній ВВП/дн.</span><span class="rs-value">~$3 800</span></div>
+      <div class="region-stat"><span class="rs-label">Грамотність</span><span class="rs-value">~78%</span></div>
+      <div class="region-stat"><span class="rs-label">Домін. мови</span><span class="rs-value">Арабська, Берберська</span></div>
+      <div class="region-stat"><span class="rs-label">Клімат</span><span class="rs-value">Середземноморський, Пустельний</span></div>
+      <div class="region-hist">
+        <div class="rh-title">Історичний контекст</div>
+        Найдавніший торговий фасад Африки — Середземне море зв'язувало Єгипет, Карфаген і Рим тисячоліттями. Після арабського завоювання VII ст. регіон став частиною ісламського світу. Колоніальні держави тут — <strong>Франція</strong> (Алжир, Туніс, Марокко) та <strong>Британія</strong> (Єгипет, Судан) — використовували Суецький канал і Сахару як ворота до Субсахарської Африки. Після здобуття незалежності (1950–60-ті) регіон зберіг тісні економічні зв'язки з ЄС: туризм, фосфати, нафта, а також міграція — мільйони вихідців з Магрибу живуть у Франції, Іспанії, Бельгії. Єгипет через Суецький канал тримає ~12% світового морського транзиту.
+      </div>
+    </div>
+    <div class="region-card rc-west">
+      <div class="region-name">Західна Африка</div>
+      <div class="region-stat"><span class="rs-label">Країни</span><span class="rs-value">16 (Нігерія, Гана, Сенегал, Кот д'Івуар та ін.)</span></div>
+      <div class="region-stat"><span class="rs-label">Середній ВВП/дн.</span><span class="rs-value">~$1 700</span></div>
+      <div class="region-stat"><span class="rs-label">Грамотність</span><span class="rs-value">~55%</span></div>
+      <div class="region-stat"><span class="rs-label">Домін. мови</span><span class="rs-value">Французька, Англійська, Хауса</span></div>
+      <div class="region-stat"><span class="rs-label">Клімат</span><span class="rs-value">Тропічний, Саванний</span></div>
+      <div class="region-hist">
+        <div class="rh-title">Історичний контекст</div>
+        Епіцентр трансатлантичної работоргівлі (XV–XIX ст.): через «Узбережжя невільників» (Бенін, Того, Нігерія) пройшло близько <strong>12–13 млн осіб</strong>, вивезених до Америки. Це незворотньо спустошило демографію та соціальні структури регіону. Водночас тут існували великі доколоніальні держави — Малійська та Сонгайська імперії, Ашанті. Нині Нігерія — <strong>найбільша економіка та держава Африки</strong> (229 млн осіб). Кот д'Івуар — лідер світового виробництва какао. 14 держав регіону досі прив'язані до французького франка (CFA) — де-факто монетарний контроль з боку Парижа.
+      </div>
+    </div>
+    <div class="region-card rc-east">
+      <div class="region-name">Східна Африка</div>
+      <div class="region-stat"><span class="rs-label">Країни</span><span class="rs-value">14 (Ефіопія, Кенія, Танзанія, Уганда та ін.)</span></div>
+      <div class="region-stat"><span class="rs-label">Середній ВВП/дн.</span><span class="rs-value">~$1 100</span></div>
+      <div class="region-stat"><span class="rs-label">Грамотність</span><span class="rs-value">~65%</span></div>
+      <div class="region-stat"><span class="rs-label">Домін. мови</span><span class="rs-value">Суахілі, Амхарська, Англійська</span></div>
+      <div class="region-stat"><span class="rs-label">Клімат</span><span class="rs-value">Тропічний, Напівпосушливий</span></div>
+      <div class="region-hist">
+        <div class="rh-title">Історичний контекст</div>
+        Узбережжя Суахілі тисячоліттями торгувало з Аравійським півостровом та Індією — звідси поширення ісламу і суахілі як лінгва франка. Арабські та оманські работорговці вели <strong>Індоокеанську работоргівлю</strong> (VII–XIX ст.) із Занзібару — паралельну і менш відому сестру атлантичної. Ефіопія — єдина країна Африки, що <strong>не була колонізована</strong> (перемога при Адві, 1896 р.) і стала символом Пан-Африканізму. Кенія та Танзанія — найшвидше зростаючі туристичні ринки. Сомалі — приклад «failed state» після краху центральної влади (1991).
+      </div>
+    </div>
+    <div class="region-card rc-south">
+      <div class="region-name">Південна Африка</div>
+      <div class="region-stat"><span class="rs-label">Країни</span><span class="rs-value">10 (ПАР, Ботсвана, Зімбабве, Намібія та ін.)</span></div>
+      <div class="region-stat"><span class="rs-label">Середній ВВП/дн.</span><span class="rs-value">~$4 200</span></div>
+      <div class="region-stat"><span class="rs-label">Грамотність</span><span class="rs-value">~82%</span></div>
+      <div class="region-stat"><span class="rs-label">Домін. мови</span><span class="rs-value">Зулу, Африкаанс, Англійська</span></div>
+      <div class="region-stat"><span class="rs-label">Клімат</span><span class="rs-value">Субтропічний, Посушливий</span></div>
+      <div class="region-hist">
+        <div class="rh-title">Історичний контекст</div>
+        Осердя голландської та британської колонізації. ПАР — унікальний випадок офіційно закріпленого расового сегрегаційного режиму — <strong>апартеїду</strong> (1948–1994). Скасований лише у 1994-му; його наслідки — нерівність, земельне питання — досі не вирішені. Регіон надзвичайно багатий на корисні копалини: ПАР — 1-е місце у світі за запасами хрому, марганцю та платини. Ботсвана стала моделлю «ресурсного успіху»: алмазний дохід направлявся у розвиток освіти та інфраструктури.
+      </div>
+    </div>
+    <div class="region-card rc-central">
+      <div class="region-name">Центральна Африка</div>
+      <div class="region-stat"><span class="rs-label">Країни</span><span class="rs-value">9 (ДРК, Камерун, Ангола, Конго та ін.)</span></div>
+      <div class="region-stat"><span class="rs-label">Середній ВВП/дн.</span><span class="rs-value">~$1 300</span></div>
+      <div class="region-stat"><span class="rs-label">Грамотність</span><span class="rs-value">~62%</span></div>
+      <div class="region-stat"><span class="rs-label">Домін. мови</span><span class="rs-value">Французька, Лінгала, Кіконго</span></div>
+      <div class="region-stat"><span class="rs-label">Клімат</span><span class="rs-value">Екваторіальний, Тропічний</span></div>
+      <div class="region-hist">
+        <div class="rh-title">Історичний контекст</div>
+        Місце однієї з найжахливіших колоніальних трагедій: <strong>Вільна держава Конго</strong> (1885–1908) короля Бельгії Леопольда II — приватна колонія, де за оцінками загинуло від 5 до 10 млн осіб під час примусового збору каучуку. ДРК і нині залишається ареною затяжних воєн (1996–2003, і досі на сході). При цьому країна тримає 70%+ світових запасів кобальту — ключового матеріалу для акумуляторів електромобілів. Парадокс: «найбагатша бідна країна» планети.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMY -->
+<section id="economy">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Економічні <span class="section-accent">показники</span></h2>
+  </div>
+
+  <div class="callout">
+    <strong>Ключова суперечність:</strong> Африка тримає близько 30% світових мінеральних ресурсів, 60% незасіяних сільськогосподарських угідь, але лише 3,1% світового ВВП. Близько 90% африканського експорту — необроблена сировина (IMF, 2024).
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card wide">
+      <div class="chart-title">Порівняння ВВП на душу населення (USD, 2024)</div>
+      <div class="chart-subtitle">Відібрані країни — від найменшого до найбільшого; дані IMF 2024</div>
+      <div class="chart-wrap tall">
+        <canvas id="gdpChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Найбільші економіки Африки за ВВП (млрд USD, 2024)</div>
+      <div class="chart-subtitle">Сукупний ВВП (номінал), IMF 2024</div>
+      <div class="chart-wrap">
+        <canvas id="totalGdpChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Індекс людського розвитку (HDI, 2023)</div>
+      <div class="chart-subtitle">Джерело: UNDP Human Development Report 2025</div>
+      <div class="chart-wrap">
+        <canvas id="hdiChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUNTRY TABLE -->
+  <div class="table-wrap">
+    <table id="econTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0">Країна <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="1">Регіон <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="2">ВВП/душу (USD) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="3">Темп зрост. ВВП <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="4">HDI (2023) <span class="sort-icon">⇅</span></th>
+          <th>Основний ресурс/сектор</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-val="Сейшели"><span class="td-flag">🇸🇨</span><span class="td-country">Сейшели</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td><span class="num-hi">$21 875</span>
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:100%;background:#5bc8a0"></div></div></div>
+          </td>
+          <td data-val="5.4">+5,4%</td>
+          <td data-val="0.796">0.796</td>
+          <td>Туризм, рибальство</td>
+        </tr>
+        <tr>
+          <td data-val="Маврикій"><span class="td-flag">🇲🇺</span><span class="td-country">Маврикій</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td><span class="num-hi">$13 040</span>
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:60%;background:#5bc8a0"></div></div></div>
+          </td>
+          <td data-val="5.1">+5,1%</td>
+          <td data-val="0.804">0.804</td>
+          <td>Туризм, фінансові послуги</td>
+        </tr>
+        <tr>
+          <td data-val="Південна Африка"><span class="td-flag">🇿🇦</span><span class="td-country">Південна Африка</span></td>
+          <td data-val="Південь"><span class="td-region r-south">Південь</span></td>
+          <td>$6 010
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:27%;background:#c8a85b"></div></div></div>
+          </td>
+          <td data-val="0.6">+0,6%</td>
+          <td data-val="0.717">0.717</td>
+          <td>Гірнича промисловість, фінанси</td>
+        </tr>
+        <tr>
+          <td data-val="Єгипет"><span class="td-flag">🇪🇬</span><span class="td-country">Єгипет</span></td>
+          <td data-val="Північ"><span class="td-region r-north">Північ</span></td>
+          <td>$3 960
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:18%;background:#5b88c8"></div></div></div>
+          </td>
+          <td data-val="2.8">+2,8%</td>
+          <td data-val="0.728">0.728</td>
+          <td>Туризм, Суецький канал, нафта</td>
+        </tr>
+        <tr>
+          <td data-val="Марокко"><span class="td-flag">🇲🇦</span><span class="td-country">Марокко</span></td>
+          <td data-val="Північ"><span class="td-region r-north">Північ</span></td>
+          <td>$3 760
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:17%;background:#5b88c8"></div></div></div>
+          </td>
+          <td data-val="3.2">+3,2%</td>
+          <td data-val="0.698">0.698</td>
+          <td>Туризм, фосфати, с/г</td>
+        </tr>
+        <tr>
+          <td data-val="Ангола"><span class="td-flag">🇦🇴</span><span class="td-country">Ангола</span></td>
+          <td data-val="Центр"><span class="td-region r-central">Центр</span></td>
+          <td>$3 510
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:16%;background:#a05bc8"></div></div></div>
+          </td>
+          <td data-val="4.1">+4,1%</td>
+          <td data-val="0.59">0.590</td>
+          <td>Нафта (~95% експорту)</td>
+        </tr>
+        <tr>
+          <td data-val="Нігерія"><span class="td-flag">🇳🇬</span><span class="td-country">Нігерія</span></td>
+          <td data-val="Захід"><span class="td-region r-west">Захід</span></td>
+          <td>$2 730
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:12%;background:#c85b7a"></div></div></div>
+          </td>
+          <td data-val="3.4">+3,4%</td>
+          <td data-val="0.539">0.539</td>
+          <td>Нафта, с/г (1-а економіка Африки)</td>
+        </tr>
+        <tr>
+          <td data-val="Гана"><span class="td-flag">🇬🇭</span><span class="td-country">Гана</span></td>
+          <td data-val="Захід"><span class="td-region r-west">Захід</span></td>
+          <td>$2 300
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:10%;background:#c85b7a"></div></div></div>
+          </td>
+          <td data-val="5.7">+5,7%</td>
+          <td data-val="0.621">0.621</td>
+          <td>Золото, какао, нафта</td>
+        </tr>
+        <tr>
+          <td data-val="Кенія"><span class="td-flag">🇰🇪</span><span class="td-country">Кенія</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td>$2 060
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:9%;background:#5bc8a0"></div></div></div>
+          </td>
+          <td data-val="5.2">+5,2%</td>
+          <td data-val="0.601">0.601</td>
+          <td>Послуги, чай, туризм</td>
+        </tr>
+        <tr>
+          <td data-val="Танзанія"><span class="td-flag">🇹🇿</span><span class="td-country">Танзанія</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td>$1 220
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:6%;background:#5bc8a0"></div></div></div>
+          </td>
+          <td data-val="5.4">+5,4%</td>
+          <td data-val="0.532">0.532</td>
+          <td>Туризм, золото, с/г</td>
+        </tr>
+        <tr>
+          <td data-val="Ефіопія"><span class="td-flag">🇪🇹</span><span class="td-country">Ефіопія</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td>$1 070
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:5%;background:#5bc8a0"></div></div></div>
+          </td>
+          <td data-val="7.1">+7,1%</td>
+          <td data-val="0.492">0.492</td>
+          <td>Кава, с/г (2-а за населенням Африки)</td>
+        </tr>
+        <tr>
+          <td data-val="ДР Конго"><span class="td-flag">🇨🇩</span><span class="td-country">ДР Конго</span></td>
+          <td data-val="Центр"><span class="td-region r-central">Центр</span></td>
+          <td><span class="num-lo">$620</span>
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:3%;background:#e07b4a"></div></div></div>
+          </td>
+          <td data-val="6.3">+6,3%</td>
+          <td data-val="0.481">0.481</td>
+          <td>Кобальт, колтан, алмази</td>
+        </tr>
+        <tr>
+          <td data-val="Малі"><span class="td-flag">🇲🇱</span><span class="td-country">Малі</span></td>
+          <td data-val="Захід"><span class="td-region r-west">Захід</span></td>
+          <td><span class="num-lo">$890</span>
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:4%;background:#e07b4a"></div></div></div>
+          </td>
+          <td data-val="4.8">+4,8%</td>
+          <td data-val="0.41">0.410</td>
+          <td>Золото, бавовна, с/г</td>
+        </tr>
+        <tr>
+          <td data-val="Південний Судан"><span class="td-flag">🇸🇸</span><span class="td-country">Південний Судан</span></td>
+          <td data-val="Схід"><span class="td-region r-east">Схід</span></td>
+          <td><span class="num-lo">$460</span>
+            <div class="bar-cell"><div class="bar-mini"><div class="bar-fill" style="width:2%;background:#e07b4a"></div></div></div>
+          </td>
+          <td data-val="-2.1">-2,1%</td>
+          <td data-val="0.381">0.381</td>
+          <td>Нафта (конфлікт, нестабільність)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DEMOGRAPHY -->
+<section id="demography">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Демографічні <span class="section-accent">метрики</span></h2>
+  </div>
+
+  <div class="callout">
+    <strong>Демографічний бонус:</strong> Середній вік населення Африки — лише <strong>19,7 років</strong> (для порівняння: Європа — 44, Японія — 49). До 2050 р. кожен четвертий житель Землі буде африканцем. Це і величезний потенціал, і виклик для систем освіти та охорони здоров'я.
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Очікувана тривалість життя при народженні (роки, 2024)</div>
+      <div class="chart-subtitle">Відібрані країни; джерело: World Bank 2024</div>
+      <div class="chart-wrap">
+        <canvas id="lifeExpChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Рівень грамотності дорослого населення (%)</div>
+      <div class="chart-subtitle">Відсоток осіб 15+ що вміють читати/писати; UNESCO/World Bank</div>
+      <div class="chart-wrap">
+        <canvas id="literacyChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card wide">
+      <div class="chart-title">Демографічна структура: народжуваність та смертність (на 1 000 осіб) і природний приріст</div>
+      <div class="chart-subtitle">Джерело: UN Population Division 2024</div>
+      <div class="chart-wrap short">
+        <canvas id="birthDeathChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMOGRAPHY TABLE -->
+  <div class="table-wrap">
+    <table id="demoTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0">Країна <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="1">Населення (млн, 2024) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="2">Тривалість життя (р.) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="3">Дитяча смертність (на 1 000) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="4">Грамотність (%) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="5">Урбанізація (%) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="6">Приріст нас. (%/рік) <span class="sort-icon">⇅</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-val="Алжир"><span class="td-flag">🇩🇿</span><span class="td-country">Алжир</span></td><td data-val="46.2">46,2</td><td data-val="77.2">77,2</td><td data-val="20">20</td><td data-val="81.4">81,4</td><td data-val="74">74%</td><td data-val="1.7">+1,7%</td></tr>
+        <tr><td data-val="Єгипет"><span class="td-flag">🇪🇬</span><span class="td-country">Єгипет</span></td><td data-val="106.5">106,5</td><td data-val="72.1">72,1</td><td data-val="18">18</td><td data-val="73.1">73,1</td><td data-val="43">43%</td><td data-val="1.6">+1,6%</td></tr>
+        <tr><td data-val="Марокко"><span class="td-flag">🇲🇦</span><span class="td-country">Марокко</span></td><td data-val="37.8">37,8</td><td data-val="74.5">74,5</td><td data-val="15">15</td><td data-val="75.9">75,9</td><td data-val="64">64%</td><td data-val="1.1">+1,1%</td></tr>
+        <tr><td data-val="Судан"><span class="td-flag">🇸🇩</span><span class="td-country">Судан</span></td><td data-val="46.5">46,5</td><td data-val="65.2">65,2</td><td data-val="44">44</td><td data-val="61.0">61,0</td><td data-val="36">36%</td><td data-val="2.5">+2,5%</td></tr>
+        <tr><td data-val="Нігерія"><span class="td-flag">🇳🇬</span><span class="td-country">Нігерія</span></td><td data-val="229.5">229,5</td><td data-val="53.8">53,8</td><td data-val="70">70</td><td data-val="62.0">62,0</td><td data-val="54">54%</td><td data-val="2.4">+2,4%</td></tr>
+        <tr><td data-val="Гана"><span class="td-flag">🇬🇭</span><span class="td-country">Гана</span></td><td data-val="33.5">33,5</td><td data-val="64.3">64,3</td><td data-val="35">35</td><td data-val="79.0">79,0</td><td data-val="59">59%</td><td data-val="2.1">+2,1%</td></tr>
+        <tr><td data-val="Сенегал"><span class="td-flag">🇸🇳</span><span class="td-country">Сенегал</span></td><td data-val="17.8">17,8</td><td data-val="68.4">68,4</td><td data-val="33">33</td><td data-val="55.7">55,7</td><td data-val="49">49%</td><td data-val="2.7">+2,7%</td></tr>
+        <tr><td data-val="Кенія"><span class="td-flag">🇰🇪</span><span class="td-country">Кенія</span></td><td data-val="56.4">56,4</td><td data-val="66.7">66,7</td><td data-val="30">30</td><td data-val="82.6">82,6</td><td data-val="30">30%</td><td data-val="2.2">+2,2%</td></tr>
+        <tr><td data-val="Ефіопія"><span class="td-flag">🇪🇹</span><span class="td-country">Ефіопія</span></td><td data-val="129.7">129,7</td><td data-val="67.1">67,1</td><td data-val="37">37</td><td data-val="51.8">51,8</td><td data-val="23">23%</td><td data-val="2.5">+2,5%</td></tr>
+        <tr><td data-val="Танзанія"><span class="td-flag">🇹🇿</span><span class="td-country">Танзанія</span></td><td data-val="67.4">67,4</td><td data-val="67.4">67,4</td><td data-val="34">34</td><td data-val="81.8">81,8</td><td data-val="37">37%</td><td data-val="3.0">+3,0%</td></tr>
+        <tr><td data-val="ПАР"><span class="td-flag">🇿🇦</span><span class="td-country">ПАР</span></td><td data-val="61.1">61,1</td><td data-val="62.3">62,3</td><td data-val="27">27</td><td data-val="95.0">95,0</td><td data-val="68">68%</td><td data-val="1.2">+1,2%</td></tr>
+        <tr><td data-val="Ботсвана"><span class="td-flag">🇧🇼</span><span class="td-country">Ботсвана</span></td><td data-val="2.7">2,7</td><td data-val="69.5">69,5</td><td data-val="28">28</td><td data-val="88.5">88,5</td><td data-val="72">72%</td><td data-val="1.4">+1,4%</td></tr>
+        <tr><td data-val="ДР Конго"><span class="td-flag">🇨🇩</span><span class="td-country">ДР Конго</span></td><td data-val="105.1">105,1</td><td data-val="60.8">60,8</td><td data-val="62">62</td><td data-val="80.0">80,0</td><td data-val="47">47%</td><td data-val="3.2">+3,2%</td></tr>
+        <tr><td data-val="Нігер"><span class="td-flag">🇳🇪</span><span class="td-country">Нігер</span></td><td data-val="27.2">27,2</td><td data-val="62.4">62,4</td><td data-val="66">66</td><td data-val="37.3">37,3</td><td data-val="17">17%</td><td data-val="3.7">+3,7%</td></tr>
+        <tr><td data-val="Пд. Судан"><span class="td-flag">🇸🇸</span><span class="td-country">Пд. Судан</span></td><td data-val="12.1">12,1</td><td data-val="55.1">55,1</td><td data-val="88">88</td><td data-val="34.5">34,5</td><td data-val="20">20%</td><td data-val="2.9">+2,9%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ETHNICITY -->
+<section id="ethnicity">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Етнічний <span class="section-accent">склад</span></h2>
+  </div>
+
+  <div class="callout">
+    <strong>«Рани кордонів»:</strong> Більшість сучасних державних кордонів Африки були накреслені під час «Берлінської конференції» 1884–1885 рр. без урахування розселення народів. Це призвело до того, що один народ нерідко живе у 2–4 різних державах, а одна держава об'єднує десятки несхожих груп.
+  </div>
+
+  <div class="ethnic-grid ec-grid">
+    <!-- Nigeria -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇳🇬 Нігерія (250+ народів)</span><span class="ec-total">найбільша поліетнічна держава</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Хауса-Фулані</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:29%;background:#c85b7a"></div></div><div class="ec-pct">29%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Йоруба</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:21%;background:#c8a96e"></div></div><div class="ec-pct">21%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Ігбо</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:18%;background:#5b88c8"></div></div><div class="ec-pct">18%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Інші (247+)</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:32%;background:#4a5068"></div></div><div class="ec-pct">32%</div></div>
+    </div>
+    <!-- South Africa -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇿🇦 ПАР — «Веселкова нація»</span><span class="ec-total">11 офіційних мов</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Зулу</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:22%;background:#c8a85b"></div></div><div class="ec-pct">22%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Коса</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:16%;background:#5bc8a0"></div></div><div class="ec-pct">16%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Африкаанер (білі)</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:9%;background:#5b88c8"></div></div><div class="ec-pct">9%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Сото, Тсвана, Інші</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:53%;background:#4a5068"></div></div><div class="ec-pct">53%</div></div>
+    </div>
+    <!-- Ethiopia -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇪🇹 Ефіопія (80+ народів)</span><span class="ec-total">федеральний устрій за етн. ознакою</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Оромо</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:35%;background:#5bc8a0"></div></div><div class="ec-pct">35%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Амхара</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:27%;background:#c8a96e"></div></div><div class="ec-pct">27%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Сомалі</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:6%;background:#a05bc8"></div></div><div class="ec-pct">6%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Тиграї та інші</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:32%;background:#4a5068"></div></div><div class="ec-pct">32%</div></div>
+    </div>
+    <!-- Kenya -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇰🇪 Кенія (42 народи)</span><span class="ec-total">суахілі — мова єдності</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Кікую</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:22%;background:#5bc8a0"></div></div><div class="ec-pct">22%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Луо</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:13%;background:#c8a96e"></div></div><div class="ec-pct">13%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Лухья</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:14%;background:#5b88c8"></div></div><div class="ec-pct">14%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Інші 39 народів</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:51%;background:#4a5068"></div></div><div class="ec-pct">51%</div></div>
+    </div>
+    <!-- Algeria -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇩🇿 Алжир</span><span class="ec-total">двоетнічна держава</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Арабо-бербери</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:83%;background:#5b88c8"></div></div><div class="ec-pct">83%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Кабіли (Берб.)</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:15%;background:#c8a96e"></div></div><div class="ec-pct">15%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Інші</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:2%;background:#4a5068"></div></div><div class="ec-pct">2%</div></div>
+    </div>
+    <!-- DRC -->
+    <div class="ethnic-country">
+      <div class="ec-header"><span class="ec-name">🇨🇩 ДР Конго (200+ народів)</span><span class="ec-total">найбільш поліетнічна за абс. ч.</span></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Банту-народи</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:70%;background:#a05bc8"></div></div><div class="ec-pct">~70%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Убанги-суданці</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:18%;background:#c85b7a"></div></div><div class="ec-pct">~18%</div></div>
+      <div class="ec-bar-row"><div class="ec-bar-label">Пігмеї та ін.</div><div class="ec-bar-track"><div class="ec-bar-fill" style="width:12%;background:#4a5068"></div></div><div class="ec-pct">~12%</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BORDERS -->
+<section id="borders">
+  <div class="section-header">
+    <span class="section-num">04b</span>
+    <h2>Кордони: <span class="section-accent">лінії, що ділять народи</span></h2>
+  </div>
+
+  <div class="callout">
+    <strong>Берлінська конференція, 1884–1885:</strong> 14 європейських держав зібрались у Берліні й протягом 104 днів поділили Африку між собою — <em>без жодного африканського представника в залі</em>. Британський прем'єр Солсбері пізніше визнав: «Ми роздавали гори, ріки й озера один одному — хоча ніколи точно не знали, де вони знаходяться».
+  </div>
+
+  <div class="border-facts-row">
+    <div class="border-fact">
+      <div class="bf-value">825</div>
+      <div class="bf-label">Етнічних груп</div>
+      <div class="bf-desc">Визначено на етнолінгвістичній карті Мурдока (1959) на основі доколоніальних даних</div>
+    </div>
+    <div class="border-fact">
+      <div class="bf-value">~200</div>
+      <div class="bf-label">Народів розсічено</div>
+      <div class="bf-desc">Народи, що опинились у двох і більше різних державах через проведення кордонів</div>
+    </div>
+    <div class="border-fact">
+      <div class="bf-value">+57%</div>
+      <div class="bf-label">Більше конфліктів</div>
+      <div class="bf-desc">Розсічені етнічні ареали мають на 57% більше збройного насилля, ніж нерозсічені (AER, 2014)</div>
+    </div>
+  </div>
+
+  <!-- Maps side by side -->
+  <div class="border-map-grid">
+    <div class="border-map-card">
+      <div class="border-map-label">
+        <span>Доколоніальна карта Мурдока (1959) — 825 етнічних груп</span>
+        <a href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Murdock_Africa_1959.png" target="_blank">Відкрити ↗</a>
+      </div>
+      <a class="border-map-placeholder" href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Murdock_Africa_1959.png" target="_blank">
+        <div class="bm-title">Карта Мурдока</div>
+        <div class="bm-desc">Показує реальне розселення народів до проведення колоніальних кордонів. Різкий контраст з політичною картою</div>
+        <div class="bm-link">↗ Wikimedia Commons (Murdock 1959)</div>
+      </a>
+    </div>
+    <div class="border-map-card">
+      <div class="border-map-label">
+        <span>Колоніальний розподіл після Берлінської конференції</span>
+        <a href="https://upload.wikimedia.org/wikipedia/commons/4/4e/Scramble_for_Africa_1880-1913.png" target="_blank">Відкрити ↗</a>
+      </div>
+      <a class="border-map-placeholder" href="https://upload.wikimedia.org/wikipedia/commons/4/4e/Scramble_for_Africa_1880-1913.png" target="_blank">
+        <div class="bm-title">«Боротьба за Африку» 1880–1913</div>
+        <div class="bm-desc">Сфери впливу Британії, Франції, Бельгії, Португалії, Німеччини, Італії. Лише Ефіопія та Ліберія залишились незалежними</div>
+        <div class="bm-link">↗ Wikimedia Commons</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Важливий нюанс для дискусії:</strong> Сучасна наукова дискусія дещо уточнює «міф про повну довільність». Частина кордонів все ж слідувала річкам, горам або кордонам доколоніальних держав. Але у зонах без великих держав — Сахель, саванна — межі справді були проведені геометрично, «за лінійкою». Результат однаковий: народи опинились розсічені.
+  </div>
+
+  <!-- Case studies -->
+  <div style="margin-bottom:1rem; font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-dim);">Конкретні випадки розсічених народів</div>
+  <div class="split-cases">
+    <div class="split-case">
+      <div class="sc-people">Народ Маасаї</div>
+      <div class="sc-title">Кенія і Танзанія</div>
+      <div class="sc-desc">Скотарський народ, чиї традиційні пасовища перетяла британська адміністративна межа. Сьогодні частина живе у Кенії, частина — в Танзанії, з різними паспортами й законами, але одним культурним простором.</div>
+    </div>
+    <div class="split-case">
+      <div class="sc-people">Народ Еве</div>
+      <div class="sc-title">Гана і Того</div>
+      <div class="sc-desc">Один із перших прикладів, що викликав міжнародний резонанс. Кордон між британською Gold Coast і французьким Того поділив народ Еве навпіл. Після незалежності спроби об'єднання не вдались.</div>
+    </div>
+    <div class="split-case">
+      <div class="sc-people">Народ Нуер</div>
+      <div class="sc-title">Ефіопія і Пд. Судан</div>
+      <div class="sc-desc">Лу-Нуер (Пд. Судан) та Джікані-Нуер (Ефіопія) — той самий народ, але тепер різних держав. Конкуренція за пасовища перетворилась на транскордонне збройне протистояння.</div>
+    </div>
+    <div class="split-case">
+      <div class="sc-people">Народ Сомалі</div>
+      <div class="sc-title">5 держав</div>
+      <div class="sc-desc">Сомалійці живуть у Сомалі, Джибуті, Ефіопії (Огаден), Кенії та Еритреї. «Великий Сомаліленд» — незавершений проект, що став причиною війн 1977–1978 рр. між Ефіопією і Сомалі.</div>
+    </div>
+    <div class="split-case">
+      <div class="sc-people">Народ Туарегів</div>
+      <div class="sc-title">Малі, Нігер, Алжир, Лівія</div>
+      <div class="sc-desc">Кочовий берберський народ Сахари. Заперечення їхніх прав на землю у нових незалежних державах призвело до серії повстань (1963, 1990-ті, 2012). Повстання Туарегів 2012 р. в Малі призвело до захоплення півночі країни.</div>
+    </div>
+    <div class="split-case">
+      <div class="sc-people">Народ Хауса-Фулані</div>
+      <div class="sc-title">Нігерія і Нігер</div>
+      <div class="sc-desc">Найбільший за чисельністю розсічений народ Африки. Британська Нігерія і французький Нігер поділили хаусамовний ареал. Нині це два найбільших суміжних государства обох країн зі спільним культурним простором, але різними правовими системами.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIMATE -->
+<section id="climate">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Кліматичні <span class="section-accent">зони</span></h2>
+  </div>
+
+  <div class="callout">
+    Африка перетинається екватором і знаходиться переважно в <strong>тропічному поясі</strong>. Клімат змінюється строго симетрично від екватора на північ і південь: екваторіальний → субекваторіальний → тропічний → субтропічний. Це найпростіша кліматична схема серед усіх континентів.
+  </div>
+
+  <div class="climate-grid">
+    <div class="climate-card">
+      <div class="climate-icon">🌧</div>
+      <div class="climate-name">Екваторіальний</div>
+      <div class="climate-where">Басейн Конго · прибережна Гвінея</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Темп.</span><span class="cs-v">+24–28°C (цілий рік)</span></li>
+        <li><span class="cs-k">Опади</span><span class="cs-v">1 500–2 000 мм/рік</span></li>
+        <li><span class="cs-k">Сезони</span><span class="cs-v">Без сухого сезону</span></li>
+        <li><span class="cs-k">Рослинність</span><span class="cs-v">Дощові тропічні ліси</span></li>
+        <li><span class="cs-k">Вологість</span><span class="cs-v">80–90%</span></li>
+      </ul>
+    </div>
+    <div class="climate-card">
+      <div class="climate-icon">⛅</div>
+      <div class="climate-name">Субекваторіальний</div>
+      <div class="climate-where">Судан · Ефіопія · Східна Африка</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Темп.</span><span class="cs-v">+20–25°C</span></li>
+        <li><span class="cs-k">Опади</span><span class="cs-v">500–1 500 мм/рік</span></li>
+        <li><span class="cs-k">Сезони</span><span class="cs-v">2: вологий + сухий</span></li>
+        <li><span class="cs-k">Рослинність</span><span class="cs-v">Савана</span></li>
+        <li><span class="cs-k">Населення</span><span class="cs-v">Найбільше на континенті</span></li>
+      </ul>
+    </div>
+    <div class="climate-card">
+      <div class="climate-icon">☀️</div>
+      <div class="climate-name">Тропічний пустельний</div>
+      <div class="climate-where">Сахара · Намібія</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Темп. (день)</span><span class="cs-v">до +55°C</span></li>
+        <li><span class="cs-k">Темп. (ніч)</span><span class="cs-v">нижче 0°C</span></li>
+        <li><span class="cs-k">Опади</span><span class="cs-v">&lt;25 мм/рік</span></li>
+        <li><span class="cs-k">Площа Сахари</span><span class="cs-v">9,2 млн км²</span></li>
+        <li><span class="cs-k">Амплітуда</span><span class="cs-v">Рекордна на Землі</span></li>
+      </ul>
+    </div>
+    <div class="climate-card">
+      <div class="climate-icon">🌿</div>
+      <div class="climate-name">Субтропічний</div>
+      <div class="climate-where">Атлас · Марокко · ПАР (пд.)</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Тип</span><span class="cs-v">Середземноморський</span></li>
+        <li><span class="cs-k">Темп. (літо)</span><span class="cs-v">+25–32°C, посушливо</span></li>
+        <li><span class="cs-k">Темп. (зима)</span><span class="cs-v">+10–15°C, дощі</span></li>
+        <li><span class="cs-k">Опади</span><span class="cs-v">300–700 мм/рік</span></li>
+        <li><span class="cs-k">Культури</span><span class="cs-v">Цитрусові, оливки, виноград</span></li>
+      </ul>
+    </div>
+    <div class="climate-card">
+      <div class="climate-icon">🌊</div>
+      <div class="climate-name">Мусонний / напівпосушливий</div>
+      <div class="climate-where">Ріг Африки · Сомалі</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Темп.</span><span class="cs-v">+25–35°C</span></li>
+        <li><span class="cs-k">Опади</span><span class="cs-v">150–400 мм/рік</span></li>
+        <li><span class="cs-k">Сезони</span><span class="cs-v">2 мусонних цикли/рік</span></li>
+        <li><span class="cs-k">Течія</span><span class="cs-v">Сомалійська — охолоджує</span></li>
+        <li><span class="cs-k">Ризики</span><span class="cs-v">Найвища посухонебезпека</span></li>
+      </ul>
+    </div>
+    <div class="climate-card">
+      <div class="climate-icon">🏔</div>
+      <div class="climate-name">Гірський</div>
+      <div class="climate-where">Ефіопське нагір'я · Кіліманджаро · Атлас</div>
+      <ul class="climate-specs">
+        <li><span class="cs-k">Тип</span><span class="cs-v">Висотна зональність</span></li>
+        <li><span class="cs-k">Темп. (вершини)</span><span class="cs-v">нижче 0°C</span></li>
+        <li><span class="cs-k">Кіліманджаро</span><span class="cs-v">5 895 м — сніг на екваторі</span></li>
+        <li><span class="cs-k">Землеробство</span><span class="cs-v">Найродючіші зони</span></li>
+        <li><span class="cs-k">Річки</span><span class="cs-v">Джерела Нілу, Конго, Замбезі</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>Мовний <span class="section-accent">ландшафт</span></h2>
+  </div>
+
+  <div class="callout">
+    Африка — найбільш лінгвістично різноманітний континент: близько <strong>2000–2500 мов</strong>, що становить від 30 до 35% усіх мов світу. Більшість африканців є мінімум <strong>двомовними</strong>: рідна мова народу + офіційна/регіональна.
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Мови-носії в Африці (за кількістю мовців, млн)</div>
+      <div class="chart-subtitle">Топ-8 найпоширеніших мов</div>
+      <div class="chart-wrap">
+        <canvas id="langChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Офіційні мови спадщини колонізації</div>
+      <div class="chart-subtitle">Кількість країн, де мова є офіційною</div>
+      <div class="chart-wrap">
+        <canvas id="colLangChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="language-grid">
+    <div class="lang-card">
+      <div class="lang-family">Мовна родина · Нігеро-конголезька</div>
+      <div class="lang-name">Суахілі (Kiswahili)</div>
+      <div class="lang-count">~200 млн мовців (рідна + лінгва франка). Офіційна в Кенії, Танзанії, Уганді, ДРК. Мова Африканського союзу.</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-family">Мовна родина · Афроазійська</div>
+      <div class="lang-name">Арабська</div>
+      <div class="lang-count">~170 млн носіїв в Африці. Офіційна в 12 країнах. Домінує в Північній Африці та Судані. Мова Корану і міжнародна мова ООН.</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-family">Мовна родина · Нігеро-конголезька</div>
+      <div class="lang-name">Хауса</div>
+      <div class="lang-count">~70–90 млн (включно з другою мовою). Торгова мова Сахелю. Північ Нігерії, південь Нігеру. Багата усна і письмова традиція.</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-family">Спадщина колонізації</div>
+      <div class="lang-name">Французька</div>
+      <div class="lang-count">Офіційна в 21 африканській країні. Зосереджена в Центральній і Західній Африці. CFA-франк — спільна валюта франкомовної зони.</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-family">Спадщина колонізації</div>
+      <div class="lang-name">Англійська</div>
+      <div class="lang-count">Офіційна в 24 африканських країнах. Мова бізнесу й технологій. Нігерія — найбільша англомовна країна Африки.</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-family">Мовна родина · Нігеро-конголезька</div>
+      <div class="lang-name">Банту-мови (200+)</div>
+      <div class="lang-count">Найбільша мовна група Африки. Зулу, Коса, Лінгала, Кіконго, Шона та ін. Поширені від Камеруну до ПАР.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL COMPARISON -->
+<section id="global">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Порівняльний аналіз <span class="section-accent">у світовому контексті</span></h2>
+  </div>
+
+  <div class="callout">
+    <strong>Парадокс Африки:</strong> Континент із найбільшою кількістю молоді, найбільшими природними ресурсами і найшвидшим демографічним зростанням — залишається найбіднішим регіоном. <strong>Чому?</strong> — ключове питання для аналізу на уроці.
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card wide">
+      <div class="chart-title">Ключові показники регіонів світу (2024) — порівняльна панель</div>
+      <div class="chart-subtitle">Африка у глобальному контексті; джерела: World Bank, IMF, UNDP 2024–2025</div>
+      <div class="chart-wrap">
+        <canvas id="globalCompChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-table-wrap">
+    <table id="globalTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0">Регіон / континент <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="1">ВВП/душу (USD, 2024) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="2">Трив. життя (р.) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="3">Грамотність (%) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="4">Середній вік (р.) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="5">Частка ВВП (%) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="6">Зрост. нас. (%/р.) <span class="sort-icon">⇅</span></th>
+          <th class="sortable" data-col="7">HDI (серед.) <span class="sort-icon">⇅</span></th>
+        </tr>
+      </thead>
+      <tbody id="globalTableBody">
+        <tr class="compare-highlight" data-africa="true">
+          <td data-val="0"><strong>Африка</strong></td>
+          <td data-val="2955"><span class="num-lo">$2 955</span></td>
+          <td data-val="62.5"><span class="num-lo">62,5</span></td>
+          <td data-val="65">65%</td>
+          <td data-val="19.7"><span class="num-hi">19,7</span></td>
+          <td data-val="3.1">3,1%</td>
+          <td data-val="2.5"><span class="num-hi">+2,5%</span></td>
+          <td data-val="0.548">0.548</td>
+        </tr>
+        <tr>
+          <td data-val="1">Азія</td>
+          <td data-val="13700">$13 700</td>
+          <td data-val="73.2">73,2</td>
+          <td data-val="84">84%</td>
+          <td data-val="32">32</td>
+          <td data-val="47">47%</td>
+          <td data-val="0.8">+0,8%</td>
+          <td data-val="0.718">0.718</td>
+        </tr>
+        <tr>
+          <td data-val="2">Латинська Америка</td>
+          <td data-val="9700">$9 700</td>
+          <td data-val="74.6">74,6</td>
+          <td data-val="94">94%</td>
+          <td data-val="30">30</td>
+          <td data-val="6.8">6,8%</td>
+          <td data-val="0.9">+0,9%</td>
+          <td data-val="0.760">0.760</td>
+        </tr>
+        <tr>
+          <td data-val="3">Близький Схід / Пн.Африка</td>
+          <td data-val="15400">$15 400</td>
+          <td data-val="73.9">73,9</td>
+          <td data-val="78">78%</td>
+          <td data-val="28">28</td>
+          <td data-val="6.5">6,5%</td>
+          <td data-val="1.8">+1,8%</td>
+          <td data-val="0.704">0.704</td>
+        </tr>
+        <tr>
+          <td data-val="4">Північна Америка</td>
+          <td data-val="64200"><span class="num-hi">$64 200</span></td>
+          <td data-val="77.5">77,5</td>
+          <td data-val="99"><span class="num-hi">99%</span></td>
+          <td data-val="38">38</td>
+          <td data-val="27">27%</td>
+          <td data-val="0.5">+0,5%</td>
+          <td data-val="0.921">0.921</td>
+        </tr>
+        <tr>
+          <td data-val="5">Європа</td>
+          <td data-val="35100"><span class="num-hi">$35 100</span></td>
+          <td data-val="78.3"><span class="num-hi">78,3</span></td>
+          <td data-val="99"><span class="num-hi">99%</span></td>
+          <td data-val="44"><span class="num-lo">44</span></td>
+          <td data-val="22">22%</td>
+          <td data-val="0.0"><span class="num-lo">+0,0%</span></td>
+          <td data-val="0.895">0.895</td>
+        </tr>
+        <tr>
+          <td data-val="6">Океанія</td>
+          <td data-val="42800">$42 800</td>
+          <td data-val="78.1">78,1</td>
+          <td data-val="98">98%</td>
+          <td data-val="37">37</td>
+          <td data-val="2.0">2,0%</td>
+          <td data-val="1.2">+1,2%</td>
+          <td data-val="0.892">0.892</td>
+        </tr>
+        <tr class="world-avg-row">
+          <td data-val="999"><em>Світ (середнє)</em></td>
+          <td data-val="13840"><em>$13 840</em></td>
+          <td data-val="72.6"><em>72,6</em></td>
+          <td data-val="87"><em>87%</em></td>
+          <td data-val="30.5"><em>30,5</em></td>
+          <td data-val="100"><em>100%</em></td>
+          <td data-val="0.9"><em>+0,9%</em></td>
+          <td data-val="0.739"><em>0.739</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Частка регіонів у світовому ВВП (2024)</div>
+      <div class="chart-subtitle">IMF World Economic Outlook, April 2026</div>
+      <div class="chart-wrap">
+        <canvas id="gdpShareChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Розрив у тривалості життя (роки)</div>
+      <div class="chart-subtitle">World Bank 2024 — порівняння регіонів</div>
+      <div class="chart-wrap">
+        <canvas id="lifeGlobalChart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<div class="sources">
+  <div class="sources-title">Джерела та дати актуалізації</div>
+  <p>
+    <strong>IMF World Economic Outlook</strong> (April 2026) — ВВП, темпи зростання · 
+    <strong>World Bank Open Data</strong> (2024) — демографія, грамотність, тривалість життя · 
+    <strong>UNDP Human Development Report 2025</strong> (дані за 2023 р.) — HDI · 
+    <strong>UN Population Division 2024</strong> — природний приріст, урбанізація · 
+    <strong>UNESCO Institute for Statistics</strong> — рівень грамотності · 
+    <strong>Ethnologue 2024</strong> — мовна статистика · 
+    Всі регіональні середні — розраховані за зваженим методом.<br>
+    <em>Матеріал підготовлено для навчальних цілей. Деякі показники є наближеними через обмежену доступність офіційних даних окремих держав.</em>
+  </p>
+</div>
+
+<script>
+// ─── CHART DEFAULTS ───
+Chart.defaults.color = '#7a8099';
+Chart.defaults.borderColor = '#252b3b';
+Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+Chart.defaults.font.size = 11;
+
+const COLORS = {
+  north: '#5b88c8', west: '#c85b7a', east: '#5bc8a0',
+  south: '#c8a85b', central: '#a05bc8',
+  accent: '#c8a96e', accent2: '#e07b4a', accent3: '#5eb88a',
+  dim: '#4a5068'
+};
+
+// ─── MAP SWITCHER ───
+function switchMap(id) {
+  document.querySelectorAll('.map-frame').forEach(f => f.classList.remove('active'));
+  document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('map-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ─── MODAL ───
+const mapData = {
+  political: {
+    title: 'Політична карта Африки',
+    desc: 'Відображає державні кордони, столиці та назви 54 держав. Зверніть увагу на штучно рівні кордони — спадщина Берлінської конференції 1884–1885 рр.',
+    url: 'https://www.nationsonline.org/oneworld/map/africa_map.htm'
+  },
+  physical: {
+    title: 'Фізична карта Африки',
+    desc: 'Рельєф, великі річки (Ніл, Конго, Нігер, Замбезі), гірські масиви (Атлас, Ефіопське нагір\'я), пустелі (Сахара, Намібія, Калахарі).',
+    url: 'https://geology.com/world/africa-satellite-image.shtml'
+  },
+  ethnic: {
+    title: 'Етнонаціональна карта Африки',
+    desc: 'Ареали розселення основних етнічних і мовних груп. Добре ілюструє невідповідність між держкордонами та реальним розселенням народів.',
+    url: 'https://www.muturzikin.com/cartesafrique/afrique.htm'
+  },
+  climate: {
+    title: 'Кліматична карта (Кеппен)',
+    desc: 'Класифікація Кеппена-Гайгера. Виразно видно симетрію кліматичних зон відносно екватора, характерну для Африки.',
+    url: 'https://commons.wikimedia.org/wiki/File:Africa_K%C3%B6ppen.svg'
+  },
+  gdp: {
+    title: 'Карта ВВП на душу населення (2024)',
+    desc: 'Хороплет-карта World Bank з показниками ВВП на душу за паритетом купівельної спроможності. Очевидний контраст між Північною Африкою та Сахелем.',
+    url: 'https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD?locations=A9&view=map'
+  }
+};
+
+function openModal(type) {
+  const d = mapData[type];
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-map-title').textContent = d.title;
+  document.getElementById('modal-map-desc').textContent = d.desc;
+  document.getElementById('modal-ext-link').href = d.url;
+  document.getElementById('modal-ext-link').textContent = 'Відкрити карту у браузері ↗';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function handleOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ─── CHART: GDP per capita ───
+new Chart(document.getElementById('gdpChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Пд. Судан', 'Малі', 'ДРК', 'Нігер', 'Мозамбік', 'Чад', 'Буркіна Фасо', 'Нігерія', 'Гана', 'Кенія', 'Єгипет', 'Марокко', 'Алжир', 'ПАР', 'Ботсвана', 'Лівія', 'Маврикій', 'Сейшели'],
+    datasets: [{
+      label: 'ВВП/душу (USD, 2024)',
+      data: [460, 890, 620, 620, 560, 700, 820, 2730, 2300, 2060, 3960, 3760, 4210, 6010, 7820, 7650, 13040, 21875],
+      backgroundColor: [
+        '#e07b4a','#e07b4a','#e07b4a','#e07b4a','#e07b4a','#e07b4a','#e07b4a',
+        '#c85b7a','#c85b7a',
+        '#5bc8a0','#5bc8a0',
+        '#5b88c8','#5b88c8',
+        '#c8a85b','#c8a85b','#c8a85b',
+        '#5eb88a','#5eb88a'
+      ],
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ' $' + ctx.raw.toLocaleString() }
+    }},
+    scales: {
+      x: { grid: { color: '#1c2030' }, ticks: { callback: v => '$' + v.toLocaleString() } },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ─── CHART: Total GDP ───
+new Chart(document.getElementById('totalGdpChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Нігерія', 'Єгипет', 'Алжир', 'ПАР', 'Ефіопія', 'Кенія', 'Танзанія', 'Решта Африки'],
+    datasets: [{
+      data: [362, 348, 267, 380, 156, 112, 85, 1120],
+      backgroundColor: ['#c85b7a','#5b88c8','#5b88c8','#c8a85b','#5bc8a0','#5bc8a0','#5bc8a0','#252b3b'],
+      borderColor: '#0d0f14', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }
+  }
+});
+
+// ─── CHART: HDI ───
+new Chart(document.getElementById('hdiChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Пд. Судан', 'Нігер', 'ЦАР', 'Малі', 'ДРК', 'Ефіопія', 'Нігерія', 'Танзанія', 'Кенія', 'Гана', 'Єгипет', 'Алжир', 'ПАР', 'Марокко', 'Маврикій', 'Лівія'],
+    datasets: [{
+      label: 'HDI 2023',
+      data: [0.381, 0.394, 0.387, 0.410, 0.481, 0.492, 0.539, 0.532, 0.601, 0.621, 0.728, 0.745, 0.717, 0.698, 0.804, 0.718],
+      backgroundColor: ctx => {
+        const v = ctx.raw;
+        if (v >= 0.8) return '#5eb88a';
+        if (v >= 0.7) return '#5bc8a0';
+        if (v >= 0.55) return '#c8a96e';
+        return '#e07b4a';
+      },
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 45 } },
+      y: { min: 0.3, max: 0.85, grid: { color: '#1c2030' },
+        ticks: { callback: v => v.toFixed(1) } }
+    }
+  }
+});
+
+// ─── CHART: Life Expectancy ───
+new Chart(document.getElementById('lifeExpChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Пд. Судан', 'Нігерія', 'ЦАР', 'ДРК', 'Чад', 'Малі', 'Єгипет', 'Гана', 'Кенія', 'Єм', 'Алжир', 'Марокко', 'ПАР', 'Туніс', 'Маврикій'],
+    datasets: [{
+      label: 'Роки (2024)',
+      data: [55.1, 53.8, 54.2, 60.8, 54.5, 59.4, 72.1, 64.3, 66.7, 66.0, 77.2, 74.5, 62.3, 76.2, 75.1],
+      backgroundColor: ctx => ctx.raw >= 70 ? '#5eb88a' : ctx.raw >= 65 ? '#c8a96e' : '#e07b4a',
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 45 } },
+      y: { min: 40, grid: { color: '#1c2030' },
+        ticks: { callback: v => v + ' р.' } }
+    }
+  }
+});
+
+// ─── CHART: Literacy ───
+new Chart(document.getElementById('literacyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Нігер', 'Малі', 'Пд. Судан', 'ЦАР', 'Буркіна Фасо', 'Ефіопія', 'Нігерія', 'Єгипет', 'Марокко', 'Кенія', 'Танзанія', 'Гана', 'Алжир', 'ПАР', 'Лівія'],
+    datasets: [{
+      label: 'Грамотність (%)',
+      data: [37.3, 35.5, 34.5, 37.4, 46.0, 51.8, 62.0, 73.1, 75.9, 82.6, 81.8, 79.0, 81.4, 95.0, 91.0],
+      backgroundColor: ctx => ctx.raw >= 85 ? '#5eb88a' : ctx.raw >= 70 ? '#c8a96e' : '#e07b4a',
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 45 } },
+      y: { min: 0, max: 100, grid: { color: '#1c2030' },
+        ticks: { callback: v => v + '%' } }
+    }
+  }
+});
+
+// ─── CHART: Birth/Death ───
+new Chart(document.getElementById('birthDeathChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Нігер', 'ДРК', 'Танзанія', 'Ефіопія', 'Нігерія', 'Гана', 'Кенія', 'Єгипет', 'Алжир', 'ПАР', 'Маврикій'],
+    datasets: [
+      { label: 'Народжуваність (на 1000)', data: [48.5, 43.2, 37.5, 33.1, 37.5, 30.2, 28.5, 24.1, 22.1, 20.1, 11.2], backgroundColor: '#5bc8a0', borderRadius: 2, stack: 'a' },
+      { label: 'Смертність (на 1000)', data: [-10.8, -10.2, -6.7, -7.0, -10.1, -7.5, -6.1, -5.9, -4.3, -9.2, -7.5], backgroundColor: '#e07b4a', borderRadius: 2, stack: 'b' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+      y: { grid: { color: '#1c2030' }, ticks: { callback: v => Math.abs(v) } }
+    }
+  }
+});
+
+// ─── CHART: Languages ───
+new Chart(document.getElementById('langChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Арабська', 'Суахілі', 'Хауса', 'Амхарська', 'Оромо', 'Йоруба', 'Ігбо', 'Зулу'],
+    datasets: [{
+      label: 'млн мовців',
+      data: [170, 200, 85, 32, 37, 40, 25, 27],
+      backgroundColor: ['#5b88c8','#5bc8a0','#c85b7a','#c8a96e','#5bc8a0','#c85b7a','#c85b7a','#c8a85b'],
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { grid: { color: '#1c2030' }, ticks: { callback: v => v + ' млн' } }
+    }
+  }
+});
+
+// ─── CHART: Colonial languages ───
+new Chart(document.getElementById('colLangChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Французька (21)', 'Англійська (24)', 'Португальська (5)', 'Арабська (12)', 'Іспанська (1)'],
+    datasets: [{
+      data: [21, 24, 5, 12, 1],
+      backgroundColor: ['#5b88c8','#c8a96e','#5bc8a0','#c85b7a','#a05bc8'],
+      borderColor: '#0d0f14', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }
+  }
+});
+
+// ─── CHART: Global GDP share ───
+new Chart(document.getElementById('gdpShareChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Пн. Америка', 'Азія', 'Європа', 'Лат. Америка', 'Бл. Схід/Пн.Аф.', 'Африка (Сх.)', 'Океанія'],
+    datasets: [{
+      data: [27, 47, 22, 6.8, 6.5, 3.1, 2.0],
+      backgroundColor: ['#c8a96e','#5b88c8','#5bc8a0','#c85b7a','#a05bc8','#e07b4a','#4a5068'],
+      borderColor: '#0d0f14', borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ': ' + ctx.raw + '%' } }
+    }
+  }
+});
+
+// ─── CHART: Life expectancy global ───
+new Chart(document.getElementById('lifeGlobalChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Африка', 'Азія', 'Лат. Америка', 'Бл. Схід', 'Океанія', 'Європа', 'Пн. Америка'],
+    datasets: [{
+      label: 'Тривалість життя (роки)',
+      data: [62.5, 73.2, 74.6, 73.9, 78.1, 78.3, 77.5],
+      backgroundColor: ['#e07b4a','#5b88c8','#c85b7a','#a05bc8','#5bc8a0','#5bc8a0','#c8a96e'],
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { min: 55, grid: { color: '#1c2030' }, ticks: { callback: v => v + ' р.' } }
+    }
+  }
+});
+
+// ─── RADAR: Global comparison — all 7 regions ───
+new Chart(document.getElementById('globalCompChart'), {
+  type: 'radar',
+  data: {
+    labels: ['ВВП/душу (норм.)', 'Тривалість життя', 'Грамотність', 'HDI', 'Молодість населення', 'Зростання нас.'],
+    datasets: [
+      {
+        label: 'Африка',
+        data: [4.6, 61, 65, 54.8, 90, 80],
+        backgroundColor: 'rgba(224,123,74,0.15)',
+        borderColor: '#e07b4a', pointBackgroundColor: '#e07b4a', borderWidth: 2.5
+      },
+      {
+        label: 'Азія',
+        data: [21, 88, 84, 71.8, 55, 40],
+        backgroundColor: 'rgba(91,200,160,0.1)',
+        borderColor: '#5bc8a0', pointBackgroundColor: '#5bc8a0', borderWidth: 1.5
+      },
+      {
+        label: 'Лат. Америка',
+        data: [15, 90, 94, 76, 48, 38],
+        backgroundColor: 'rgba(200,91,122,0.08)',
+        borderColor: '#c85b7a', pointBackgroundColor: '#c85b7a', borderWidth: 1.5
+      },
+      {
+        label: 'Бл. Схід / Пн.Аф.',
+        data: [24, 89, 78, 70.4, 52, 50],
+        backgroundColor: 'rgba(160,91,200,0.08)',
+        borderColor: '#a05bc8', pointBackgroundColor: '#a05bc8', borderWidth: 1.5
+      },
+      {
+        label: 'Пн. Америка',
+        data: [100, 94, 99, 92.1, 34, 20],
+        backgroundColor: 'rgba(200,169,110,0.08)',
+        borderColor: '#c8a96e', pointBackgroundColor: '#c8a96e', borderWidth: 1.5
+      },
+      {
+        label: 'Європа',
+        data: [55, 96, 99, 89.5, 20, 5],
+        backgroundColor: 'rgba(91,136,200,0.08)',
+        borderColor: '#5b88c8', pointBackgroundColor: '#5b88c8', borderWidth: 1.5
+      },
+      {
+        label: 'Океанія',
+        data: [67, 95, 98, 89.2, 32, 35],
+        backgroundColor: 'rgba(94,184,138,0.06)',
+        borderColor: '#5eb88a', pointBackgroundColor: '#5eb88a', borderWidth: 1.5
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10 } } } },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        grid: { color: '#1c2030' },
+        pointLabels: { font: { size: 11 }, color: '#7a8099' },
+        ticks: { display: false }
+      }
+    }
+  }
+});
+
+// ─── TABLE SORTING — generic for all sortable tables ───
+function initSortableTable(tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  const tbody = table.querySelector('tbody');
+  let sortCol = -1, sortAsc = true;
+
+  table.querySelectorAll('th.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = parseInt(th.dataset.col);
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+
+      table.querySelectorAll('th.sortable').forEach(h => h.classList.remove('sort-asc','sort-desc'));
+      th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+
+      const rows = Array.from(tbody.querySelectorAll('tr:not(.world-avg-row)'));
+      const worldRow = tbody.querySelector('.world-avg-row');
+
+      rows.sort((a, b) => {
+        const aC = a.cells[col], bC = b.cells[col];
+        if (!aC || !bC) return 0;
+        const aRaw = aC.dataset.val, bRaw = bC.dataset.val;
+        const aNum = parseFloat(aRaw), bNum = parseFloat(bRaw);
+        if (!isNaN(aNum) && !isNaN(bNum)) return sortAsc ? aNum - bNum : bNum - aNum;
+        return sortAsc
+          ? (aRaw||'').localeCompare(bRaw||'', 'uk')
+          : (bRaw||'').localeCompare(aRaw||'', 'uk');
+      });
+
+      rows.forEach(r => tbody.appendChild(r));
+      if (worldRow) tbody.appendChild(worldRow);
+      // restore africa highlight on global table
+      rows.forEach(r => r.classList.toggle('compare-highlight', r.dataset.africa === 'true'));
+    });
+  });
+}
+
+initSortableTable('econTable');
+initSortableTable('demoTable');
+initSortableTable('globalTable');
+</script>
+</body>
+</html>

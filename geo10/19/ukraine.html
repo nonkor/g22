@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Україна — урок географії, 10 клас</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --surface: #111520;
+    --surface-2: #181d2e;
+    --border: #1f2640;
+    --blue: #1a5fc8;
+    --blue-light: #3b82f6;
+    --blue-pale: #93c5fd;
+    --yellow: #f5c842;
+    --yellow-deep: #d4a017;
+    --yellow-pale: #fde68a;
+    --accent: #f5c842;
+    --accent-2: #3b82f6;
+    --accent-3: #4ade80;
+    --text: #e8eaf0;
+    --text-muted: #7a8aaa;
+    --text-dim: #3d4a6a;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,14,20,0.93);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.65rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .header-flag {
+    display: flex;
+    flex-direction: column;
+    width: 28px;
+    height: 18px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .flag-blue { background: #005bbb; flex: 1; }
+  .flag-yellow { background: #ffd500; flex: 1; }
+  .site-header .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .site-header nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+  .site-header nav a {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .site-header nav a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: 'УКРАЇНА';
+    position: absolute;
+    top: 1rem;
+    right: -2rem;
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 10vw, 10rem);
+    font-weight: 900;
+    color: rgba(245,200,66,0.035);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .hero-stripe {
+    display: flex;
+    height: 4px;
+    width: 80px;
+    margin-bottom: 1.5rem;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .hs-b { background: #005bbb; flex: 1; }
+  .hs-y { background: #ffd500; flex: 1; }
+  .tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    border: 1px solid rgba(245,200,66,0.4);
+    padding: 0.2rem 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+  .hero-meta span { color: var(--text-muted); }
+
+  /* ─── SECTION ─── */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-accent { color: var(--accent); }
+  .section-accent-blue { color: var(--blue-light); }
+
+  /* ─── KEY FACTS ─── */
+  .key-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .key-fact {
+    background: var(--surface);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .key-fact::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue) 50%, var(--yellow) 50%);
+    opacity: 0.4;
+  }
+  .kf-value {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .kf-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+  }
+  .kf-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── TABS ─── */
+  .tab-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  .tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 0.8rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; padding: 1.75rem; }
+  .tab-panel.active { display: block; }
+
+  /* ─── CHARTS ─── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 800px) { .charts-grid { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+  .chart-card.wide { grid-column: 1 / -1; }
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+  }
+  .chart-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+  .chart-wrap { position: relative; height: 280px; }
+  .chart-wrap.short { height: 200px; }
+  .chart-wrap.tall { height: 360px; }
+
+  /* ─── TABLE ─── */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  thead tr { background: var(--surface-2); border-bottom: 2px solid var(--border); }
+  th {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .td-bold { font-weight: 600; color: var(--text); }
+  .bar-mini { height: 5px; background: var(--border); margin-top: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; transition: width 0.6s; }
+
+  /* ─── INFO CARDS ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .ic-blue::before { background: var(--blue-light); }
+  .ic-yellow::before { background: var(--yellow); }
+  .ic-green::before { background: var(--accent-3); }
+  .ic-red::before { background: #f87171; }
+  .ic-purple::before { background: #a78bfa; }
+  .ic-orange::before { background: #fb923c; }
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; line-height: 1; }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .card-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+  .card-stat {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .card-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .ct-blue { background: rgba(59,130,246,0.15); color: var(--blue-light); }
+  .ct-yellow { background: rgba(245,200,66,0.12); color: var(--yellow); }
+  .ct-green { background: rgba(74,222,128,0.12); color: var(--accent-3); }
+  .ct-red { background: rgba(248,113,113,0.12); color: #f87171; }
+
+  /* ─── REGION COMPARE ─── */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .region-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+  }
+  .rc-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .rc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .rc-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+  }
+  .rc-stat:last-child { border-bottom: none; }
+  .rcs-label { color: var(--text-dim); font-family: var(--font-mono); font-size: 0.64rem; }
+  .rcs-value { color: var(--text); font-weight: 500; font-size: 0.78rem; }
+
+  /* ─── ACCORDION ─── */
+  .accordion { margin-bottom: 2rem; }
+  .acc-item {
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+    background: var(--surface);
+  }
+  .acc-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .acc-header:hover { background: var(--surface-2); }
+  .acc-title {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .acc-icon { font-size: 1.1rem; }
+  .acc-arrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    transition: transform 0.3s;
+  }
+  .acc-item.open .acc-arrow { transform: rotate(180deg); color: var(--accent); }
+  .acc-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+  }
+  .acc-item.open .acc-body { display: block; }
+  .acc-body p { margin-top: 0.75rem; }
+  .acc-body strong { color: var(--text); }
+
+  /* ─── MAP BLOCK ─── */
+  .map-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  .map-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .map-tab {
+    padding: 0.75rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .map-tab:hover { color: var(--text); }
+  .map-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .map-frame { display: none; }
+  .map-frame.active { display: block; }
+  .map-placeholder {
+    width: 100%;
+    height: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--surface-2);
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .map-placeholder:hover { background: #1a2035; }
+  .map-placeholder .mp-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+  .map-placeholder .mp-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .map-placeholder .mp-hint {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-dim);
+  }
+  .mp-icon { font-size: 2.5rem; opacity: 0.3; }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-inner {
+    position: relative;
+    max-width: 98vw;
+    max-height: 96vh;
+    width: 1100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .modal-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .modal-map-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--text); }
+  .modal-map-desc { font-size: 0.85rem; color: var(--text-muted); max-width: 480px; line-height: 1.6; }
+  .modal-body .big-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 0.7rem 1.8rem;
+    transition: all 0.2s;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .modal-body .big-link:hover { background: var(--accent); color: var(--bg); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .highlight-box.blue { border-left-color: var(--blue-light); }
+  .highlight-box strong { color: var(--text); }
+
+  /* ─── COMPARE BAR ─── */
+  .compare-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .ci-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    width: 160px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .ci-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .ci-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+  .ci-val {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text);
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ─── SOURCES ─── */
+  .sources {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    line-height: 2;
+  }
+  .sources a { color: var(--accent); text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+
+  /* ─── FOOTNOTE ─── */
+  .footnote {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    margin-top: 0.75rem;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.2rem; }
+    section { padding: 2.5rem 1rem; }
+    .site-header { padding: 0.65rem 1rem; }
+    .key-facts { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-flag"><div class="flag-blue"></div><div class="flag-yellow"></div></div>
+  <span class="label">Географія · 10 клас</span>
+  <nav>
+    <a href="#geo">Географія</a>
+    <a href="#economy">Економіка</a>
+    <a href="#demo">Демографія</a>
+    <a href="#social">Соціум</a>
+    <a href="#war">Виклики</a>
+    <a href="#maps">Карти</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-stripe"><div class="hs-b"></div><div class="hs-y"></div></div>
+  <div class="tag">Географія · 10 клас · Урок</div>
+  <h1>Україна:<br><em>між минулим</em><br>і майбутнім</h1>
+  <p class="hero-sub">Найбільша країна Європи за площею. Держава з колосальним потенціалом і складними викликами — економічними, демографічними, геополітичними.</p>
+  <div class="hero-meta">
+    <div>ПЛОЩА · <span>603 550 км²</span></div>
+    <div>НАСЕЛЕННЯ · <span>~37 млн (2024)</span></div>
+    <div>СТОЛИЦЯ · <span>Київ</span></div>
+    <div>ВВП НА ОС. · <span>~$4 500 (2023)</span></div>
+  </div>
+</div>
+
+<!-- SECTION 1: GEOGRAPHY -->
+<section id="geo">
+  <div class="section-header">
+    <span class="section-num">01 /</span>
+    <h2>Фізична <span class="section-accent">географія</span></h2>
+  </div>
+
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">603 550</div>
+      <div class="kf-label">Площа, км²</div>
+      <div class="kf-sub">№1 в Європі (без РФ)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">2 782</div>
+      <div class="kf-label">Річки (загалом)</div>
+      <div class="kf-sub">Дніпро — головна артерія</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">70%</div>
+      <div class="kf-label">Рівнинна місцевість</div>
+      <div class="kf-sub">Причорноморська, Придніпровська низовини</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">2 061 м</div>
+      <div class="kf-label">Найвища точка</div>
+      <div class="kf-sub">Говерла, Карпати</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">2 782 км</div>
+      <div class="kf-label">Дніпро (загальна довжина)</div>
+      <div class="kf-sub">В Україні — 981 км</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">7</div>
+      <div class="kf-label">Природних зон</div>
+      <div class="kf-sub">Від мішаних лісів до степів</div>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="info-card ic-yellow">
+      <div class="card-icon">🌾</div>
+      <div class="card-tag ct-yellow">Ресурс №1</div>
+      <div class="card-title">Чорнозем</div>
+      <div class="card-body">Україна має <strong>~25% світових запасів чорнозему</strong>. Шар ґрунту — до 1,5 м. Це основа аграрної потужності країни та одна з причин її геополітичної ваги.</div>
+    </div>
+    <div class="info-card ic-blue">
+      <div class="card-icon">💧</div>
+      <div class="card-tag ct-blue">Гідрологія</div>
+      <div class="card-title">Дніпро — ось країни</div>
+      <div class="card-body">Ділить Україну на Лівобережжя і Правобережжя. На ньому — 6 водосховищ, найбільші міста, ГЕС. Його басейн займає <strong>65% території країни</strong>.</div>
+    </div>
+    <div class="info-card ic-green">
+      <div class="card-icon">⛰️</div>
+      <div class="card-tag ct-green">Рельєф</div>
+      <div class="card-title">Гори та рівнини</div>
+      <div class="card-body">Карпати (захід) — туризм, ліси, мінеральні води. Кримські гори (1545 м) — унікальна природа. Більша частина країни — рівнинний степ і лісостеп.</div>
+    </div>
+    <div class="info-card ic-red">
+      <div class="card-icon">☢️</div>
+      <div class="card-tag ct-red">Екологія</div>
+      <div class="card-title">Чорнобильська зона</div>
+      <div class="card-body">Катастрофа 1986 року. Зона відчуження — <strong>2 600 км²</strong>. Сьогодні — туристичний об'єкт і зона наукових досліджень. Ліс самовідновлюється, але ґрунт радіоактивний.</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🗺️ Положення:</strong> Україна межує з 7 країнами: Польщею, Словаччиною, Угорщиною, Румунією, Молдовою, Білоруссю та Росією. Вихід до Чорного та Азовського морів — стратегічне значення для торгівлі.
+  </div>
+</section>
+
+<!-- SECTION 2: ECONOMY -->
+<section id="economy">
+  <div class="section-header">
+    <span class="section-num">02 /</span>
+    <h2>Економіка: <span class="section-accent">структура та динаміка</span></h2>
+  </div>
+
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">$153 млрд</div>
+      <div class="kf-label">ВВП (2021, до вторгнення)</div>
+      <div class="kf-sub">2023: ~$170 млрд (з допомогою партнерів)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~29%</div>
+      <div class="kf-label">Падіння ВВП у 2022 р.</div>
+      <div class="kf-sub">Найбільше за всю незалежність</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">$8 млрд</div>
+      <div class="kf-label">Агроекспорт (2022)</div>
+      <div class="kf-sub">Попри блокаду портів</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">3-є місце</div>
+      <div class="kf-label">Експорт пшениці у світі</div>
+      <div class="kf-sub">(до 2022 р.)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~35%</div>
+      <div class="kf-label">ВВП — послуги</div>
+      <div class="kf-sub">IT-сектор швидко зростає</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">$7+ млрд</div>
+      <div class="kf-label">IT-експорт (2021)</div>
+      <div class="kf-sub">Найбільший у Центр. Європі</div>
+    </div>
+  </div>
+
+  <!-- Economy Tabs -->
+  <div class="tab-block">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('eco', 'agro', this)">🌾 Агросектор</button>
+      <button class="tab-btn" onclick="switchTab('eco', 'industry', this)">🏭 Промисловість</button>
+      <button class="tab-btn" onclick="switchTab('eco', 'it', this)">💻 IT та послуги</button>
+      <button class="tab-btn" onclick="switchTab('eco', 'energy', this)">⚡ Енергетика</button>
+    </div>
+
+    <div id="eco-agro" class="tab-panel active">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Структура агроекспорту</div>
+          <div class="chart-subtitle">Основні позиції до 2022 р.</div>
+          <div class="chart-wrap short">
+            <canvas id="agroChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Україна у світовому с/г</div>
+          <div class="chart-subtitle">Частка у глобальному виробництві</div>
+          <div style="padding-top:0.5rem">
+            <div class="compare-item"><div class="ci-label">Соняшникова олія</div><div class="ci-bar"><div class="ci-fill" style="width:46%;background:#f5c842"></div></div><div class="ci-val">46%</div></div>
+            <div class="compare-item"><div class="ci-label">Кукурудза (екс.)</div><div class="ci-bar"><div class="ci-fill" style="width:15%;background:#f5c842"></div></div><div class="ci-val">~15%</div></div>
+            <div class="compare-item"><div class="ci-label">Ячмінь (екс.)</div><div class="ci-bar"><div class="ci-fill" style="width:13%;background:#f5c842"></div></div><div class="ci-val">~13%</div></div>
+            <div class="compare-item"><div class="ci-label">Пшениця (екс.)</div><div class="ci-bar"><div class="ci-fill" style="width:10%;background:#3b82f6"></div></div><div class="ci-val">~10%</div></div>
+            <div class="compare-item"><div class="ci-label">Насіння соняшн.</div><div class="ci-bar"><div class="ci-fill" style="width:60%;background:#4ade80"></div></div><div class="ci-val">60%+</div></div>
+          </div>
+          <p class="footnote">* Дані до 2022 р. Після вторгнення показники знизились через блокаду портів Чорного моря</p>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>«Зернова угода»:</strong> У 2022–2023 рр. діяла домовленість про вивезення зерна через Чорне море. Після її зриву Росією Україна переорієнтувала маршрути на Дунай і сухопутні коридори через Польщу та Румунію.
+      </div>
+    </div>
+
+    <div id="eco-industry" class="tab-panel">
+      <div class="cards-grid">
+        <div class="info-card ic-blue">
+          <div class="card-icon">⚙️</div>
+          <div class="card-title">Металургія</div>
+          <div class="card-body">Донбас і Придніпров'я — традиційний «іржавий пояс». Кривий Ріг — залізна руда. <strong>ArcelorMittal Кривий Ріг</strong> — один із найбільших заводів у Європі. Після 2022 р. — катастрофічні втрати.</div>
+        </div>
+        <div class="info-card ic-yellow">
+          <div class="card-icon">✈️</div>
+          <div class="card-title">Машинобудування</div>
+          <div class="card-body">«Антонов» (Ан-225 «Мрія»), «Мотор Січ» — двигуни для літаків і вертольотів. Вагонобудування, сільгоспмашини. Після 2022 р. частина виробництв перенесена на захід країни.</div>
+        </div>
+        <div class="info-card ic-green">
+          <div class="card-icon">🧪</div>
+          <div class="card-title">Хімічна промисловість</div>
+          <div class="card-body">Добрива (Черкаси, Рівне), фармацевтика. Після 2022 р. — частково зупинена через дефіцит газу та руйнування підприємств.</div>
+        </div>
+        <div class="info-card ic-red">
+          <div class="card-icon">🏗️</div>
+          <div class="card-title">Видобувна промисловість</div>
+          <div class="card-body">Кам'яне вугілля (Донбас), залізна руда (Кривбас), марганець. Великі родовища літію та титану — потенціал для відновлення.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="eco-it" class="tab-panel">
+      <div class="highlight-box blue">
+        <strong>Україна — IT-нація:</strong> У 2021 р. IT-експорт склав $7+ млрд — більше, ніж будь-яка країна Центральної Європи. Понад 200 000 розробників, офіси Samsung, Ubisoft, EPAM, SoftServe.
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Зростання IT-експорту (млрд $)</div>
+          <div class="chart-subtitle">2017–2023 (оцінка)</div>
+          <div class="chart-wrap">
+            <canvas id="itChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">IT-спеціалізація</div>
+          <div class="chart-subtitle">Основні напрями</div>
+          <div class="chart-wrap">
+            <canvas id="itDonut"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <div class="info-card ic-blue">
+          <div class="card-icon">🌍</div>
+          <div class="card-title">Географія після 2022</div>
+          <div class="card-body">Частина розробників виїхала за кордон — Польща, Чехія, Португалія. Але більшість продовжила роботу з України. IT-сектор виявився найстійкішим до війни.</div>
+        </div>
+        <div class="info-card ic-green">
+          <div class="card-icon">🦄</div>
+          <div class="card-title">Стартапи та юнікорни</div>
+          <div class="card-body">Grammarly, GitLab (засновники українці), Reface, MacPaw, Ajax Systems — показники того, що Україна виробляє не лише аутсорс, а й власні продукти.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="eco-energy" class="tab-panel">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Структура електрогенерації (до 2022)</div>
+          <div class="chart-subtitle">Частка типів станцій у виробництві</div>
+          <div class="chart-wrap">
+            <canvas id="energyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Ключові факти про енергетику</div>
+          <div style="padding-top:0.5rem">
+            <div class="accordion">
+              <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                  <div class="acc-title"><span class="acc-icon">⚛️</span> Ядерна енергетика</div>
+                  <div class="acc-arrow">▼</div>
+                </div>
+                <div class="acc-body">
+                  <p>4 АЕС: Запорізька (найбільша в Європі), Рівненська, Хмельницька, Южноукраїнська. До 2022 р. давали ~55% електроенергії країни. Запорізька АЕС захоплена Росією у березні 2022 р.</p>
+                </div>
+              </div>
+              <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                  <div class="acc-title"><span class="acc-icon">☀️</span> Відновлювана енергія</div>
+                  <div class="acc-arrow">▼</div>
+                </div>
+                <div class="acc-body">
+                  <p>До 2022 р. — один із лідерів Європи за темпами розвитку СЕС та ВЕС. Особливо активно — Херсонська, Запорізька, Миколаївська обл. Після 2022 — більшість потужностей на окупованих або прифронтових територіях.</p>
+                </div>
+              </div>
+              <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                  <div class="acc-title"><span class="acc-icon">🔌</span> Підключення до ENTSO-E</div>
+                  <div class="acc-arrow">▼</div>
+                </div>
+                <div class="acc-body">
+                  <p>У березні 2022 р. Україна від'єдналась від пострадянської енергосистеми та підключилась до Об'єднаної енергосистеми Європи (ENTSO-E). Це — стратегічне рішення і перший крок до енергетичної незалежності від Росії.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: DEMOGRAPHY -->
+<section id="demo">
+  <div class="section-header">
+    <span class="section-num">03 /</span>
+    <h2>Демографія: <span class="section-accent">нація під тиском</span></h2>
+  </div>
+
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">~37 млн</div>
+      <div class="kf-label">Населення (2024, оцінка)</div>
+      <div class="kf-sub">1991: 52 млн</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">-15 млн</div>
+      <div class="kf-label">Скорочення з 1991 р.</div>
+      <div class="kf-sub">Еміграція + від'ємний приріст</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">8+ млн</div>
+      <div class="kf-label">Біженців за кордоном</div>
+      <div class="kf-sub">Переважно — жінки з дітьми</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">6,5 млн</div>
+      <div class="kf-label">ВПО всередині країни</div>
+      <div class="kf-sub">Внутрішньо переміщені особи</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">1,2</div>
+      <div class="kf-label">Коефіцієнт народжуваності</div>
+      <div class="kf-sub">Один із найнижчих у Європі</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">73,4 р.</div>
+      <div class="kf-label">Середня тривалість життя</div>
+      <div class="kf-sub">Чоловіки: 68 р., жінки: 78 р.</div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Динаміка чисельності населення</div>
+      <div class="chart-subtitle">Млн осіб, 1991–2024</div>
+      <div class="chart-wrap">
+        <canvas id="popChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Природний приріст населення</div>
+      <div class="chart-subtitle">Народжуваність vs. смертність (тис. осіб/рік)</div>
+      <div class="chart-wrap">
+        <canvas id="birthDeathChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>Демографічна криза:</strong> Україна переживає потрійний тиск: від'ємний природний приріст ще з 1990-х, масова трудова еміграція до ЄС до 2022 р. (3–5 млн осіб), і вимушена воєнна еміграція після 2022 р. (8+ млн). Повернення більшості біженців є критичною умовою повоєнного відновлення.
+  </div>
+
+  <div class="tab-block">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('demo', 'ethnic', this)">🗣️ Етнічний склад</button>
+      <button class="tab-btn" onclick="switchTab('demo', 'urban', this)">🏙️ Урбанізація</button>
+      <button class="tab-btn" onclick="switchTab('demo', 'migration', this)">✈️ Міграція</button>
+    </div>
+
+    <div id="demo-ethnic" class="tab-panel active">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Етнічний склад (перепис 2001)</div>
+          <div class="chart-subtitle">Актуальних даних перепису після 2001 р. немає</div>
+          <div class="chart-wrap">
+            <canvas id="ethnicChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Мовне питання</div>
+          <div class="chart-subtitle">Вживання мов у побуті (соціологія 2020–2022)</div>
+          <div class="chart-wrap">
+            <canvas id="langChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <strong>Зміна ідентичності:</strong> Після 2022 р. соціологи фіксують масовий перехід на українську мову у повсякденному спілкуванні. За опитуваннями Кієвського міжнародного інституту соціології, частка тих, хто спілкується переважно українською, зросла з ~40% до ~60–65%.
+      </div>
+    </div>
+
+    <div id="demo-urban" class="tab-panel">
+      <div class="charts-grid">
+        <div class="chart-card wide">
+          <div class="chart-title">Найбільші міста України</div>
+          <div class="chart-subtitle">Населення у тис. осіб (дані до 2022 р.)</div>
+          <div class="chart-wrap">
+            <canvas id="citiesChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="cards-grid">
+        <div class="info-card ic-blue">
+          <div class="card-stat">67%</div>
+          <div class="card-title">Рівень урбанізації</div>
+          <div class="card-body">Понад 2/3 українців живуть у містах. Після 2022 р. внутрішня міграція спричинила різке зростання населення у Львові, Ужгороді, Івано-Франківську.</div>
+        </div>
+        <div class="info-card ic-yellow">
+          <div class="card-stat">3,6 млн</div>
+          <div class="card-title">Київ</div>
+          <div class="card-body">Столиця та найбільше місто. Після 2022 р. населення скорочувалось через евакуацію, але поступово відновлюється. Є центром IT, фінансів, державного управління.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="demo-migration" class="tab-panel">
+      <div class="cards-grid">
+        <div class="info-card ic-blue">
+          <div class="card-icon">🇪🇺</div>
+          <div class="card-title">Трудова еміграція (до 2022)</div>
+          <div class="card-body">3–5 млн українців працювали за кордоном — переважно в Польщі, Чехії, Німеччині, Італії. Грошові перекази становили ~12% ВВП і були важливою статтею доходів.</div>
+        </div>
+        <div class="info-card ic-red">
+          <div class="card-icon">🚪</div>
+          <div class="card-title">Вимушена еміграція (після 2022)</div>
+          <div class="card-body">8+ млн зареєстрованих біженців у ЄС. Найбільше — у Польщі (1,6 млн), Німеччині (1 млн), Чехії (500 тис.). Більшість — жінки та діти.</div>
+        </div>
+        <div class="info-card ic-green">
+          <div class="card-icon">🏠</div>
+          <div class="card-title">Внутрішнє переміщення</div>
+          <div class="card-body">6,5 млн ВПО. Найбільше приймають регіони: Львівська, Київська, Дніпропетровська обл. Виклик — брак житла, робочих місць, соціальних послуг.</div>
+        </div>
+        <div class="info-card ic-yellow">
+          <div class="card-icon">🔄</div>
+          <div class="card-title">Перспективи повернення</div>
+          <div class="card-body">За опитуваннями (2023–2024), ~60–70% біженців планують повернутися після закінчення війни. Але реально поверне умови: безпека, житло, робота, освіта для дітей.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: SOCIAL -->
+<section id="social">
+  <div class="section-header">
+    <span class="section-num">04 /</span>
+    <h2>Соціальна <span class="section-accent">сфера</span></h2>
+  </div>
+
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">76 з 100</div>
+      <div class="kf-label">ІРЛП (2021)</div>
+      <div class="kf-sub">«Висока» група (0,773)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">99,4%</div>
+      <div class="kf-label">Рівень письменності</div>
+      <div class="kf-sub">Один із найвищих у регіоні</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~680 USD</div>
+      <div class="kf-label">Середня зарплата (2021)</div>
+      <div class="kf-sub">Одна з найнижчих у Європі</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~25%</div>
+      <div class="kf-label">Рівень бідності</div>
+      <div class="kf-sub">Менше $5.5/день (оцінка)</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">803</div>
+      <div class="kf-label">Університети</div>
+      <div class="kf-sub">Одна з найбільших мереж у регіоні</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">7%</div>
+      <div class="kf-label">ВВП на охорону здоров'я</div>
+      <div class="kf-sub">Реформа НСЗУ — з 2018 р.</div>
+    </div>
+  </div>
+
+  <div class="tab-block">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('soc', 'edu', this)">📚 Освіта</button>
+      <button class="tab-btn" onclick="switchTab('soc', 'health', this)">🏥 Охорона здоров'я</button>
+      <button class="tab-btn" onclick="switchTab('soc', 'poverty', this)">📊 Добробут</button>
+    </div>
+
+    <div id="soc-edu" class="tab-panel active">
+      <div class="cards-grid">
+        <div class="info-card ic-blue">
+          <div class="card-icon">🏫</div>
+          <div class="card-title">Реформа НУШ</div>
+          <div class="card-body"><strong>Нова українська школа</strong> (з 2018 р.) — перехід від репродуктивного до компетентнісного навчання. 12-річна школа, нові програми, відмова від зубріння на користь критичного мислення.</div>
+        </div>
+        <div class="info-card ic-yellow">
+          <div class="card-icon">🌐</div>
+          <div class="card-title">Освіта під час війни</div>
+          <div class="card-body">Понад 3 500 шкіл пошкоджені або зруйновані. ~2,3 млн дітей вчяться за кордоном. Паралельно — масштабний розвиток онлайн-освіти (Дія.Школа, Всеукраїнська школа онлайн).</div>
+        </div>
+        <div class="info-card ic-green">
+          <div class="card-icon">🎓</div>
+          <div class="card-title">Вища освіта</div>
+          <div class="card-body">КНУ, НТУ «КПІ», Могилянка, Харківські університети — традиційно сильні технічні та гуманітарні школи. Болонський процес з 2005 р. Інтеграція з EU ERASMUS.</div>
+        </div>
+        <div class="info-card ic-red">
+          <div class="card-icon">⚠️</div>
+          <div class="card-title">Проблеми</div>
+          <div class="card-body">Корупція при вступі (зменшується після ЗНО/НМТ). Відтік мізків: ~35% молодих спеціалістів планували емігрувати (до 2022 р.). Слабке фінансування науки.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="soc-health" class="tab-panel">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Основні причини смертності</div>
+          <div class="chart-subtitle">Структура (дані 2019)</div>
+          <div class="chart-wrap">
+            <canvas id="healthChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Реформа НСЗУ</div>
+          <div style="padding-top:0.75rem">
+            <div class="accordion">
+              <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                  <div class="acc-title"><span class="acc-icon">💳</span> Що таке НСЗУ?</div>
+                  <div class="acc-arrow">▼</div>
+                </div>
+                <div class="acc-body">
+                  <p><strong>Національна служба здоров'я України</strong> — страховик. З 2018 р. діє принцип: «гроші ходять за пацієнтом». Кожен може обрати сімейного лікаря і підписати декларацію. Держава платить лікарю за пацієнтів, а не фінансує лікарню незалежно від результату.</p>
+                </div>
+              </div>
+              <div class="acc-item">
+                <div class="acc-header" onclick="toggleAcc(this)">
+                  <div class="acc-title"><span class="acc-icon">📉</span> Проблеми системи</div>
+                  <div class="acc-arrow">▼</div>
+                </div>
+                <div class="acc-body">
+                  <p>Радянська спадщина: ліжко-орієнтована система замість пацієнто-орієнтованої. Велика кількість лікарень без обладнання. Неформальні платежі. Нестача сімейних лікарів у сільській місцевості.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="soc-poverty" class="tab-panel">
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">Динаміка рівня бідності</div>
+          <div class="chart-subtitle">Частка населення нижче межі бідності, %</div>
+          <div class="chart-wrap">
+            <canvas id="povertyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Порівняння заробітних плат</div>
+          <div class="chart-subtitle">Середня місячна зарплата, USD (2021)</div>
+          <div style="padding-top:0.75rem">
+            <div class="compare-item"><div class="ci-label">Норвегія</div><div class="ci-bar"><div class="ci-fill" style="width:100%;background:#4ade80"></div></div><div class="ci-val">5 300</div></div>
+            <div class="compare-item"><div class="ci-label">Польща</div><div class="ci-bar"><div class="ci-fill" style="width:27%;background:#3b82f6"></div></div><div class="ci-val">1 400</div></div>
+            <div class="compare-item"><div class="ci-label">Румунія</div><div class="ci-bar"><div class="ci-fill" style="width:23%;background:#3b82f6"></div></div><div class="ci-val">1 200</div></div>
+            <div class="compare-item"><div class="ci-label">Україна</div><div class="ci-bar"><div class="ci-fill" style="width:13%;background:#f5c842"></div></div><div class="ci-val">680</div></div>
+            <div class="compare-item"><div class="ci-label">Молдова</div><div class="ci-bar"><div class="ci-fill" style="width:7%;background:#f87171"></div></div><div class="ci-val">350</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: WAR & CHALLENGES -->
+<section id="war">
+  <div class="section-header">
+    <span class="section-num">05 /</span>
+    <h2>Геополітика та <span class="section-accent">виклики</span></h2>
+  </div>
+
+  <div class="key-facts">
+    <div class="key-fact">
+      <div class="kf-value">24.02.2022</div>
+      <div class="kf-label">Початок повномасштабного вторгнення</div>
+      <div class="kf-sub">Після анексії Криму 2014 р. та окупації Донбасу</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">~20%</div>
+      <div class="kf-label">Окупована територія (2024)</div>
+      <div class="kf-sub">Крим + частини 4 областей</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">$411 млрд</div>
+      <div class="kf-label">Потреби на відновлення</div>
+      <div class="kf-sub">Оцінка Світового банку, 2023</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">40+ країн</div>
+      <div class="kf-label">Надають підтримку Україні</div>
+      <div class="kf-sub">США, ЄС, Великобританія — лідери</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">Кандидат</div>
+      <div class="kf-label">Статус у ЄС</div>
+      <div class="kf-sub">З червня 2022 р.</div>
+    </div>
+    <div class="key-fact">
+      <div class="kf-value">$1 500</div>
+      <div class="kf-label">Зовнішня допомога/особу (2022–23)</div>
+      <div class="kf-sub">Включно з військовою</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title"><span class="acc-icon">🛡️</span> Воєнний конфлікт: передумови та хронологія</div>
+        <div class="acc-arrow">▼</div>
+      </div>
+      <div class="acc-body">
+        <p><strong>2014:</strong> Анексія Криму Росією, початок конфлікту на Донбасі (Донецька та Луганська «народні республіки»). Перша хвиля ВПО — понад 1,5 млн осіб.</p>
+        <p><strong>2022, лютий:</strong> Повномасштабне вторгнення. Росія атакує з чотирьох напрямків. Прорив до Київщини зупинено — відхід РФ у кінці березня. Битва за Маріуполь, Херсон, Харківщину.</p>
+        <p><strong>2022–2024:</strong> Позиційна війна на лінії фронту ~1 000 км. Масові ракетні удари по цивільній інфраструктурі — енергосистема, лікарні, житло.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title"><span class="acc-icon">🤝</span> Євроінтеграція</div>
+        <div class="acc-arrow">▼</div>
+      </div>
+      <div class="acc-body">
+        <p><strong>Угода про асоціацію з ЄС</strong> — підписана 2014 р. після Революції Гідності. Відкрила ринки, сприяла реформам.</p>
+        <p><strong>Статус кандидата</strong> у члени ЄС — червень 2022 р. Переговори про вступ — розпочато 2024 р. Критерії: верховенство права, боротьба з корупцією, реформи держуправління.</p>
+        <p><strong>Безвізовий режим</strong> з ЄС — з 2017 р. Вже на практиці прискорив інтеграцію суспільства.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title"><span class="acc-icon">🔧</span> Повоєнне відновлення: плани</div>
+        <div class="acc-arrow">▼</div>
+      </div>
+      <div class="acc-body">
+        <p><strong>Потреби:</strong> $411 млрд за оцінкою Світового банку (2023). Пріоритети — житло, енергетика, транспортна інфраструктура, освіта.</p>
+        <p><strong>«План Маршалла для України»:</strong> аналогія з повоєнною відбудовою Європи. ЄС, США, G7 розробляють механізми довгострокової підтримки.</p>
+        <p><strong>Заморожені активи РФ:</strong> $300 млрд резервів ЦБ Росії заморожені на Заході. Частина відсотків вже спрямовується на потреби України.</p>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title"><span class="acc-icon">⚠️</span> Корупція та реформи</div>
+        <div class="acc-arrow">▼</div>
+      </div>
+      <div class="acc-body">
+        <p>Україна тривало входила до групи найбільш корумпованих країн Європи (Transparency International). Після 2014 р. — реформи: НАБУ (антикорупційне бюро), НАЗК, ВАКС (спеціалізований суд).</p>
+        <p>Після 2022 р. — посилення тиску з боку ЄС: антикорупційний прогрес є умовою фінансової підтримки та переговорів про членство.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🌍 Глобальний вимір:</strong> Україна виробляла ~10% світового обсягу пшениці на експорт і ~50% соняшникової олії. Блокада українських портів у 2022–2023 рр. спричинила продовольчу кризу в Африці та Азії — ціни на зерно зросли на 30–40%.
+  </div>
+</section>
+
+<!-- SECTION 6: MAPS -->
+<section id="maps">
+  <div class="section-header">
+    <span class="section-num">06 /</span>
+    <h2>Карти та <span class="section-accent-blue">довідники</span></h2>
+  </div>
+
+  <div class="map-block">
+    <div class="map-tabs">
+      <button class="map-tab active" onclick="switchMapTab('political', this)">🗺️ Політична</button>
+      <button class="map-tab" onclick="switchMapTab('physical', this)">⛰️ Фізична</button>
+      <button class="map-tab" onclick="switchMapTab('economic', this)">📦 Економічна</button>
+      <button class="map-tab" onclick="switchMapTab('population', this)">👥 Населення</button>
+      <button class="map-tab" onclick="switchMapTab('conflict', this)">🛡️ Конфлікт</button>
+    </div>
+
+    <div id="map-political" class="map-frame active">
+      <a class="map-placeholder" href="https://uk.wikipedia.org/wiki/%D0%90%D0%B4%D0%BC%D1%96%D0%BD%D1%96%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B8%D0%B9_%D0%BF%D0%BE%D0%B4%D1%96%D0%BB_%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B8" target="_blank" onclick="openModal('Політична карта України', 'Адміністративний поділ: 24 області, АР Крим, міста Київ та Севастополь зі спеціальним статусом.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ukraine_administrative_divisions.svg/1200px-Ukraine_administrative_divisions.svg.png')">
+        <div class="mp-icon">🗺️</div>
+        <div class="mp-title">Політична карта України</div>
+        <div class="mp-link">Відкрити джерело ↗</div>
+        <div class="mp-hint">Натисни для перегляду деталей</div>
+      </a>
+    </div>
+    <div id="map-physical" class="map-frame">
+      <a class="map-placeholder" href="https://www.openstreetmap.org/#map=6/49.0/32.0" target="_blank" onclick="openModal('Фізична карта України', 'Рельєф: Карпати на заході (Говерла 2061 м), Кримські гори на півдні (Роман-Кош 1545 м), рівнини та низовини на решті території.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Ukraine_relief_location_map.jpg/1200px-Ukraine_relief_location_map.jpg')">
+        <div class="mp-icon">⛰️</div>
+        <div class="mp-title">Фізична карта — рельєф та гідрологія</div>
+        <div class="mp-link">OpenStreetMap ↗</div>
+        <div class="mp-hint">Натисни для перегляду деталей</div>
+      </a>
+    </div>
+    <div id="map-economic" class="map-frame">
+      <a class="map-placeholder" href="https://atlas.gov.ua" target="_blank" onclick="openModal('Економічна карта України', 'Розміщення промислових центрів, сільськогосподарських зон, корисних копалин та транспортних коридорів.', '')">
+        <div class="mp-icon">📦</div>
+        <div class="mp-title">Економічна карта — галузі та ресурси</div>
+        <div class="mp-link">atlas.gov.ua ↗</div>
+        <div class="mp-hint">Натисни для переходу до атласу</div>
+      </a>
+    </div>
+    <div id="map-population" class="map-frame">
+      <a class="map-placeholder" href="https://worldpopulationreview.com/countries/cities/ukraine" target="_blank" onclick="openModal('Карта населення України', 'Щільність населення: найгустіша — Донбас, Придніпров\'я, Харківщина. Найрідша — Поліська зона, Херсонщина.', '')">
+        <div class="mp-icon">👥</div>
+        <div class="mp-title">Щільність та розселення населення</div>
+        <div class="mp-link">World Population Review ↗</div>
+        <div class="mp-hint">Натисни для перегляду деталей</div>
+      </a>
+    </div>
+    <div id="map-conflict" class="map-frame">
+      <a class="map-placeholder" href="https://liveuamap.com" target="_blank" onclick="openModal('Карта конфлікту', 'Актуальна ситуація на фронті. Джерело: Live Universal Awareness Map (LiveUAmap) — незалежний агрегатор даних.', '')">
+        <div class="mp-icon">🛡️</div>
+        <div class="mp-title">Актуальна карта бойових дій</div>
+        <div class="mp-link">liveuamap.com ↗</div>
+        <div class="mp-hint">Натисни для переходу (оновлюється в реальному часі)</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <div class="section-header" style="margin-top:1rem">
+    <span class="section-num">07 /</span>
+    <h2>Джерела та <span class="section-accent-blue">довідники</span></h2>
+  </div>
+  <div class="sources">
+    <div>📊 <a href="https://bank.gov.ua" target="_blank">bank.gov.ua</a> — НБУ, макроекономічні дані</div>
+    <div>📊 <a href="https://ukrstat.gov.ua" target="_blank">ukrstat.gov.ua</a> — Держстат України</div>
+    <div>🌍 <a href="https://data.worldbank.org/country/ukraine" target="_blank">data.worldbank.org</a> — Світовий банк, Україна</div>
+    <div>📰 <a href="https://www.kyivindependent.com" target="_blank">kyivindependent.com</a> — англомовні новини з України</div>
+    <div>🗺️ <a href="https://liveuamap.com" target="_blank">liveuamap.com</a> — карта конфлікту в реальному часі</div>
+    <div>🔢 <a href="https://www.statista.com/topics/4501/ukraine" target="_blank">statista.com</a> — статистика за темами</div>
+    <div>🌐 <a href="https://hdr.undp.org" target="_blank">hdr.undp.org</a> — Індекс людського розвитку (ПРООН)</div>
+    <div>🌿 <a href="https://www.kiis.com.ua" target="_blank">kiis.com.ua</a> — КМІС, соціологічні дослідження</div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Карта</span>
+      <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-map-title" id="modalMapTitle"></div>
+      <div class="modal-map-desc" id="modalMapDesc"></div>
+      <a href="#" id="modalLink" class="big-link" target="_blank">Відкрити карту ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── TABS ───
+function switchTab(group, id, btn) {
+  document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+  document.getElementById(`${group}-${id}`).classList.add('active');
+  btn.closest('.tab-nav').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ─── MAP TABS ───
+function switchMapTab(id, btn) {
+  document.querySelectorAll('.map-frame').forEach(f => f.classList.remove('active'));
+  document.getElementById(`map-${id}`).classList.add('active');
+  btn.closest('.map-tabs').querySelectorAll('.map-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ─── ACCORDION ───
+function toggleAcc(header) {
+  const item = header.parentElement;
+  item.classList.toggle('open');
+}
+
+// ─── MODAL ───
+function openModal(title, desc, imgUrl) {
+  event.preventDefault();
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMapTitle').textContent = title;
+  document.getElementById('modalMapDesc').textContent = desc;
+  const link = document.getElementById('modalLink');
+  link.href = event.currentTarget.href;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
+});
+
+// ─── CHART DEFAULTS ───
+Chart.defaults.color = '#7a8aaa';
+Chart.defaults.borderColor = '#1f2640';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 11;
+
+const BLUE = '#3b82f6';
+const YELLOW = '#f5c842';
+const GREEN = '#4ade80';
+const RED = '#f87171';
+const PURPLE = '#a78bfa';
+const ORANGE = '#fb923c';
+const TEAL = '#2dd4bf';
+
+// ─── AGRO CHART ───
+new Chart(document.getElementById('agroChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Зернові', 'Соняшник та олія', 'Олійні', 'М\'ясо та молоко', 'Інше'],
+    datasets: [{
+      data: [39, 28, 12, 10, 11],
+      backgroundColor: [YELLOW, ORANGE, GREEN, BLUE, '#4a5068'],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { padding: 12, font: { size: 10 } } } }
+  }
+});
+
+// ─── IT CHART ───
+new Chart(document.getElementById('itChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+    datasets: [{
+      data: [3.6, 4.5, 5.0, 6.8, 7.4, 7.0, 6.7],
+      backgroundColor: BLUE,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: '#1f2640' }, ticks: { callback: v => '$' + v + 'B' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ─── IT DONUT ───
+new Chart(document.getElementById('itDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Аутсорсинг', 'Продуктові компанії', 'Стартапи', 'Фріланс'],
+    datasets: [{
+      data: [52, 28, 12, 8],
+      backgroundColor: [BLUE, YELLOW, GREEN, PURPLE],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { padding: 10, font: { size: 10 } } } }
+  }
+});
+
+// ─── ENERGY CHART ───
+new Chart(document.getElementById('energyChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['АЕС', 'ТЕС (вугілля, газ)', 'ГЕС', 'Відновлювані', 'Інше'],
+    datasets: [{
+      data: [55, 26, 8, 8, 3],
+      backgroundColor: [YELLOW, RED, BLUE, GREEN, '#4a5068'],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { padding: 10, font: { size: 10 } } } }
+  }
+});
+
+// ─── POPULATION CHART ───
+new Chart(document.getElementById('popChart'), {
+  type: 'line',
+  data: {
+    labels: ['1991','1995','2000','2005','2010','2015','2019','2021','2024*'],
+    datasets: [{
+      data: [51.9, 51.3, 49.1, 47.1, 45.8, 42.9, 41.9, 41.1, 37.0],
+      borderColor: YELLOW,
+      backgroundColor: 'rgba(245,200,66,0.07)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 4,
+      pointBackgroundColor: YELLOW,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: '#1f2640' }, min: 35, ticks: { callback: v => v + ' млн' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ─── BIRTH/DEATH CHART ───
+new Chart(document.getElementById('birthDeathChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2000','2005','2010','2015','2019','2020','2021'],
+    datasets: [
+      {
+        label: 'Народження',
+        data: [385, 426, 497, 411, 328, 293, 271],
+        backgroundColor: GREEN,
+        borderRadius: 2,
+      },
+      {
+        label: 'Смерті',
+        data: [758, 782, 698, 595, 582, 616, 734],
+        backgroundColor: RED,
+        borderRadius: 2,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { padding: 12, font: { size: 10 } } } },
+    scales: {
+      y: { grid: { color: '#1f2640' }, ticks: { callback: v => v + ' тис.' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ─── ETHNIC CHART ───
+new Chart(document.getElementById('ethnicChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Українці', 'Росіяни', 'Білоруси', 'Молдовани', 'Кримські татари', 'Інші'],
+    datasets: [{
+      data: [77.8, 17.3, 0.6, 0.5, 0.5, 3.3],
+      backgroundColor: [YELLOW, RED, BLUE, GREEN, PURPLE, '#4a5068'],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { padding: 8, font: { size: 10 } } } }
+  }
+});
+
+// ─── LANG CHART ───
+new Chart(document.getElementById('langChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2019', '2020', '2021', '2022', '2023'],
+    datasets: [
+      {
+        label: 'Переважно українська',
+        data: [38, 39, 40, 52, 64],
+        backgroundColor: YELLOW,
+        borderRadius: 2,
+      },
+      {
+        label: 'Рівно обидві',
+        data: [30, 29, 28, 23, 18],
+        backgroundColor: BLUE,
+        borderRadius: 2,
+      },
+      {
+        label: 'Переважно російська',
+        data: [32, 32, 32, 25, 18],
+        backgroundColor: '#4a5068',
+        borderRadius: 2,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { padding: 10, font: { size: 9 } } } },
+    scales: {
+      y: { stacked: true, grid: { color: '#1f2640' }, ticks: { callback: v => v + '%' } },
+      x: { stacked: true, grid: { display: false } }
+    }
+  }
+});
+
+// ─── CITIES CHART ───
+new Chart(document.getElementById('citiesChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Київ', 'Харків', 'Одеса', 'Дніпро', 'Донецьк*', 'Запоріжжя', 'Львів', 'Кривий Ріг', 'Миколаїв', 'Маріуполь*'],
+    datasets: [{
+      data: [3600, 1430, 1010, 980, 940, 720, 730, 640, 480, 430],
+      backgroundColor: [YELLOW, BLUE, BLUE, BLUE, '#4a5068', BLUE, GREEN, BLUE, BLUE, '#4a5068'],
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: '#1f2640' }, ticks: { callback: v => v + ' тис.' } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// ─── HEALTH CHART ───
+new Chart(document.getElementById('healthChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Серцево-судинні', 'Онкологія', 'Зовнішні причини', 'Органи дихання', 'Інші'],
+    datasets: [{
+      data: [67, 13, 8, 5, 7],
+      backgroundColor: [RED, ORANGE, PURPLE, BLUE, '#4a5068'],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { padding: 8, font: { size: 10 } } } }
+  }
+});
+
+// ─── POVERTY CHART ───
+new Chart(document.getElementById('povertyChart'), {
+  type: 'line',
+  data: {
+    labels: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022*'],
+    datasets: [{
+      label: 'Бідність (відн. межа)',
+      data: [34, 51, 51, 43, 43, 40, 40, 38, 55],
+      borderColor: RED,
+      backgroundColor: 'rgba(248,113,113,0.07)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 4,
+      pointBackgroundColor: RED,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: '#1f2640' }, ticks: { callback: v => v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
